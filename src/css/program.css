@@ -1,0 +1,135 @@
+html {
+    background-color: #ecfffa;
+}
+
+.course-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.course-header .title {
+    margin-top: 85px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.content-wrapper {
+    display: flex;
+    margin-top: 20px;
+}
+
+.description {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.description h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.image {
+    flex: 1;
+}
+
+.image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.price-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecfffa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price-section .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00cc99;
+}
+
+.price-section .voucher-btn {
+    padding: 10px 20px;
+    background-color: #00cc99;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.info-section {
+    margin-top: 20px;
+}
+
+.info-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.info-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.info-section li {
+    background: #f2f2f2;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.info-section {
+    margin-top: 20px;
+}
+
+.dropdown {
+    margin-bottom: 10px;
+}
+
+.dropdown-toggle {
+    background-color: #00cc99;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease;
+    background-color: #f9f9f9;
+    padding: 0 15px;
+    border-left: 2px solid #3498db;
+    border-radius: 4px;
+    opacity: 0;
+}
+
+.dropdown-content p {
+    margin: 10px 0;
+    padding: 0;
+}
+
+.dropdown-content.open {
+    max-height: 200px;
+    opacity: 1;
+}
