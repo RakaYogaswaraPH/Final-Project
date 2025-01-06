@@ -6,7 +6,7 @@
     scroll-behavior: smooth;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -27,7 +27,6 @@ nav {
 .logo img {
     width: 120px;
 }
-
 
 nav.scrolled {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

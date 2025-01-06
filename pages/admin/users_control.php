@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
         </main>
     </div>
 </body>
-<script src="../../src/js/notification.js"></script>
+<script src="../../src/js/admin.js"></script>
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_user"])) {

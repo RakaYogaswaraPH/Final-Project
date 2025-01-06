@@ -100,9 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form action="" method="POST" enctype="multipart/form-data">
                         <input type="file" name="image" accept="image/*" required>
                         <input type="text" name="name" placeholder="Nama" required>
-                        <input type="text" name="course_name" placeholder="Program" required>
+                        <input type="text" name="course_name" placeholder="Nama Kelas" required>
                         <input type="text" name="review" placeholder="Kata-kata" required>
-                        <input type="text" name="program_name" placeholder="Program Name" required>
+                        <input type="text" name="program_name" placeholder=" Nama Program" required>
                         <input type="text" name="linkedin" placeholder="LinkedIn URL" required>
                         <section class="create-client">
                             <button type="submit" name="create_testimonial"><i class="fas fa-plus"></i>Tambah Testimoni</button>
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
+    <script src="../../src/js/admin.js"></script>
 </body>
-<script src="../../src/js/notification.js"></script>
 
 </html>

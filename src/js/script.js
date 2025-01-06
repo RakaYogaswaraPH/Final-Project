@@ -81,74 +81,6 @@ document.addEventListener("scroll", () => {
     }
 });
 
-// Slide Kegiatan
-const cardContainer = document.querySelector('.card-container-kegiatan');
-const dots = document.querySelectorAll('.pagination-kegiatan .dot');
-
-if (cardContainer) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    cardContainer.addEventListener('mousedown', (e) => {
-        isDown = true;
-        cardContainer.classList.add('active');
-        startX = e.pageX - cardContainer.offsetLeft;
-        scrollLeft = cardContainer.scrollLeft;
-    });
-
-    cardContainer.addEventListener('mouseleave', () => {
-        isDown = false;
-        cardContainer.classList.remove('active');
-    });
-
-    cardContainer.addEventListener('mouseup', () => {
-        isDown = false;
-        cardContainer.classList.remove('active');
-    });
-
-    cardContainer.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - cardContainer.offsetLeft;
-        const walk = (x - startX) * 3;
-        cardContainer.scrollLeft = scrollLeft - walk;
-        updateDots();
-    });
-
-    function updateDots() {
-        const card = cardContainer.querySelector('.card-kegiatan');
-        if (card) {
-            const cardWidth = card.offsetWidth + 20;
-            const scrollPosition = cardContainer.scrollLeft;
-            const activeIndex = Math.round(scrollPosition / cardWidth);
-            dots.forEach((dot, index) => {
-                if (index === activeIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-    }
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            const card = cardContainer.querySelector('.card-kegiatan');
-            if (card) {
-                const cardWidth = card.offsetWidth + 20;
-                cardContainer.scrollTo({
-                    left: cardWidth * index,
-                    behavior: 'smooth'
-                });
-                dots.forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
-            }
-        });
-    });
-
-    updateDots();
-}
 
 // Update year
 const yearElement = document.getElementById("current-year");
@@ -207,4 +139,61 @@ document.addEventListener('DOMContentLoaded', function () {
         currentIndex = 0;
         updateSlider();
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const portofolioTrack = document.querySelector('.portofolio-track');
+    const portofolioPrev = document.querySelector('.portofolio-prev');
+    const portofolioNext = document.querySelector('.portofolio-next');
+    const portofolioItems = document.querySelectorAll('.portofolio-item');
+    let portofolioIndex = 0;
+
+    function getportofolioWidth() {
+        const item = portofolioItems[0];
+        const style = window.getComputedStyle(item);
+        const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+        return item.offsetWidth + margin;
+    }
+
+    function updateportofolioSlider() {
+        const itemWidth = getportofolioWidth();
+        portofolioTrack.style.transform = `translateX(-${portofolioIndex * itemWidth}px)`;
+    }
+
+    function updateportofolioButtons() {
+        portofolioPrev.style.display = portofolioIndex === 0 ? 'none' : 'flex';
+        portofolioNext.style.display = portofolioIndex >= portofolioItems.length - getVisibleportofolios() ? 'none' : 'flex';
+    }
+
+    function getVisibleportofolios() {
+        const containerWidth = document.querySelector('.portofolio-wrapper').offsetWidth;
+        const itemWidth = getportofolioWidth();
+        return Math.floor(containerWidth / itemWidth);
+    }
+
+    portofolioPrev.addEventListener('click', () => {
+        if (portofolioIndex > 0) {
+            portofolioIndex--;
+            updateportofolioSlider();
+            updateportofolioButtons();
+        }
+    });
+
+    portofolioNext.addEventListener('click', () => {
+        if (portofolioIndex < portofolioItems.length - getVisibleportofolios()) {
+            portofolioIndex++;
+            updateportofolioSlider();
+            updateportofolioButtons();
+        }
+    });
+
+    // Responsive handling
+    window.addEventListener('resize', () => {
+        portofolioIndex = 0;
+        updateportofolioSlider();
+        updateportofolioButtons();
+    });
+
+    // Initial setup
+    updateportofolioButtons();
 });

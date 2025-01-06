@@ -55,7 +55,6 @@ if (isset($_POST['delete_course'])) {
         </script>";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -167,6 +166,6 @@ if (isset($_POST['delete_course'])) {
         </main>
     </div>
 </body>
-<script src="../../src/js/notification.js"></script>
+<script src="../../src/js/admin.js"></script>
 
 </html>

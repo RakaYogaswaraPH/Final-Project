@@ -1,7 +1,7 @@
 <?php
 require 'src/config/config.php';
 $courses = readCourses();
-$testimonials = query("SELECT * FROM testimonial");
+$testimonials =getTestimonials();
 ?>
 
 <!DOCTYPE html>

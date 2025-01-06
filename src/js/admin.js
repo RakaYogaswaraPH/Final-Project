@@ -110,3 +110,20 @@ function openEditModal(testimonial) {
     document.getElementById("edit_program_name").value = testimonial.program_name;
     document.getElementById("edit_linkedin").value = testimonial.linkedin;
 }
+
+function openEditModalPortofolio(portofolio) {
+    const modal = document.getElementById("editModal");
+    modal.style.display = "block";
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+    document.body.classList.add('modal-open');
+
+    // Sesuaikan dengan nama field yang benar
+    document.getElementById("edit_id").value = portofolio.id;
+    document.getElementById("current_image").src = "portofolio/" + portofolio.image;
+    document.getElementById("project_name").value = portofolio.project_name;
+    document.getElementById("username").value = portofolio.username;
+    document.getElementById("program_name").value = portofolio.program_name;
+    document.getElementById("project_link").value = portofolio.project_link;
+}

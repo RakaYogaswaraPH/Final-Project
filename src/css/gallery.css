@@ -69,189 +69,6 @@
     }
 }
 
-/* Kegiatan */
-.container-kegiatan {
-    max-width: 1500px;
-    margin: auto;
-    padding: 20px;
-}
-
-.header-kegiatan {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.header-kegiatan h1 {
-    color: #00b894;
-    font-size: 36px;
-    margin: 12px;
-    padding-top: 50px;
-}
-
-.header-kegiatan h3 {
-    font-size: 1.1rem;
-    color: #696868;
-    font-weight: normal;
-}
-
-.card-container-kegiatan {
-    display: flex;
-    overflow: hidden;
-    cursor: grab;
-    padding: 10px;
-}
-
-.card-container-kegiatan:active {
-    cursor: grabbing;
-}
-
-.card-kegiatan {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
-    flex: 0 0 auto;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.card-kegiatan img {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-}
-
-.card-content-kegiatan {
-    padding: 5%;
-}
-
-.card-content-kegiatan h3 {
-    margin-top: 5px;
-    color: #00694E;
-    font-size: 20px;
-}
-
-.card-content-kegiatan p {
-    color: #636e72;
-    font-size: 16px;
-    line-height: 2;
-    margin-bottom: -50px;
-
-}
-
-.card-content-kegiatan .date-kegiatan {
-    color: #b2bec3;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.card-footer-kegiatan {
-    padding: 20px;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-
-}
-
-.card-footer-kegiatan a {
-    background-color: #00b894;
-    color: #fff;
-    padding: 10px 25%;
-    border-radius: 7px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.pagination-kegiatan {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-.pagination-kegiatan .dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: #00b894;
-    border-radius: 50%;
-    margin: 0 5px;
-    transition: width 0.3s ease;
-    cursor: pointer;
-}
-
-.pagination-kegiatan .dot.active {
-    width: 46px;
-    border-radius: 5px;
-}
-
-@media screen and (max-width: 768px) {
-    .header-kegiatan h1 {
-        font-size: 2em;
-        padding-top: 20px;
-    }
-
-    .card-container-kegiatan {
-        gap: 15px;
-    }
-
-    .card-kegiatan {
-        flex: 0 0 calc(100% - 30px);
-        max-width: 250px;
-    }
-
-    .card-content-kegiatan h3 {
-        font-size: 1em;
-    }
-
-    .card-content-kegiatan p,
-    .card-content-kegiatan .date-kegiatan {
-        font-size: 0.8em;
-    }
-
-    .card-footer-kegiatan a {
-        padding: 8px 15px;
-        font-size: 0.8em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .header-kegiatan h1 {
-        font-size: 1.8em;
-        padding-top: 15px;
-    }
-
-    .header-kegiatan p {
-        font-size: 0.9em;
-    }
-
-    .card-container-kegiatan {
-        gap: 10px;
-    }
-
-    .card-kegiatan {
-        flex: 0 0 calc(100% - 20px);
-        max-width: 220px;
-    }
-
-    .card-content-kegiatan h3 {
-        font-size: 0.9em;
-    }
-
-    .card-content-kegiatan p,
-    .card-content-kegiatan .date-kegiatan {
-        font-size: 0.7em;
-    }
-
-    .card-footer-kegiatan a {
-        padding: 6px 12px;
-        font-size: 0.7em;
-    }
-}
-
 
 /* gambar */
 .gambarcontainer {
@@ -418,4 +235,185 @@
         height: 60px;
         margin-left: 10px;
     }
+}
+
+.portofolio-section {
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.portofolio-title-section {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.portofolio-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.portofolio-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.portofolio-item {
+    min-width: calc(100% - 40px);
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+
+    @media (min-width: 768px) {
+        min-width: calc(50% - 40px);
+    }
+
+    @media (min-width: 1024px) {
+        min-width: calc(33.333% - 40px);
+    }
+}
+
+.portofolio-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.portofolio-content {
+    padding: 20px;
+}
+
+.portofolio-item-title {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.portofolio-item-title a {
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Efek underline animation */
+.portofolio-item-title a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+}
+
+.portofolio-item-title a:hover {
+    color: #007bff;
+}
+
+.portofolio-item-title a:hover::after {
+    width: 100%;
+}
+
+.portofolio-item {
+    transition: transform 0.3s ease;
+}
+
+.portofolio-item:hover {
+    transform: translateY(-5px);
+}
+
+.portofolio-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.author-role {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+.portofolio-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    /* Ukuran button lebih besar */
+    height: 40px;
+    background: #00b894;
+    /* Warna background lebih gelap untuk kontras */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 24px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.portofolio-prev {
+    left: 20px;
+    color: white;
+}
+
+.portofolio-next {
+    right: 20px;
+    color: white;
+}
+
+.program-heading span {
+    color: #24c699;
+}
+
+.portofolio-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cloud-decoration {
+    position: absolute;
+    width: 150px;
+    height: 80px;
+    background: white;
+    border-radius: 40px;
+}
+
+.cloud-left {
+    left: -50px;
+    top: -20px;
+    background-color: #00b894
+}
+
+.cloud-right {
+    right: -50px;
+    bottom: -20px;
+    background-color: #00b894
 }

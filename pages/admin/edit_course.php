@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
             </section>
         </main>
     </div>
-    <script src="../../src/js/notification.js"></script>
+    <script src="../../src/js/admin.js"></script>
 </body>
 
 </html>

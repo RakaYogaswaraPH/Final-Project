@@ -4,6 +4,7 @@ require "../../src/config/config.php";
 $users = getAllUsers();
 $courses = getAllCourse();
 $testimonials = getAllTestimonials();
+$portofolios = getAllPortofolio();
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +70,7 @@ $testimonials = getAllTestimonials();
                                 <div class="icon">
                                     <i class="fas fa-file"></i>
                                 </div>
-                                <p class="value">0</p>
+                                <p class="value"><?php echo $portofolios; ?></p>
                             </div>
                         </div>
 

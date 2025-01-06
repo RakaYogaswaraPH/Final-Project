@@ -88,6 +88,5 @@ if (!$course) {
 
 </body>
 <script src="src/js/script.js"></script>
-<script src="src/js/program.js"></script>
 
 </html>

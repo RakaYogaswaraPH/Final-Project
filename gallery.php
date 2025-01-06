@@ -1,6 +1,7 @@
 <?php
 require 'src/config/config.php';
-$testimonials = query("SELECT * FROM testimonial");
+$testimonials = getTestimonials();
+$portofolios = getPortofolios();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,119 +40,35 @@ $testimonials = query("SELECT * FROM testimonial");
         </section>
         <!-- End Of Hero Section -->
 
-        <!-- Activity Section -->
-        <section>
-            <div class="container-kegiatan">
-                <div class="header-kegiatan">
-                    <h1>Kegiatan</h1>
-                    <h3>Telusuri kilas balik kegiatan Luarsekolah yang menghantarkan pada keberhasilan dan moment tak
-                        terlupakan.</h3>
-                </div>
-                <div class="card-container-kegiatan">
+        <section class="portofolio-section">
+            <div class="cloud-decoration cloud-left"></div>
+            <div class="cloud-decoration cloud-right"></div>
 
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/1LS_TRKP_004.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Temu Raya Prakerja</h3>
-                            <p class="date-kegiatan">16 Juni 2022</p>
-                            <p>Luarsekolah berpartisipasi dalam Temu Raya Prakerja di Sentul International Convention
-                                Center (SICC), yang...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
+            <h1 class="program-heading">
+                Portoflio Para Alumni <span>Luarsekolah</span>
+            </h1>
 
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/2Krea1.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Kreatalk</h3>
-                            <p class="date-kegiatan">2 Agustus 2023</p>
-                            <p>Kreatalk adalah series live Instagram dari Luarsekolah yang membahas topik-topik terkini
-                                dengan...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
+            <div class="portofolio-wrapper">
+                <button class="portofolio-btn portofolio-prev">←</button>
+                <button class="portofolio-btn portofolio-next">→</button>
 
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/3ea2eb63-1672-4663-bdc7-0f48657de4ec.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Pekan Pendidikan Tinggi JKT 19</h3>
-                            <p class="date-kegiatan">10 - 12 Januari 2024</p>
-                            <p>Tim Luarsekolah hadir di Pekan Pendidikan Tinggi Jakarta ke-19 di Balai Kartini, Jakarta,
-                                untuk...</p>
+                <div class="portofolio-track">
+                    <!-- Graphic Design portofolio -->
+                    <?php foreach ($portofolios as $portofolio): ?>
+                        <div class="portofolio-item">
+                            <img src="./pages/admin/portofolio/<?= htmlspecialchars($portofolio['image']); ?>" alt="Graphic Design portofolio" class="portofolio-image">
+                            <div class="portofolio-content">
+                                <h3 class="portofolio-item-title"><a href="<?= htmlspecialchars($portofolio['project_link']); ?>" target="_blank"><?= htmlspecialchars($portofolio['project_name']); ?></a></h3>
+                                <div class="portofolio-author">
+                                    <div class="author-info">
+                                        <p class="author-name"><?= htmlspecialchars($portofolio['username']); ?></p>
+                                        <p class="author-role"><?= htmlspecialchars($portofolio['program_name']); ?></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/4Group 633182.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Mini Magang+</h3>
-                            <p class="date-kegiatan">8 Februari 2024</p>
-                            <p>Mini Magang+ adalah kegiatan trial magang+ selama 5 hari yang memberikan gambaran kepada
-                                calon...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/5Group 633183.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Luarsekolah Cendikia (LSC 41)</h3>
-                            <p class="date-kegiatan">20 Februari 2024</p>
-                            <p>Luarsekolah Cendekia adalah webinar series yang diselenggarakan untuk memberikan
-                                informasi terkini seputar...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/6IMG_1595a.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Unity for Charity</h3>
-                            <p class="date-kegiatan">17 Maret 2024</p>
-                            <p>Berkolaborasi dengan Rumah Amal Salman untuk kegiatan silaturahmi dan berbagi 1000
-                                paket...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-
-                    <div class="card-kegiatan">
-                        <img height="223" src="assets/img/7Charity Amal Salman2.png" width="400" />
-                        <div class="card-content-kegiatan">
-                            <h3>Product Release Belajar Bekerja</h3>
-                            <p class="date-kegiatan">22 Maret 2024</p>
-                            <p>Luarsekolah baru saja meluncurkan program terbaru (Belajar Bekerja) yang bertujuan
-                                mempersiapkan individu...</p>
-                        </div>
-                        <div class="card-footer-kegiatan">
-                            <a href="#">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="pagination-kegiatan">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-            </div>
+                    <?php endforeach; ?>
         </section>
-        <!-- End Of Activity Section -->
 
         <!-- Testimonial Section -->
         <section class="program-container">
@@ -259,6 +176,7 @@ $testimonials = query("SELECT * FROM testimonial");
             </div>
         </section>
         <!-- End Of Gallery Section -->
+
     </main>
 
     <!-- Footer -->
@@ -267,6 +185,5 @@ $testimonials = query("SELECT * FROM testimonial");
 
 </body>
 <script src="src/js/script.js"></script>
-<script src="src/js/program.js"></script>
 
 </html>

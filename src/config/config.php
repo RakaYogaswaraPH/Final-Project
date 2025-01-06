@@ -1,7 +1,6 @@
 <?php
 $connect = mysqli_connect("localhost", "root", "", "db_production");
 
-
 function query($query)
 {
     global $connect;
@@ -14,6 +13,54 @@ function query($query)
 }
 
 
+// Fungsi untuk meresekuen ID tabel
+function reseqTable($connect, $table, $idColumn)
+{
+    // Reset ID urutan sesuai data yang ada
+    $query = "SET @new_id = 0;
+            UPDATE $table SET $idColumn = (@new_id := @new_id + 1);
+              ALTER TABLE $table AUTO_INCREMENT = 1;"; // Reset auto-increment ke nilai tertinggi + 1
+    mysqli_multi_query($connect, $query);
+
+    // Pastikan semua query dieksekusi
+    while (mysqli_next_result($connect)) {
+        if (!mysqli_more_results($connect)) break;
+    }
+}
+
+
+// Fungsi untuk menangani unggahan file
+function handleFileUpload($file, $target_dir = "profile/")
+{
+    if (!file_exists($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
+    $fileName = time() . '_' . basename($file['name']);
+    $target_file = $target_dir . $fileName;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Validasi file
+    $check = getimagesize($file["tmp_name"]);
+    if (!$check) {
+        return ["status" => false, "message" => "File is not an image."];
+    }
+    if ($file["size"] > 5000000) {
+        return ["status" => false, "message" => "Sorry, your file is too large."];
+    }
+    if (!in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
+        return ["status" => false, "message" => "Only JPG, JPEG, PNG & GIF files are allowed."];
+    }
+
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        return ["status" => true, "fileName" => $fileName];
+    }
+
+    return ["status" => false, "message" => "Failed to upload file."];
+}
+
+
+//* Users Config *\\
 function getUsers()
 {
     global $connect;
@@ -159,6 +206,25 @@ function deleteUsers($id)
 }
 
 
+
+//* Course Config *\\
+function readCourses()
+{
+    global $connect;
+    $query = "SELECT * FROM course";
+    return query($query);
+}
+
+
+function getAllCourse()
+{
+    global $connect;
+    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM course");
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'] ?? 0;
+}
+
+
 function createCourse($data)
 {
     global $connect;
@@ -175,23 +241,6 @@ function createCourse($data)
 
     mysqli_query($connect, $query);
     return mysqli_affected_rows($connect);
-}
-
-
-function readCourses()
-{
-    global $connect;
-    $query = "SELECT * FROM course";
-    return query($query);
-}
-
-
-function getAllCourse()
-{
-    global $connect;
-    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM course");
-    $row = mysqli_fetch_assoc($result);
-    return $row['total'] ?? 0;
 }
 
 
@@ -239,7 +288,6 @@ function updateCourse($data)
     mysqli_query($connect, $query);
     return mysqli_affected_rows($connect);
 }
-
 
 
 function uploadImage($file)
@@ -320,38 +368,29 @@ function deleteCourse($id)
 }
 
 
-// Fungsi untuk menangani unggahan file
-function handleFileUpload($file, $target_dir = "profile/")
+
+//* Testimonial Config *\\
+function getTestimonials()
 {
-    if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true);
+    global $connect;
+    $result = mysqli_query($connect, "SELECT * FROM testimonial");
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
     }
-
-    $fileName = time() . '_' . basename($file['name']);
-    $target_file = $target_dir . $fileName;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Validasi file
-    $check = getimagesize($file["tmp_name"]);
-    if (!$check) {
-        return ["status" => false, "message" => "File is not an image."];
-    }
-    if ($file["size"] > 500000) {
-        return ["status" => false, "message" => "Sorry, your file is too large."];
-    }
-    if (!in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
-        return ["status" => false, "message" => "Only JPG, JPEG, PNG & GIF files are allowed."];
-    }
-
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        return ["status" => true, "fileName" => $fileName];
-    }
-
-    return ["status" => false, "message" => "Failed to upload file."];
+    return $rows;
 }
 
 
-// Fungsi untuk membuat testimonial baru
+function getAllTestimonials()
+{
+    global $connect;
+    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM testimonial");
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'] ?? 0;
+}
+
+
 function createTestimonial($connect, $data, $file)
 {
     $upload = handleFileUpload($file);
@@ -373,29 +412,9 @@ function createTestimonial($connect, $data, $file)
         return true; // Berhasil
     }
 
-
     return false; // Gagal
 }
 
-
-function getTestimonials()
-{
-    global $connect;
-    $result = mysqli_query($connect, "SELECT * FROM testimonial");
-    $rows = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $rows[] = $row;
-    }
-    return $rows;
-}
-
-function getAllTestimonials()
-{
-    global $connect;
-    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM testimonial");
-    $row = mysqli_fetch_assoc($result);
-    return $row['total'] ?? 0;
-}
 
 // Fungsi untuk memperbarui testimonial
 function updateTestimonial($connect, $data, $file)
@@ -462,17 +481,123 @@ function deleteTestimonial($connect, $id)
 }
 
 
-// Fungsi untuk meresekuen ID tabel
-function reseqTable($connect, $table, $idColumn)
-{
-    // Reset ID urutan sesuai data yang ada
-    $query = "SET @new_id = 0;
-            UPDATE $table SET $idColumn = (@new_id := @new_id + 1);
-              ALTER TABLE $table AUTO_INCREMENT = 1;"; // Reset auto-increment ke nilai tertinggi + 1
-    mysqli_multi_query($connect, $query);
 
-    // Pastikan semua query dieksekusi
-    while (mysqli_next_result($connect)) {
-        if (!mysqli_more_results($connect)) break;
+//* Users Config *\\
+function getAllPortofolio()
+{
+    global $connect;
+    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM portofolio");
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'] ?? 0;
+}
+
+
+// Fungsi untuk mendapatkan semua data portofolio
+function getPortofolios()
+{
+    global $connect;
+    $result = mysqli_query($connect, "SELECT * FROM portofolio ORDER BY id ASC");
+    $rows = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+    return $rows;
+}
+
+// Fungsi untuk membuat portofolio baru
+function createPortofolio($connect, $data, $file)
+{
+    $upload = handleFileUpload($file, "portofolio/");
+    if (!$upload['status']) {
+        echo $upload['message'];
+        return false;
+    }
+
+    $image = $upload['fileName'];
+    $project_name = mysqli_real_escape_string($connect, $data['project_name']);
+    $project_link = mysqli_real_escape_string($connect, $data['project_link']);
+    $username = mysqli_real_escape_string($connect, $data['username']);
+    $program_name = mysqli_real_escape_string($connect, $data['program_name']);
+
+    $query = "INSERT INTO portofolio (image, project_name, project_link, username, program_name) 
+            VALUES ('$image', '$project_name', '$project_link', '$username', '$program_name')";
+
+    if (mysqli_query($connect, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($connect);
+        return false;
+    }
+}
+
+
+// Fungsi untuk memperbarui data portofolio
+function updatePortofolio($connect, $data, $file)
+{
+    $id = mysqli_real_escape_string($connect, $data['id']);
+    $project_name = mysqli_real_escape_string($connect, $data['project_name']);
+    $project_link = mysqli_real_escape_string($connect, $data['project_link']);
+    $username = mysqli_real_escape_string($connect, $data['username']);
+    $program_name = mysqli_real_escape_string($connect, $data['program_name']);
+
+    if (!empty($file['name'])) {
+        $upload = handleFileUpload($file, "portofolio/");
+        if ($upload['status']) {
+            // Hapus file lama
+            $old_image = mysqli_fetch_assoc(mysqli_query($connect, "SELECT image FROM portofolio WHERE id=$id"))['image'];
+            if ($old_image && file_exists("portofolio/" . $old_image)) {
+                unlink("portofolio/" . $old_image);
+            }
+            $image = $upload['fileName'];
+            $query = "UPDATE portofolio SET 
+                    image='$image', 
+                    project_name='$project_name', 
+                    project_link='$project_link', 
+                    username='$username', 
+                    program_name='$program_name' 
+                    WHERE id=$id";
+        } else {
+            echo $upload['message'];
+            return false;
+        }
+    } else {
+        $query = "UPDATE portofolio SET 
+                project_name='$project_name', 
+                project_link='$project_link', 
+                username='$username', 
+                program_name='$program_name' 
+                WHERE id=$id";
+    }
+
+    if (mysqli_query($connect, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($connect);
+        return false;
+    }
+}
+
+// Fungsi untuk menghapus portofolio
+function deletePortofolio($connect, $id)
+{
+    $id = mysqli_real_escape_string($connect, $id);
+    $image = mysqli_fetch_assoc(mysqli_query($connect, "SELECT image FROM portofolio WHERE id=$id"))['image'];
+
+    // Hapus file gambar jika ada
+    if ($image && file_exists("portofolio/" . $image)) {
+        unlink("portofolio/" . $image);
+    }
+
+    // Hapus data dari tabel
+    $query = "DELETE FROM portofolio WHERE id=$id";
+    $deleteResult = mysqli_query($connect, $query);
+
+    // Resekuen ID jika penghapusan berhasil
+    if ($deleteResult) {
+        reseqTable($connect, 'portofolio', 'id');
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($connect);
+        return false;
     }
 }
