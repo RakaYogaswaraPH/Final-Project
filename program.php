@@ -18,8 +18,8 @@ if (!$course) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | Program</title>
-    <link rel="stylesheet" href="src/css/index.css">
-    <link rel="stylesheet" href="src/css/page.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/program.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
@@ -86,6 +86,6 @@ if (!$course) {
     <!-- End Of Footer -->
 
 </body>
-<script src="src/js/scripts.js"></script>
+<script src="src/js/script.js"></script>
 
 </html>

@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | Dashboard</title>
-    <link rel="stylesheet" href="../../src/css/administrators.css">
+    <link rel="stylesheet" href="../../src/css/admin.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
-<script src="../../src/js/admins.js"></script>
+<script src="../../src/js/admin.js"></script>
 
 
 

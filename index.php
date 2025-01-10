@@ -10,8 +10,8 @@ $testimonials = getTestimonials();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luarsekolah #sampaijadibisa</title>
-    <link rel="stylesheet" href="src/css/index.css">
+    <title>Luarsekolah | #sampaijadibisa</title>
+    <link rel="stylesheet" href="src/css/style.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -578,7 +578,7 @@ $testimonials = getTestimonials();
     <!-- End Of Footer -->
 
 </body>
-<script src="src/js/scripts.js"></script>
+<script src="src/js/script.js"></script>
 <script src="src/js/testimonial.js"></script>
 
 </html>
