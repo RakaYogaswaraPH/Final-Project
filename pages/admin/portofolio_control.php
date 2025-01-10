@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | Dashboard</title>
-    <link rel="stylesheet" href="../../src/css/administrator.css">
+    <link rel="stylesheet" href="../../src/css/administrators.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <td><?= $portofolio['project_name']; ?></td>
                                                 <td><a href="<?= $portofolio['project_link']; ?>" target="_blank">Link</a></td>
                                                 <td><?= $portofolio['username']; ?></td>
-                                                <td><?= $portofolio['program_name']; ?></td>>
+                                                <td><?= $portofolio['program_name']; ?></td>
                                                 <!-- portofolio Settings -->
                                                 <td>
                                                     <section class="control-client">
@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Edit Portofolio</h2>
+            <h1>Ubah Portofolio</h1>
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="edit_id">
                 <div class="image-preview-container">
@@ -184,14 +184,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Nama Peserta:</label>
                 <input type="text" name="username" id="username" required>
                 <label>Nama Program:</label>
-                <input type="text" name="program_name" id="program_name" required>
+                <select name="program_name" id="program_name" required>
+                    <option value="Prakerja">Prakerja</option>
+                    <option value="Indonesia Skills Week">Indonesia Skills Week</option>
+                </select>
                 <label>Link Portofolio:</label>
                 <input type="text" name="project_link" id="project_link" required>
                 <button type="submit" name="update_portofolio">Perbaharui Testimoni</button>
             </form>
         </div>
     </div>
+    <div id="imagePreviewModal" class="image-preview-modal">
+        <span class="close-image-modal">&times;</span>
+        <div class="modal-image-content">
+            <img id="modalImage" src="" alt="Preview">
+        </div>
+    </div>
 </body>
-<script src="../../src/js/admin.js"></script>
+<script src="../../src/js/admins.js"></script>
 
 </html>

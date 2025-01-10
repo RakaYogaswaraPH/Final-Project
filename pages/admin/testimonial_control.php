@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | Dashboard</title>
-    <link rel="stylesheet" href="../../src/css/administrator.css">
+    <link rel="stylesheet" href="../../src/css/administrators.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -101,8 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="file" name="image" accept="image/*" required>
                         <input type="text" name="name" placeholder="Nama" required>
                         <input type="text" name="course_name" placeholder="Nama Kelas" required>
-                        <input type="text" name="review" placeholder="Kata-kata" required>
-                        <input type="text" name="program_name" placeholder=" Nama Program" required>
+                        <textarea type="text" name="review" placeholder="Kata-kata" required></textarea>
+                        <select name="program_name" required>
+                            <option value="Prakerja">Prakerja</option>
+                            <option value="Indonesia Skills Week">Indonesia Skills Week</option>
+                        </select>
                         <input type="text" name="linkedin" placeholder="LinkedIn URL" required>
                         <section class="create-client">
                             <button type="submit" name="create_testimonial"><i class="fas fa-plus"></i>Tambah Testimoni</button>
@@ -164,12 +167,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
         </main>
     </div>
-
     <!-- Testimonial Edit Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Edit Testimoni</h2>
+            <h1>Ubah Testimoni</h1>
             <form action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="edit_id">
                 <div class="image-preview-container">
@@ -182,16 +184,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label>Nama Kelas:</label>
                 <input type="text" name="course_name" id="edit_course_name" required>
                 <label>Kata - Kata:</label>
-                <input type="text" name="review" id="edit_review" required>
+                <textarea type="text" name="review" id="edit_review" required></textarea>
                 <label>Nama Program:</label>
-                <input type="text" name="program_name" id="edit_program_name" required>
+                <select name="program_name" id="edit_program_name" required>
+                    <option value="Prakerja">Prakerja</option>
+                    <option value="Indonesia Skills Week">Indonesia Skills Week</option>
+                </select>
                 <label>linkedIn:</label>
                 <input type="text" name="linkedin" id="edit_linkedin" required>
                 <button type="submit" name="update_testimonial">Perbaharui Testimoni</button>
             </form>
         </div>
     </div>
-    <script src="../../src/js/admin.js"></script>
+
+    <div id="imagePreviewModal" class="image-preview-modal">
+        <span class="close-image-modal">&times;</span>
+        <div class="modal-image-content">
+            <img id="modalImage" src="" alt="Preview">
+        </div>
+    </div>
 </body>
+<script src="../../src/js/admins.js"></script>
+
+
 
 </html>

@@ -10,7 +10,7 @@ $portofolios = getPortofolios();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah</title>
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/index.css">
     <link rel="stylesheet" href="src/css/gallery.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -32,7 +32,7 @@ $portofolios = getPortofolios();
         <!-- Hero Section -->
         <section class="hero">
             <div class="Recap-luarsekolah">
-                <h1><span class="highlight-h1">Recap Kegiatan</span> Luarsekolah</h1>
+                <h1>Galeri <span class="highlight-h1">Luarsekolah</span></h1>
                 <p>Melalui acara, seminar, workshop, dan berbagai program lainnya kami terus menghadirkan inspirasi,
                     berbagi pengetahuan, dan membuka peluang yang besar bagi masyarakat luas terutama generasi muda
                     Indonesia.</p>
@@ -111,7 +111,7 @@ $portofolios = getPortofolios();
             <div class="gambarcontainer">
                 <div class="gambarheader">
                     <h2>Dokumentasi</h2>
-                    <h3>Melihat Kembali Momen-Momen Berharga kegiatan Luarsekolah melalui Lensa</h3>
+                    <h3>Melihat Kembali Momen-Momen Berharga kegiatan Luarsekolah</h3>
                 </div>
 
                 <div class="gambarscroll-container">
@@ -185,5 +185,7 @@ $portofolios = getPortofolios();
 
 </body>
 <script src="src/js/script.js"></script>
+<script src="src/js/portofolio.js"></script>
+<script src="src/js/testimonial.js"></script>
 
 </html>

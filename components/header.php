@@ -1,7 +1,7 @@
 <header>
     <nav class="header-nav">
         <div class="logo">
-            <a href="index.html" class="active nav-item">
+            <a class="active nav-item">
                 <img src="../../assets/img/luarsekolah-logo.png" alt="Logo" />
             </a>
         </div>

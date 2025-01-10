@@ -127,3 +127,55 @@ function openEditModalPortofolio(portofolio) {
     document.getElementById("program_name").value = portofolio.program_name;
     document.getElementById("project_link").value = portofolio.project_link;
 }
+
+// Tambahkan event click pada gambar di tabel
+document.querySelectorAll('.unfixed-table img').forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', function() {
+        openImageModal(this.src);
+    });
+});
+
+function openImageModal(imageSrc) {
+    const modal = document.getElementById('imagePreviewModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalContent = modal.querySelector('.modal-image-content');
+    
+    modalImg.src = imageSrc;
+    modal.style.display = 'block';
+    
+    // Trigger reflow
+    modal.offsetHeight;
+    
+    // Add show classes for animation
+    modal.classList.add('show');
+    modalContent.classList.add('show');
+}
+
+// Close modal when clicking on X or outside the image
+document.querySelector('.close-image-modal').addEventListener('click', closeImageModal);
+document.getElementById('imagePreviewModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeImageModal();
+    }
+});
+
+function closeImageModal() {
+    const modal = document.getElementById('imagePreviewModal');
+    const modalContent = modal.querySelector('.modal-image-content');
+    
+    modal.classList.remove('show');
+    modalContent.classList.remove('show');
+    
+    // Wait for animation to complete before hiding
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+    }
+});

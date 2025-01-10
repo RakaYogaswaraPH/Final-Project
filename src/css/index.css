@@ -2182,17 +2182,33 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
 .team-section h1 {
     font-size: 36px;
     margin-bottom: 50px;
+    position: relative;
+}
+
+.team-section h1::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #24c699;
+    border-radius: 2px;
 }
 
 .team-section .highlight {
     color: #24c699;
+    position: relative;
 }
 
 .team-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 350px);
     justify-content: center;
     gap: 20px;
-    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .team-member {
@@ -2201,8 +2217,13 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     align-items: center;
     text-align: center;
     gap: 20px;
-    width: 350px;
-    margin: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
 }
 
 .profile-picture {
@@ -2210,57 +2231,141 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     height: 250px;
     border-radius: 50%;
     overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.profile-picture::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(36, 198, 153, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(36, 198, 153, 0.2);
+}
+
+.profile-picture:hover::before {
+    opacity: 1;
 }
 
 .profile-picture img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.profile-picture:hover img {
+    transform: scale(1.1);
 }
 
 .team-member h2 {
     font-size: 24px;
     margin-top: 15px;
     color: #24c699;
+    transition: color 0.3s ease;
+}
+
+.team-member:hover h2 {
+    color: #1ea881;
 }
 
 .team-member p {
     font-size: 16px;
     color: #666;
     margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    position: relative;
+    display: inline-block;
+}
+
+.social-links a img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.social-links a:hover img {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(36, 198, 153, 0.2);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .team-container {
+        gap: 20px;
+    }
+
+    .team-member {
+        width: 300px;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .team-section {
-        padding: 30px 15px;
+        padding: 40px 15px;
     }
 
     .team-section h1 {
-        font-size: 24px;
+        font-size: 28px;
+        margin-bottom: 40px;
     }
 
     .profile-picture {
-        width: 180px;
-        height: 180px;
+        width: 200px;
+        height: 200px;
     }
 
     .team-member h2 {
         font-size: 20px;
     }
+
+    .social-links a img {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 @media screen and (max-width: 480px) {
     .team-section {
-        padding: 20px 10px;
+        padding: 30px 10px;
     }
 
     .team-section h1 {
-        font-size: 20px;
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .team-member {
+        width: 100%;
+        max-width: 300px;
     }
 
     .profile-picture {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
     }
 
     .team-member h2 {
@@ -2270,27 +2375,11 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     .team-member p {
         font-size: 14px;
     }
-}
 
-.social-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-    margin-top: -5px;
-
-}
-
-.social-links a img {
-    width: 50px;
-    height: 50px;
-    margin-left: -10px;
-    border-radius: 50%;
-    transition: transform 0.3s;
-}
-
-.social-links a img:hover {
-    transform: scale(1.15);
+    .social-links a img {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 /* Program Section */
@@ -2301,56 +2390,96 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
 
 .program-container span {
     color: #24c699;
+    font-weight: 600;
 }
 
 .program-wrapper {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 25px;
     justify-content: center;
     overflow-x: auto;
+    padding: 20px 10px;
 }
 
 .program {
     width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: none;
+    border-radius: 20px;
     text-align: left;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.program:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 30px rgba(36, 198, 153, 0.2);
 }
 
 .program-heading {
     text-align: center;
     font-size: 36px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
 .program-image {
     width: 100%;
-    height: auto;
+    height: 200px;
     object-fit: cover;
     display: block;
     margin: 0;
+    transition: transform 0.5s ease;
+}
+
+.program:hover .program-image {
+    transform: scale(1.08);
 }
 
 .program-content {
-    padding: 25px;
+    padding: 30px 25px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+    position: relative;
+}
+
+.program-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #24c699, #1fb082);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.program:hover .program-content::before {
+    transform: scaleX(1);
 }
 
 .program-title {
     font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
+    margin-bottom: 15px;
+    color: #1a1a1a;
     text-align: center;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.program:hover .program-title {
+    color: #24c699;
 }
 
 .program-description {
-    margin-bottom: 20px;
-    color: #696868;
+    margin-bottom: 25px;
+    color: #4a5568;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     text-align: center;
 }
 
@@ -2358,18 +2487,28 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     background-color: #24c699;
     color: #fff;
     border: none;
-    padding: 10px 30px;
-    font-size: 14px;
-    border-radius: 10px;
+    padding: 14px 30px;
+    font-size: 15px;
+    border-radius: 12px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
 }
 
 .program-button:hover {
     background-color: #1fb082;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(36, 198, 153, 0.3);
 }
 
+.program-button:active {
+    transform: translateY(-1px);
+}
+
+/* Scrollbar Styling */
 .program-wrapper {
     overflow-x: auto;
     scrollbar-width: thin;
@@ -2387,8 +2526,10 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
 
 .program-wrapper::-webkit-scrollbar-track {
     background: #f9f9f9;
+    border-radius: 10px;
 }
 
+/* Media Queries */
 @media screen and (max-width: 1200px) and (min-width: 576px) {
     .program-container {
         padding: 40px 50px;
@@ -2397,16 +2538,16 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     .program-wrapper {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 20px;
+        gap: 30px;
     }
 
     .program {
-        width: calc(50% - 20px);
+        width: calc(50% - 30px);
         max-width: 350px;
     }
 
     .program-heading {
-        font-size: 28px;
+        font-size: 30px;
     }
 
     .program-title {
@@ -2420,22 +2561,23 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
 
 @media screen and (max-width: 576px) {
     .program-container {
-        padding: 20px 15px;
+        padding: 30px 20px;
     }
 
     .program-wrapper {
         flex-direction: column;
         align-items: center;
+        gap: 30px;
     }
 
     .program {
-        width: 90%;
+        width: 100%;
         max-width: 400px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
 
     .program-heading {
-        font-size: 24px;
+        font-size: 26px;
     }
 
     .program-title {
@@ -2452,51 +2594,47 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     text-align: center;
     padding: 60px 150px;
     background-color: #ffffff;
-    color: #696868;
+    color: #2d3748;
 }
 
 .course-section h1 {
     font-size: 36px;
     margin-bottom: 50px;
+    font-weight: 700;
 }
 
 .course-section .highlight {
     color: #24c699;
+    position: relative;
+    display: inline-block;
 }
 
-@media screen and (max-width: 768px) {
-    .course-section {
-        padding: 30px 15px;
-    }
-
-    .course-section h1 {
-        font-size: 24px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .course-section {
-        padding: 20px 10px;
-    }
-
-    .course-section h1 {
-        font-size: 20px;
-    }
+.articles {
+    display: grid;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
 }
 
 article {
-    --img-scale: 1.001;
-    --title-color: black;
+    --img-scale: 1;
+    --title-color: #2d3748;
     --link-icon-translate: -20px;
     --link-icon-opacity: 0;
     position: relative;
-    border-radius: 16px;
-    box-shadow: none;
+    border-radius: 20px;
     background: #fff;
     transform-origin: center;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow: hidden;
-    font-family: "Poppins", sans-serif
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+article:hover {
+    transform: translateY(-16px);
+    box-shadow: 0 30px 50px rgba(36, 198, 153, 0.2);
 }
 
 article a::after {
@@ -2510,9 +2648,10 @@ article a::after {
 article h2 {
     margin: 0 0 18px 0;
     font-size: 1.4rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.02em;
     color: var(--title-color);
     transition: color 0.3s ease-out;
+    font-weight: 600;
 }
 
 figure {
@@ -2520,28 +2659,52 @@ figure {
     padding: 0;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    position: relative;
+}
+
+figure::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(36, 198, 153, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+article:hover figure::after {
+    opacity: 1;
 }
 
 article img {
     max-width: 100%;
     transform-origin: center;
     transform: scale(var(--img-scale));
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.5s ease;
+    object-fit: cover;
 }
 
 .article-body {
     padding: 24px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+}
+
+article p {
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 article a {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    color: #28666e;
+    color: #24c699;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-article a:focus {
-    outline: 1px dotted #28666e;
+article a:hover {
+    color: #1fb082;
 }
 
 article a .icon {
@@ -2551,24 +2714,14 @@ article a .icon {
     margin-left: 5px;
     transform: translateX(var(--link-icon-translate));
     opacity: var(--link-icon-opacity);
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 article:has(:hover, :focus) {
     --img-scale: 1.1;
-    --title-color: #28666e;
+    --title-color: #24c699;
     --link-icon-translate: 0;
     --link-icon-opacity: 1;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-}
-
-.articles {
-    display: grid;
-    max-width: 1200px;
-    margin-inline: auto;
-    padding-inline: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
 }
 
 .sr-only:not(:focus):not(:active) {
@@ -2581,33 +2734,77 @@ article:has(:hover, :focus) {
     width: 1px;
 }
 
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .course-section {
+        padding: 40px 20px;
+    }
+
+    .course-section h1 {
+        font-size: 28px;
+    }
+
+    .articles {
+        gap: 20px;
+        padding-inline: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .course-section {
+        padding: 30px 15px;
+    }
+
+    .course-section h1 {
+        font-size: 24px;
+    }
+
+    .articles {
+        gap: 16px;
+        padding-inline: 12px;
+    }
+
+    article h2 {
+        font-size: 1.2rem;
+    }
+}
+
 /* Testimonial Section */
 .testimonial-section {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
 }
 
 .testimonial-slider {
     position: relative;
     overflow: hidden;
+    padding: 20px 10px;
 }
 
 .slider-container {
     display: flex;
-    transition: transform 0.3s ease-in-out;
+    gap: 25px;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .testimonial-card {
     flex: 0 0 calc(33.333% - 20px);
     margin: 0 10px;
-    border-radius: 12px;
+    border-radius: 20px;
     overflow: hidden;
     background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(36, 198, 153, 0.2);
 }
 
 .testimonial-image {
@@ -2618,6 +2815,22 @@ article:has(:hover, :focus) {
     overflow: hidden;
 }
 
+.testimonial-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(36, 198, 153, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-image::after {
+    opacity: 1;
+}
+
 .testimonial-image img {
     position: absolute;
     top: 0;
@@ -2626,27 +2839,49 @@ article:has(:hover, :focus) {
     height: 100%;
     object-fit: cover;
     object-position: center top;
+    transition: transform 0.5s ease;
+}
+
+.testimonial-card:hover .testimonial-image img {
+    transform: scale(1.08);
 }
 
 .testimonial-content {
-    padding: 20px;
-    background: #24c699;
+    padding: 25px;
+    background: linear-gradient(160deg, #24c699 0%, #1fb082 100%);
     color: white;
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.testimonial-content::before {
+    content: '"';
+    position: absolute;
+    top: -30px;
+    right: 20px;
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.1);
+    font-family: serif;
 }
 
 .testimonial-name {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 5px;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-name {
+    transform: translateX(5px);
 }
 
 .testimonial-title {
     font-size: 14px;
     margin-bottom: 15px;
     opacity: 0.9;
+    font-weight: 500;
 }
 
 .testimonial-text {
@@ -2654,6 +2889,7 @@ article:has(:hover, :focus) {
     line-height: 1.6;
     margin-bottom: 15px;
     flex: 1;
+    opacity: 0.95;
 }
 
 .testimonial-info {
@@ -2661,27 +2897,38 @@ article:has(:hover, :focus) {
     align-items: center;
     margin-top: auto;
     padding-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.testimonial-name {
-    font-size: 13px;
-    line-height: 1.4;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .testimonial-name a {
     text-decoration: none;
     color: white;
-    transition: opacity 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
 }
 
 .testimonial-name a:hover {
-    opacity: 0.8;
+    transform: translateX(5px);
+    color: #0077B5;
+}
+
+.testimonial-name a i {
+    font-size: 16px;
+}
+
+/* Blur card styling */
+.card-link {
+    text-decoration: none;
+    color: white;
+    display: block;
+    height: 100%;
 }
 
 .blur-card {
     filter: blur(2px);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .blur-card:hover {
@@ -2690,103 +2937,110 @@ article:has(:hover, :focus) {
 
 .card-link {
     text-decoration: none;
-    color: inherit;
+    color: white;
     display: block;
     height: 100%;
 }
 
+.blur-card .testimonial-content {
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.blur-card .testimonial-info {
+    display: flex;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.blur-card .testimonial-info .testimonial-name {
+    display: flex;
+    flex-direction: column;
+}
+
 .see-all-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(36, 198, 153, 0.4);
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.4s ease;
     z-index: 2;
 }
 
 .blur-card:hover .see-all-overlay {
     opacity: 1;
+    backdrop-filter: blur(3px);
 }
 
 .see-all-text {
     color: white;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 600;
     text-align: center;
     filter: blur(0);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
 }
 
 .blur-card:hover .see-all-text {
-    transform: scale(1);
+    transform: translateY(0);
+    opacity: 1;
 }
 
-.slider-container {
-    display: flex;
-    gap: 20px;
-}
-
-.testimonial-content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.testimonial-image {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-}
-
-.testimonial-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
+/* Slider buttons */
 .slider-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: white;
     border: none;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     z-index: 2;
-    transition: background-color 0.2s ease;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    color: #24c699;
 }
 
 .slider-button:hover {
-    background-color: #f5f5f5;
+    background-color: #24c699;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .prev-button {
-    left: 10px;
+    left: 20px;
 }
 
 .next-button {
-    right: 10px;
+    right: 20px;
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
     .testimonial-card {
         min-height: 250px;
+        margin: 0 5px;
     }
 
     .see-all-text {
         font-size: 20px;
+    }
+
+    .slider-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
     }
 }
 
@@ -2795,8 +3049,18 @@ article:has(:hover, :focus) {
         min-height: 200px;
     }
 
+    .testimonial-content {
+        padding: 20px;
+    }
+
     .see-all-text {
         font-size: 18px;
+    }
+
+    .slider-button {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
     }
 }
 

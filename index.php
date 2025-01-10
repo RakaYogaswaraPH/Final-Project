@@ -1,7 +1,7 @@
 <?php
 require 'src/config/config.php';
 $courses = readCourses();
-$testimonials =getTestimonials();
+$testimonials = getTestimonials();
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +10,8 @@ $testimonials =getTestimonials();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luarsekolah</title>
-    <link rel="stylesheet" href="src/css/style.css">
+    <title>Luarsekolah #sampaijadibisa</title>
+    <link rel="stylesheet" href="src/css/index.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@ $testimonials =getTestimonials();
                     <div class="content-slide-luarsekolah">
                         <h1>Luar Sekolah</h1>
                         <p>
-                            Luar sekolah adalah platform edukasi vokasi berbasis digital untuk mendukung generasi muda
+                            Luar sekolah adalah platform pelatihan edukasi berbasis digital sebagai sarana untuk mendukung generasi muda
                             Indonesia untuk belajar dan berkembang </p>
                     </div>
                 </div>
@@ -114,7 +114,7 @@ $testimonials =getTestimonials();
                 <div class="slide-luarsekolah slide-3">
                     <div class="content-slide-luarsekolah">
                         <h1>Maka Demikian...</h1>
-                        <p>Kami hadirkan platform pendidikan vokasi untuk membantu serta mengembangkan kemampuan dan
+                        <p>Kami hadirkan platform pendidikan pelatihan untuk membantu serta mengembangkan kemampuan dan
                             juga karier para generasi muda Indonesia.</p>
                     </div>
                 </div>
@@ -189,13 +189,13 @@ $testimonials =getTestimonials();
         <!-- Benefit Section -->
         <section class="benefit">
             <div class="benefit-header">
-                <h2>Solusi <span>Yang Kami persembahkan</span></h2>
+                <h2>Solusi <span>Yang Kami Berikan</span></h2>
             </div>
             <div class="benefit-grid">
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-1.png" alt="Ikon 1">
                     <h3>Menjembatani Kesenjangan Pendidikan dan Industri.</h3>
-                    <p>Kami membantu menyelaraskan kurikulum pendidikan dengan kebutuhan industri, agar siap menghadapi
+                    <p>Kami membantu menyelaraskan kurikulum yang kami rancang dengan kebutuhan industri, agar siap menghadapi
                         tantangan dunia kerja.</p>
                 </div>
                 <div class="benefit-item">
@@ -207,7 +207,7 @@ $testimonials =getTestimonials();
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-3.png" alt="Ikon 3">
                     <h3>Menawarkan Kelas dengan Harga Terjangkau.</h3>
-                    <p>Belajar skill baru <span class="highlight">#sampaijadibisa</span> nggak perlu mahal! Jadi, kamu
+                    <p>Mempelajari skill baru <span class="highlight">#sampaijadibisa</span> nggak perlu mahal! Jadi, kamu
                         bisa nabung buat keperluan lain.</p>
                 </div>
                 <div class="benefit-item">
@@ -302,9 +302,9 @@ $testimonials =getTestimonials();
                         <h2>M. Jibril Sobron</h2>
                         <p>Chief Executive Officer & Co-Founder</p>
                         <div class="social-links left">
-                            <a href="#"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
-                            <a href="#"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
-                            <a href="#"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
+                            <a href="mailto:jibril@luarsekolah.com"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
+                            <a href="https://www.instagram.com/jibrilsobron/" target="_blank"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
+                            <a href="https://www.linkedin.com/in/jibrilsobron/" target="_blank"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
                         </div>
                     </div>
                 </div>
@@ -316,9 +316,9 @@ $testimonials =getTestimonials();
                     <h2>M. Fauzan Ahsan</h2>
                     <p>Technology Adviser & Co-Founder</p>
                     <div class="social-links right">
-                        <a href="#"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
-                        <a href="#"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
-                        <a href="#"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
+                        <a href="mailto:fauzan.ahsan@gmail.com"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
+                        <a href="https://www.instagram.com/mfauzanahsan/" target="_blank"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
+                        <a href="https://www.linkedin.com/in/fauzanahsan/" target="_blank"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
                     </div>
                 </div>
             </div>
@@ -336,7 +336,7 @@ $testimonials =getTestimonials();
                     <div class="program-content">
                         <h1 class="program-title">Kartu Prakerja</h1>
                         <p class="program-description">Program Pengembangan Keterampilan untuk Pencari Kerja dan Pekerja
-                            yang Terdampak PHK.</p>
+                            yang ingin meningkatkan kompetensi.</p>
                         <button class="program-button">Lihat Selengkapnya</button>
                     </div>
                 </div>
@@ -345,7 +345,7 @@ $testimonials =getTestimonials();
                     <img src="./assets/img/2-program-belajarbekerja.png" alt="Program 2" class="program-image">
                     <div class="program-content">
                         <h1 class="program-title">Belajar Bekerja</h1>
-                        <p class="program-description">Dirancang untuk membuatmu siapmenghadapi industri dan mendapatkan
+                        <p class="program-description">Dirancang untuk membuatmu siap menghadapi industri dan mendapatkan
                             pekerjaan yang diinginkan.</p>
                         <a href="https://belajarbekerja.com/" target="_blank"><button class="program-button">Lihat
                                 Selengkapnya</button></a>
@@ -357,7 +357,7 @@ $testimonials =getTestimonials();
                     <div class="program-content">
                         <h1 class="program-title">Prakerja ISW</h1>
                         <p class="program-description">Indonesia Skills Week: Event dua bulanan Prakerja untuk semua
-                            golongan, termasuk alumni.</p>
+                            golongan, termasuk alumni Luarsekolah.</p>
                         <a href="isw.html" target="_blank"><button class="program-button">Lihat
                                 Selengkapnya</button></a>
                     </div>
@@ -578,7 +578,7 @@ $testimonials =getTestimonials();
     <!-- End Of Footer -->
 
 </body>
-<script src="src/js/script.js"></script>
-<script src="src/js/program.js"></script>
+<script src="src/js/scripts.js"></script>
+<script src="src/js/testimonial.js"></script>
 
 </html>
