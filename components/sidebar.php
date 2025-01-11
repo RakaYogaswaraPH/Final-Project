@@ -6,7 +6,8 @@ function renderSidebar($activeMenu)
         'pengguna' => ['href' => 'users_control.php', 'icon' => 'fas fa-users', 'label' => 'Pengguna'],
         'program' => ['href' => 'course_control.php', 'icon' => 'fas fa-sitemap', 'label' => 'Program'],
         'testimoni' => ['href' => 'testimonial_control.php', 'icon' => 'fas fa-comments', 'label' => 'Testimoni'],
-        'portofolio' => ['href' => 'portofolio_control.php', 'icon' => 'fas fa-paste', 'label' => 'Portofolio'],
+        'portofolio' => ['href' => 'portofolio_control.php', 'icon' => 'fas fa-user-graduate', 'label' => ' Portofolio'],
+        'fasilitator' => ['href' => 'trainer_control.php', 'icon' => 'fas fa-chalkboard-teacher', 'label' => 'Fasilitator'],
     ];
 ?>
     <section class="sidebar">

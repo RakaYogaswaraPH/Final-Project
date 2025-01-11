@@ -28,6 +28,18 @@ function reseqTable($connect, $table, $idColumn)
     }
 }
 
+function getTrainerApplications()
+{
+    global $connect;
+    $query = "
+        SELECT ta.id, u.username AS trainer_name, c.title AS course_title, ta.status, ta.applied_at, ta.approved_at 
+        FROM trainer_applications ta
+        JOIN users u ON ta.user_id = u.id
+        JOIN course c ON ta.course_id = c.id
+        ORDER BY ta.applied_at ASC";
+    return query($query);
+}
+
 
 // Fungsi untuk menangani unggahan file
 function handleFileUpload($file, $target_dir = "profile/")

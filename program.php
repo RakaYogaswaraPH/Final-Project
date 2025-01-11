@@ -10,7 +10,21 @@ $course = readCourseById($courseId);
 if (!$course) {
     die("Course tidak ditemukan.");
 }
+function getFacilitatorByCourseId($courseId)
+{
+    global $connect;
+    $query = "
+        SELECT u.username AS trainer_name 
+        FROM trainer_applications ta
+        JOIN users u ON ta.user_id = u.id
+        WHERE ta.course_id = $courseId AND ta.status = 'Approved'
+        LIMIT 1";
+    $result = query($query);
+    return !empty($result) ? $result[0]['trainer_name'] : "Segera";
+}
+$fasilitator = getFacilitatorByCourseId($courseId);
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -44,6 +58,11 @@ if (!$course) {
             <div class="description">
                 <h3>Deskripsi</h3>
                 <p><?= nl2br(htmlspecialchars($course['description'])); ?></p>
+                
+                <div class="facilitator-section">
+                    <h4>Fasilitator</h4>
+                    <p class="facilitator-name"><?= htmlspecialchars($fasilitator); ?></p>
+                </div>
 
                 <div class="price-section">
                     <div class="price">Rp<?= number_format($course['price'], 0, ',', '.'); ?>,-</div>

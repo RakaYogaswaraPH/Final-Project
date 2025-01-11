@@ -213,7 +213,11 @@ button:not(:disabled),
 
 .sidebar .menu i {
     color: var(--icon-color);
-    margin-right: 0.8rem;
+    font-size: 20px; /* Mengatur ukuran font icon */
+    width: 30px; /* Memberikan lebar yang sama untuk setiap icon */
+    text-align: center; /* Membuat icon berada di tengah container-nya */
+    margin-right: 10px; /* Memberikan jarak antara icon dan teks */
+    vertical-align: middle; /* Mensejajarkan icon dengan teks */
 }
 
 .sidebar .menu a,

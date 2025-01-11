@@ -69,6 +69,28 @@ html {
     border-radius: 2px;
 }
 
+.facilitator-section {
+    margin: 20px 0;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fffc 100%);
+    border-radius: 12px;
+    border-left: 4px solid #00cc99;
+    box-shadow: 0 4px 15px rgba(0, 204, 153, 0.1);
+}
+
+.facilitator-section h4 {
+    color: #2c3e50;
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.facilitator-section .facilitator-name {
+    color: #00cc99;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 .image {
     flex: 1;
     transition: transform 0.3s ease;

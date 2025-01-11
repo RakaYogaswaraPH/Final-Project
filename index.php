@@ -358,7 +358,7 @@ $testimonials = getTestimonials();
                         <h1 class="program-title">Prakerja ISW</h1>
                         <p class="program-description">Indonesia Skills Week: Event dua bulanan Prakerja untuk semua
                             golongan, termasuk alumni Luarsekolah.</p>
-                        <a href="isw.html" target="_blank"><button class="program-button">Lihat
+                        <a href="isw.php" target="_blank"><button class="program-button">Lihat
                                 Selengkapnya</button></a>
                     </div>
                 </div>
