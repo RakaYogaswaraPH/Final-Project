@@ -1,12 +1,14 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
+
+requireAdminRole();
 $portofolios = getPortofolios();
 
-// Menangani aksi CRUD
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["add_portofolio"])) { // Nama tombol harus cocok
-        // Tambah data portofolio
+    if (isset($_POST["add_portofolio"])) { 
         $result = createPortofolio($connect, $_POST, $_FILES['image']);
         if ($result) {
             echo "<script>
@@ -25,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </script>";
         }
     } elseif (isset($_POST["delete_portofolio"])) {
-        // Hapus data portofolio
         $id = $_POST["id"];
         if (deletePortofolio($connect, $id)) {
             echo "<script>
@@ -43,8 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 });
             </script>";
         }
-    } elseif (isset($_POST["update_portofolio"])) { // Perbaikan untuk tombol update
-        // Edit data portofolio
+    } elseif (isset($_POST["update_portofolio"])) { 
         $result = updatePortofolio($connect, $_POST, $_FILES['image']);
         if ($result) {
             echo "<script>
@@ -202,5 +202,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </body>
 <script src="../../src/js/admin.js"></script>
+<script src="../../src/js/modal.js"></script>
 
 </html>

@@ -1,18 +1,19 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
 date_default_timezone_set('Asia/Jakarta');
+
+requireAdminRole();
 $trainerApplications = getTrainerApplications();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $action = $_POST['action'];
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : null;
 
-    if ($action === 'delete') {
-        // Hapus data
+    if (isset($_POST['delete']) && $id) {
         $deleteQuery = "DELETE FROM trainer_applications WHERE id = $id";
         if (mysqli_query($connect, $deleteQuery)) {
-            // Resequence ID setelah penghapusan
             reseqTable($connect, 'trainer_applications', 'id');
             header("Location: trainer_control.php?deleted=true");
         } else {
@@ -21,26 +22,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Logika approve/reject yang sudah ada
-    if ($action === 'approve' || $action === 'reject') {
-        $status = $action === 'approve' ? 'Approved' : 'Rejected';
-        if ($action === 'approve') {
-            $query = "UPDATE trainer_applications 
-                    SET status = '$status', approved_at = NOW() 
-                    WHERE id = $id";
-        } else {
-            $query = "UPDATE trainer_applications 
-                    SET status = '$status', approved_at = NULL 
-                    WHERE id = $id";
+    if (isset($_POST['action']) && ($id !== null)) {
+        $action = $_POST['action'];
+        if ($action === 'approve' || $action === 'reject') {
+            $status = $action === 'approve' ? 'Approved' : 'Rejected';
+            if ($action === 'approve') {
+                $query = "UPDATE trainer_applications 
+                        SET status = '$status', approved_at = NOW() 
+                        WHERE id = $id";
+            } else {
+                $query = "UPDATE trainer_applications 
+                        SET status = '$status', approved_at = NULL 
+                        WHERE id = $id";
+            }
+            if (mysqli_query($connect, $query)) {
+                header("Location: trainer_control.php?success=true&action=" . $action);
+            } else {
+                header("Location: trainer_control.php?error=true");
+            }
+            exit;
         }
-        if (mysqli_query($connect, $query)) {
-            header("Location: trainer_control.php?success=true");
-        } else {
-            header("Location: trainer_control.php?error=true");
-        }
-        exit;
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                             <button type="submit" name="action" value="approve">Disetujui</button>
                                                             <button type="submit" name="action" value="reject">Ditolak</button>
                                                             <button type="submit" name="action" value="delete"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                                                onclick="confirmDelete(event, this, 'delete')"
                                                                 style="background-color: #ff4444;">Hapus</button>
                                                         </section>
                                                     </form>

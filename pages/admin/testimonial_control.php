@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
+
+requireAdminRole();
 $testimonials = getTestimonials();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -205,6 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 <script src="../../src/js/admin.js"></script>
+<script src="../../src/js/modal.js"></script>
 
 
 

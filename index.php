@@ -370,7 +370,11 @@ $testimonials = getTestimonials();
         <section class="course-section">
             <h1>Kelas Terpopuler <span class="highlight">Prakerja</span></h1>
             <section class="articles">
-                <?php foreach ($courses as $course): ?>
+                <?php
+                $counter = 0;
+                foreach ($courses as $course):
+                    if ($counter >= 3) break; // Stop after 3 courses
+                ?>
                     <article>
                         <div class="article-wrapper">
                             <figure>
@@ -388,8 +392,17 @@ $testimonials = getTestimonials();
                             </div>
                         </div>
                     </article>
-                <?php endforeach; ?>
+                <?php
+                    $counter++;
+                endforeach;
+                ?>
             </section>
+            <div class="view-all">
+                <a href="isw.php" class="view-all-link">
+                    Lihat semua kelas
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </section>
         <!-- End Of Our Course Section -->
 

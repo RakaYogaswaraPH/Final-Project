@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
+
+requireAdminRole();
 $courses = readCourses();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -174,5 +178,6 @@ if (isset($_POST['delete_course'])) {
     </div>
 </body>
 <script src="../../src/js/admin.js"></script>
+<script src="../../src/js/modal.js"></script>
 
 </html>

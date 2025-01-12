@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
+
+requireAdminRole();
 $courseId = (int)$_GET['id'];
 $course = readCourseById($courseId);
 
@@ -17,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
             </script>";
         }
     } else {
-        // Ambil gambar yang sudah ada
         $course = readCourseById($_POST['id']);
         if ($course) {
             $_POST['image'] = $course['image'];

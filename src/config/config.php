@@ -41,6 +41,31 @@ function getTrainerApplications()
 }
 
 
+function requireAdminRole()
+{
+    if (!isset($_SESSION['role'])) {
+        header("Location: ../../login.php");
+        exit();
+    }
+
+    // Redirect berdasarkan role
+    switch ($_SESSION['role']) {
+        case 'admin':
+            // Jika admin, izinkan melanjutkan ke halaman saat ini
+            break;
+        case 'trainer':
+            header("Location: ../../pages/trainer/home.php");
+            exit();
+        case 'user':
+            header("Location: ../../pages/user/index.php");
+            exit();
+        default:
+            header("Location: ../../login.php");
+            exit();
+    }
+}
+
+
 // Fungsi untuk menangani unggahan file
 function handleFileUpload($file, $target_dir = "profile/")
 {

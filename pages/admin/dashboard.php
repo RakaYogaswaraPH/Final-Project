@@ -1,6 +1,12 @@
 <?php
+session_start();
+
 include '../../components/sidebar.php';
 require "../../src/config/config.php";
+
+$username = $_SESSION['username'] ?? 'Pengguna';
+requireAdminRole();
+
 $users = getAllUsers();
 $courses = getAllCourse();
 $testimonials = getAllTestimonials();
@@ -34,7 +40,7 @@ $portofolios = getAllPortofolio();
 
             <section class="page-content">
                 <article class="board">
-                    <p>Selamat Datang</p>
+                    <p>Selamat Datang, <?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?></p>
                     <section class="boxes">
                         <div class="box bg-pink">
                             <p>Pengguna</p>

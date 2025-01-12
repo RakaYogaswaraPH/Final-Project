@@ -99,6 +99,21 @@ button:hover {
     background: #28ddaa;
 }
 
+.signup-switch-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #666666;
+}
+
+.signup button {
+    margin-bottom: 5px;
+}
+
+#chk:checked~.signup .signup-switch-text {
+    opacity: 0.6;
+}
+
 .login {
     height: 460px;
     background: #eee;

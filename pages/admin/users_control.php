@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
+
+requireAdminRole();
 $users = getUsers();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
@@ -145,7 +149,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
                                                         </select>
                                                         <section class="control-client">
                                                             <button type="submit" name="edit_user"><i class="fas fa-edit"></i>Ubah</button>
-                                                            <button onclick="confirmDelete(event, this, 'delete_user')"><i class="fas fa-trash"></i>Hapus</button>
+                                                            <button type="button" onclick="confirmDelete(event, this, 'delete_user')">
+                                                                <i class="fas fa-trash"></i>Hapus
+                                                            </button>
                                                         </section>
                                                     </form>
 
