@@ -23,65 +23,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['login'])) {
-            $email = mysqli_real_escape_string($connect, $_POST['email'] ?? '');
-            $password = $_POST['password'] ?? '';
+    if (isset($_POST['login'])) {
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
 
-            if (!empty($email) && !empty($password)) {
-                // Query langsung ke database
-                $query = "SELECT * FROM users WHERE email = '$email'";
-                $result = mysqli_query($connect, $query);
+        if (!empty($email) && !empty($password)) {
+            $result = mysqli_query($connect, "SELECT * FROM users WHERE email = '$email'");
 
-                if (mysqli_num_rows($result) === 1) {
-                    $user = mysqli_fetch_assoc($result);
+            if (mysqli_num_rows($result) === 1) {
+                $user = mysqli_fetch_assoc($result);
 
-                    if (password_verify($password, $user['password'])) {
-                        session_start();
-                    
-                        // Gunakan key unik berdasarkan role
-                        $roleKey = $user['role']; // Contoh: 'admin', 'trainer', 'user'
-                    
-                        // Set session untuk role tertentu
-                        $_SESSION[$roleKey] = [
-                            'login' => true,
-                            'username' => $user['username'],
-                        ];
-                    
-                        // Redirect sesuai role
-                        if ($roleKey === 'admin') {
-                            header("Location: ./pages/admin/dashboard.php");
-                        } elseif ($roleKey === 'trainer') {
-                            header("Location: ./pages/trainer/home.php");
-                        } elseif ($roleKey === 'user') {
-                            header("Location: ./pages/user/home.php");
-                        } else {
-                            header("Location: ./login.php");
-                        }
-                        exit();
+                if (password_verify($password, $user['password'])) {
+                    $_SESSION['login'] = true;
+                    $_SESSION['role'] = $user['role'];
+                    $_SESSION['username'] = $user['username'];
+
+                    if ($user['role'] === 'admin') {
+                        $redirectURL = './pages/admin/dashboard.php';
+                    } elseif ($user['role'] === 'trainer') {
+                        $redirectURL = './pages/trainer/home.php';
+                    } elseif ($user['role'] === 'user') {
+                        $redirectURL = './pages/user/home.php';
+                    } else {
+                        $redirectURL = './login.php';
                     }
-                    
-                    else {
-                        echo "<script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                toastr.error('Password salah', 'Gagal');
-                            });
-                        </script>";
-                    }
+                    echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            toastr.success('Berhasil Masuk', 'Berhasil');
+                            setTimeout(function() {
+                                window.location.href = '$redirectURL';
+                            }, 2000);
+                        });
+                    </script>";
                 } else {
                     echo "<script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            toastr.error('Email tidak terdaftar', 'Gagal');
+                            toastr.error('Password salah', 'Gagal');
                         });
                     </script>";
                 }
             } else {
                 echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
-                        toastr.warning('Email dan password harus diisi', 'Peringatan');
+                        toastr.error('Email tidak terdaftar', 'Gagal');
                     });
                 </script>";
             }
+        } else {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.warning('Email dan password harus diisi', 'Peringatan');
+                });
+            </script>";
         }
     }
 }
