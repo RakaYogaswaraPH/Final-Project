@@ -1,0 +1,223 @@
+/* Base styles */
+body {
+    background: #00cc99;
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Main content spacing and layout */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 100px;
+}
+
+/* Welcome section styling */
+.welcome-section {
+    margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.welcome-section p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+/* Subscription card */
+.subscription-card {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-status {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.subscription-message {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.registered-classes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.class-item {
+    font-weight: 500;
+    color: #2d3748;
+    padding: 8px 0;
+}
+
+.subscription-btn {
+    background: #2d3748;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.subscription-btn:hover {
+    background: #1a202c;
+}
+
+/* Activities container */
+.activities-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.activity-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.activity-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.activity-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Course items */
+.course-item {
+    padding: 1rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.course-item:last-child {
+    margin-bottom: 0;
+}
+
+.course-item div {
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.continue-btn {
+    color: #3182ce;
+    text-decoration: none;
+    white-space: nowrap;
+    /* Prevents button text from wrapping */
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.continue-btn:hover {
+    background: #e6f0fa;
+}
+
+/* Activity icons */
+.activity-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.activity-icon-card {
+    background: #f7f7f7;
+    padding: 1.5rem;
+    border-radius: 6px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.activity-icon-card:hover {
+    background: #f0f0f0;
+}
+
+/* Facilitator items */
+.facilitator-item {
+    padding: 1rem;
+    background: #f7f7f7;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.facilitator-item:last-child {
+    margin-bottom: 0;
+}
+
+
+.class-name {
+    font-weight: 500;
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+.facilitator-name {
+    color: #4a5568;
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    border-left: 3px solid #3182ce;
+}
+
+/* Ketika tidak ada fasilitator */
+.facilitator-name:empty::before {
+    content: "Belum ada fasilitator";
+    color: #718096;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .facilitator-item {
+        padding: 0.75rem;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+        padding-top: 80px;
+    }
+
+    .activities-container {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.5rem;
+    }
+}

@@ -9,9 +9,9 @@ $portofolios = getPortofolios();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luarsekolah</title>
+    <title>Luarsekolah | Komunitas</title>
     <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/gallery.css">
+    <link rel="stylesheet" href="src/css/community.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@ $portofolios = getPortofolios();
         <!-- Hero Section -->
         <section class="hero">
             <div class="Recap-luarsekolah">
-                <h1>Galeri <span class="highlight-h1">Luarsekolah</span></h1>
+                <h1>Komunitas <span class="highlight-h1">Luarsekolah</span></h1>
                 <p>Melalui acara, seminar, workshop, dan berbagai program lainnya kami terus menghadirkan inspirasi,
                     berbagi pengetahuan, dan membuka peluang yang besar bagi masyarakat luas terutama generasi muda
                     Indonesia.</p>

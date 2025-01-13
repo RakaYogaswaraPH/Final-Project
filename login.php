@@ -2,6 +2,7 @@
 require "src/config/config.php";
 session_start();
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['register'])) {
         $result = registers($_POST);
@@ -18,61 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     toastr.error('Terjadi kesalahan saat mendaftar', 'Gagal');
-                });
-            </script>";
-        }
-    }
-
-    if (isset($_POST['login'])) {
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
-
-        if (!empty($email) && !empty($password)) {
-            $result = mysqli_query($connect, "SELECT * FROM users WHERE email = '$email'");
-
-            if (mysqli_num_rows($result) === 1) {
-                $user = mysqli_fetch_assoc($result);
-
-                if (password_verify($password, $user['password'])) {
-                    $_SESSION['login'] = true;
-                    $_SESSION['role'] = $user['role'];
-                    $_SESSION['username'] = $user['username'];
-
-                    if ($user['role'] === 'admin') {
-                        $redirectURL = './pages/admin/dashboard.php';
-                    } elseif ($user['role'] === 'trainer') {
-                        $redirectURL = './pages/trainer/home.php';
-                    } elseif ($user['role'] === 'user') {
-                        $redirectURL = './pages/user/home.php';
-                    } else {
-                        $redirectURL = './login.php';
-                    }
-                    echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            toastr.success('Berhasil Masuk', 'Berhasil');
-                            setTimeout(function() {
-                                window.location.href = '$redirectURL';
-                            }, 2000);
-                        });
-                    </script>";
-                } else {
-                    echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            toastr.error('Password salah', 'Gagal');
-                        });
-                    </script>";
-                }
-            } else {
-                echo "<script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        toastr.error('Email tidak terdaftar', 'Gagal');
-                    });
-                </script>";
-            }
-        } else {
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.warning('Email dan password harus diisi', 'Peringatan');
                 });
             </script>";
         }
@@ -142,5 +88,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 <script src="src/js/toastr.js"></script>
+<?php
+if (isset($_POST['login'])) {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    if (!empty($email) && !empty($password)) {
+        $result = mysqli_query($connect, "SELECT * FROM users WHERE email = '$email'");
+
+        if (mysqli_num_rows($result) === 1) {
+            $user = mysqli_fetch_assoc($result);
+
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['login'] = true;
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = $user['role'];
+
+                // Tentukan redirectURL berdasarkan role
+                switch ($user['role']) {
+                    case 'admin':
+                        $redirectURL = "./pages/admin/dashboard.php";
+                        break;
+                    case 'trainer':
+                        $redirectURL = "./pages/trainer/home.php";
+                        break;
+                    case 'user':
+                        $redirectURL = "./pages/user/home.php";
+                        break;
+                }
+
+                // Tampilkan toastr dan redirect
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.success('Berhasil Masuk', 'Berhasil');
+                        setTimeout(function() {
+                            window.location.href = '$redirectURL';
+                        }, 2000);
+                    });
+                </script>";
+                exit;
+            } else {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.error('Password salah', 'Gagal');
+                    });
+                </script>";
+            }
+        } else {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.error('Email tidak terdaftar', 'Gagal');
+                });
+            </script>";
+        }
+    } else {
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                toastr.warning('Email dan password harus diisi', 'Peringatan');
+            });
+        </script>";
+    }
+}
+?>
 
 </html>

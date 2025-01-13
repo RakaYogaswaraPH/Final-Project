@@ -45,7 +45,7 @@ $testimonials = getTestimonials();
                             <li><a href="prakerja.php">Prakerja</a></li>
                             <li><a href="https://belajarbekerja.com/" target="_blank">Belajar Bekerja</a></li>
                             <li><a href="isw.php">ISW</a></li>
-                            <li><a href="gallery.php">Galeri</a></li>
+                            <li><a href="community.php">Komunitas</a></li>
                         </ul>
                     </li>
                     <li><a href="login.php" class="">Masuk</a></li>
@@ -71,7 +71,7 @@ $testimonials = getTestimonials();
                     <p>Mulai kembangkan karier dan keahlian mu sebagai generasi muda Indonesia <span
                             id="tagline">#sampaijadibisa.</span>
                     </p>
-                    <a href="#">Bergabung Sekarang <i class="ri-shake-hands-fill"></i></a>
+                    <a href="#program">Bergabung Sekarang <i class="ri-shake-hands-fill"></i></a>
                 </div>
                 <div class="hero-image">
                     <img src="assets/animation/LS.png" alt="Hero Image">
@@ -194,26 +194,25 @@ $testimonials = getTestimonials();
             <div class="benefit-grid">
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-1.png" alt="Ikon 1">
-                    <h3>Menjembatani Kesenjangan Pendidikan dan Industri.</h3>
-                    <p>Kami membantu menyelaraskan kurikulum yang kami rancang dengan kebutuhan industri, agar siap menghadapi
-                        tantangan dunia kerja.</p>
+                    <h3>Memberdayakan lulusan untuk dunia kerja.</h3>
+                    <p>Kami membangun kurikulum yang kami rancang dengan kebutuhan industri, agar siap menghadapi dunia kerja.</p>
                 </div>
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-2.png" alt="Ikon 2">
-                    <h3>Memberikan Akses Pendidikan Mudah dan Berkualitas.</h3>
+                    <h3>Memberikan Akses yang Mudah dan Berkualitas.</h3>
                     <p>Platform kami memberikan akses pendidikan yang praktis, efektif, dan berkualitas untuk semua
                         pengguna.</p>
                 </div>
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-3.png" alt="Ikon 3">
                     <h3>Menawarkan Kelas dengan Harga Terjangkau.</h3>
-                    <p>Mempelajari skill baru <span class="highlight">#sampaijadibisa</span> nggak perlu mahal! Jadi, kamu
-                        bisa nabung buat keperluan lain.</p>
+                    <p>Mempelajari skill baru <span class="highlight">#sampaijadibisa</span> tidak perlu mahal! Jadi, kamu
+                        bisa menyesuaikan dengan kelas impianmu.</p>
                 </div>
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-4.png" alt="Ikon 4">
                     <h3>Masuk Jurusan yang Salah? Tidak Perlu Cemas!</h3>
-                    <p>Dengan berbagai pilihan kelas dan keterampilan, kamu bisa mengembangkan diri sesuai minat dan
+                    <p>Dengan berbagai pilihan kelas, kamu bisa membangun diri sesuai minat dan
                         bakatmu, tanpa terikat jurusan.</p>
                 </div>
             </div>
@@ -326,7 +325,7 @@ $testimonials = getTestimonials();
         <!-- End Of Our Team Section -->
 
         <!-- Program Section -->
-        <section class="program-container">
+        <section class="program-container" id="program">
             <h1 class="program-heading">
                 <span>Program </span>Luar Sekolah
             </h1>
@@ -442,7 +441,7 @@ $testimonials = getTestimonials();
                                         </div>
                                         <?php if ($isBlurred): ?>
                                             <div class="see-all-overlay">
-                                                <a href="gallery.php">
+                                                <a href="community.php">
                                                     <h2 class="see-all-text">Lihat Semua</h2>
                                                 </a>
                                             </div>

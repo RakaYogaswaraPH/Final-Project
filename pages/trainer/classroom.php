@@ -4,8 +4,10 @@ require '../../src/config/config.php';
 include '../../components/trainer_sidebar.php';
 
 // requireAdminRole();
+$courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$course = readCourseById($courseId);
 $courses = readCourses();
-$trainerApplications = getTrainerApplications();
+$trainerApplications = ApprovedTrainer();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trainerId = $_POST['trainer_id'];
@@ -59,42 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <main class="main">
             <!-- Sidebar Menu -->
-            <?php renderSidebar('fasilitator'); ?>
+            <?php renderSidebar('kelas'); ?>
             <!-- End Of Sidebar Menu -->
 
             <section class="page-content">
                 <article class="board">
-                    <!-- Add New User -->
-                    <p>Pengajuan Fasilitator</p>
-                    <form action="" method="POST">
-                        <label for="trainer">Nama Fasilitator:</label>
-                        <select id="trainer" name="trainer_id" required>
-                            <?php
-                            $trainers = query("SELECT id, username FROM users WHERE role = 'trainer'");
-                            foreach ($trainers as $trainer) {
-                                echo "<option value='{$trainer['id']}'>{$trainer['username']}</option>";
-                            }
-                            ?>
-                        </select>
-
-                        <label for="course">Pilih Kelas:</label>
-                        <select id="course" name="course" required>
-                            <?php
-                            include 'config.php';
-                            $courses = readCourses();
-                            foreach ($courses as $course) {
-                                echo "<option value='{$course['id']}'>{$course['title']}</option>";
-                            }
-                            ?>
-                        </select>
-
-                        <section class="create-client">
-                            <button type="submit"><i class="fas fa-plus"></i>Ajukan Fasilitator</button>
-                        </section>
-                    </form>
-
                     <!-- User List -->
-                    <p>Daftar Pengajuan</p>
+                    <p>Daftar Kelas</p>
                     <div class="table-container">
                         <div class="table-horizontal-container">
                             <table class="unfixed-table">
@@ -103,22 +76,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <th>No</th>
                                         <th>Fasilitator</th>
                                         <th>Kelas</th>
-                                        <th>Tanggal Pengajuan</th>
-                                        <th>Tanggal Disetujui</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($trainerApplications as $application): ?>
+                                    <?php if (!empty($trainerApplications)): ?>
+                                        <?php foreach ($trainerApplications as $application): ?>
+                                            <tr>
+                                                <td><?= $application['application_id']; ?></td>
+                                                <td><?= htmlspecialchars($application['trainer_name']); ?></td>
+                                                <td><a href="preview.php?id=<?= $application['course_id']; ?>"><?= htmlspecialchars($application['course_title']); ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
                                         <tr>
-                                            <td><?= $application['id']; ?></td>
-                                            <td><?= $application['trainer_name']; ?></td>
-                                            <td><?= $application['course_title']; ?></td>
-                                            <td><?= date('d/m/Y H:i', strtotime($application['applied_at'])); ?></td>
-                                            <td><?= $application['approved_at'] ? date('d/m/Y H:i', strtotime($application['approved_at'])) : '-'; ?></td>
-                                            <td><?= $application['status']; ?></td>
+                                            <td colspan="3">Belum ada kelas yang diterima.</td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

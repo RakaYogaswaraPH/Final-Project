@@ -46,7 +46,7 @@
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Komunitas</a></li>
                 <li><a href="#">Promo</a></li>
-                <li><a href="gallery.php">Kegiatan</a></li>
+                <li><a href="community.php">Kegiatan</a></li>
             </ul>
         </div>
         <div class="footer-content-program">

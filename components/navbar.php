@@ -19,7 +19,7 @@
                         <li><a href="prakerja.php">Prakerja</a></li>
                         <li><a href="https://belajarbekerja.com/" target="_blank">Belajar Bekerja</a></li>
                         <li><a href="isw.php">ISW</a></li>
-                        <li><a href="gallery.php">Galeri</a></li>
+                        <li><a href="community.php">Komunitas</a></li>
                     </ul>
                 </li>
                 <li><a href="login.php" class="">Masuk</a></li>

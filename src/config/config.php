@@ -40,6 +40,41 @@ function getTrainerApplications()
     return query($query);
 }
 
+function ApprovedTrainer()
+{
+    global $connect;
+    $query = "
+        SELECT 
+            ta.id AS application_id, 
+            u.username AS trainer_name, 
+            c.id AS course_id, 
+            c.title AS course_title 
+        FROM 
+            trainer_applications ta
+        INNER JOIN 
+            users u ON ta.user_id = u.id
+        INNER JOIN 
+            course c ON ta.course_id = c.id
+        WHERE 
+            ta.status = 'Approved'
+    ";
+    $result = query($query);
+    return $result;
+}
+
+
+function getFacilitatorByCourseId($courseId)
+{
+    global $connect;
+    $query = "
+        SELECT u.username AS trainer_name 
+        FROM trainer_applications ta
+        JOIN users u ON ta.user_id = u.id
+        WHERE ta.course_id = $courseId AND ta.status = 'Approved'
+        LIMIT 1";
+    $result = query($query);
+    return !empty($result) ? $result[0]['trainer_name'] : "Segera";
+}
 
 function requireAdminRole()
 {
@@ -48,22 +83,36 @@ function requireAdminRole()
         exit();
     }
 
-    // Redirect berdasarkan role
-    switch ($_SESSION['role']) {
-        case 'admin':
-            // Jika admin, izinkan melanjutkan ke halaman saat ini
-            break;
-        case 'trainer':
-            header("Location: ../../pages/trainer/home.php");
-            exit();
-        case 'user':
-            header("Location: ../../pages/user/index.php");
-            exit();
-        default:
-            header("Location: ../../login.php");
-            exit();
+    // Periksa apakah role adalah admin
+    if ($_SESSION['role'] !== 'admin') {
+        // Redirect berdasarkan role
+        switch ($_SESSION['role']) {
+            case 'trainer':
+                header("Location: ../../pages/trainer/home.php");
+                exit();
+            case 'user':
+                header("Location: ../../pages/user/home.php");
+                exit();
+            default:
+                header("Location: ../../login.php");
+                exit();
+        }
+    }
+    // Jika admin, izinkan akses ke halaman ini
+}
+
+function requireUserRole()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); // Pastikan sesi dimulai
+    }
+
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+        header("Location: ../../login.php");
+        exit();
     }
 }
+
 
 
 // Fungsi untuk menangani unggahan file

@@ -5,12 +5,11 @@
         </div>
         <div class="nav-container-custom">
             <ul class="nav-links-custom">
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">Tentang Kami</a></li>
-                <li><a href="#">Program</a></li>
+                <li><a href="home.php">Beranda</a></li>
+                <li><a href="isw.php">Program</a></li>
             </ul>
             <div class="profile-custom">
-                <i class="fas fa-user-circle"></i>
+                <a href="../../components/logout.php"><i class="fas fa-user-circle"></i></a>
                 <span>Raka Yogaswara</span>
             </div>
         </div>

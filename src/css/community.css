@@ -145,12 +145,12 @@
     height: 2px;
     bottom: -2px;
     left: 0;
-    background-color: #007bff;
+    background-color: #24c699;
     transition: width 0.3s ease;
 }
 
 .portofolio-item-title a:hover {
-    color: #007bff;
+    color: #24c699
 }
 
 .portofolio-item-title a:hover::after {

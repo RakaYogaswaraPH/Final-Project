@@ -1,5 +1,5 @@
 <?php
-require 'src/config/config.php'; // Koneksi ke database
+require '../../src/config/config.php'; // Koneksi ke database
 
 // Ambil ID dari URL
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -20,10 +20,10 @@ $fasilitator = getFacilitatorByCourseId($courseId);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luarsekolah | Program</title>
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/program.css">
-    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+    <title>Luarsekolah | Kelas Fasilitator</title>
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="stylesheet" href="../../src/css/program.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
@@ -31,10 +31,6 @@ $fasilitator = getFacilitatorByCourseId($courseId);
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <?php include 'components/navbar.php'; ?>
-    <!-- End Of Navigation Bar -->
-
     <!-- Course Section -->
     <div class="course-container">
         <div class="course-header">
@@ -42,7 +38,7 @@ $fasilitator = getFacilitatorByCourseId($courseId);
         </div>
         <div class="content-wrapper">
             <div class="image">
-                <img src="./pages/admin/banner/<?= htmlspecialchars($course['image']); ?>" alt="Course Image">
+                <img src="../../pages/admin/banner/<?= htmlspecialchars($course['image']); ?>" alt="Course Image">
             </div>
             <div class="description">
                 <h3>Deskripsi</h3>
@@ -53,10 +49,6 @@ $fasilitator = getFacilitatorByCourseId($courseId);
                     <p class="facilitator-name"><?= htmlspecialchars($fasilitator); ?></p>
                 </div>
 
-                <div class="price-section">
-                    <div class="price">Rp<?= number_format($course['price'], 0, ',', '.'); ?>,-</div>
-                    <a href="#" class="voucher-btn">Gunakan Voucher Prakerja</a>
-                </div>
             </div>
         </div>
         <div class="info-section">
@@ -89,11 +81,26 @@ $fasilitator = getFacilitatorByCourseId($courseId);
     </div>
     <!-- End Of Course Section -->
 
-    <!-- Footer -->
-    <?php include 'components/footer.php'; ?>
-    <!-- End Of Footer -->
-
 </body>
-<script src="src/js/script.js"></script>
+<!-- <script src="../../src/js/script.js"></script> -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener("click", () => {
+                const content = toggle.nextElementSibling;
+                content.classList.toggle("open");
+
+                // Menyesuaikan teks tombol
+                if (content.classList.contains("open")) {
+                    toggle.textContent = toggle.textContent;
+                } else {
+                    toggle.textContent = toggle.textContent;
+                }
+            });
+        });
+    });
+</script>
 
 </html>
