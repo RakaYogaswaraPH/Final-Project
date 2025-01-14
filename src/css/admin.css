@@ -213,11 +213,16 @@ button:not(:disabled),
 
 .sidebar .menu i {
     color: var(--icon-color);
-    font-size: 20px; /* Mengatur ukuran font icon */
-    width: 30px; /* Memberikan lebar yang sama untuk setiap icon */
-    text-align: center; /* Membuat icon berada di tengah container-nya */
-    margin-right: 10px; /* Memberikan jarak antara icon dan teks */
-    vertical-align: middle; /* Mensejajarkan icon dengan teks */
+    font-size: 20px;
+    /* Mengatur ukuran font icon */
+    width: 30px;
+    /* Memberikan lebar yang sama untuk setiap icon */
+    text-align: center;
+    /* Membuat icon berada di tengah container-nya */
+    margin-right: 10px;
+    /* Memberikan jarak antara icon dan teks */
+    vertical-align: middle;
+    /* Mensejajarkan icon dengan teks */
 }
 
 .sidebar .menu a,
@@ -248,7 +253,8 @@ button:not(:disabled),
     flex: 1;
     width: 100%;
     height: 100vh;
-    overflow-y: auto; /* Menambahkan scroll pada page-content */
+    overflow-y: auto;
+    /* Menambahkan scroll pada page-content */
 }
 
 .page-content .board p {
@@ -296,11 +302,15 @@ button {
 .page-content .board {
     background: var(--white);
     border-radius: 0.5rem;
-    min-height: 100%;  /* Minimal tinggi 100% */
-    height: auto;      /* Tinggi menyesuaikan konten */
-    overflow: scroll; /* Biarkan konten terlihat sepenuhnya */
+    min-height: 100%;
+    /* Minimal tinggi 100% */
+    height: auto;
+    /* Tinggi menyesuaikan konten */
+    overflow: scroll;
+    /* Biarkan konten terlihat sepenuhnya */
     padding: 2rem;
-    margin-bottom: 2rem; /* Tambahkan margin bottom untuk jarak */
+    margin-bottom: 2rem;
+    /* Tambahkan margin bottom untuk jarak */
 }
 
 .board>p {

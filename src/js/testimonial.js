@@ -1,3 +1,4 @@
+// Testimonial slider
 document.addEventListener('DOMContentLoaded', function () {
     const sliderContainer = document.querySelector('.slider-container');
     const prevButton = document.querySelector('.prev-button');
@@ -5,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cards = document.querySelectorAll('.testimonial-card');
 
     let currentIndex = 0;
-    const cardWidth = cards[0].offsetWidth + 20; // Include margin
+    const cardWidth = cards[0].offsetWidth + 20;
 
     function getVisibleCardCount() {
         const sliderWidth = sliderContainer.offsetWidth;
@@ -31,9 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Responsive handling
     window.addEventListener('resize', () => {
-        currentIndex = 0; // Reset index on resize to avoid layout issues
+        currentIndex = 0;
         updateSlider();
     });
 });

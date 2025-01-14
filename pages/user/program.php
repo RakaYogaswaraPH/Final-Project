@@ -2,47 +2,22 @@
 session_start();
 require '../../src/config/config.php';
 
-// Pastikan pengguna login dan memiliki role 'user'
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
     header("Location: ../../login.php");
-    exit(); // Hentikan eksekusi untuk mencegah akses lebih lanjut
+    exit();
 }
 
+$fasilitator = getTrainerByCourseId($courseId);
+// Ambil ID pengguna dari sesi
+$userId = $_SESSION['user_id'];
 // Ambil ID dari URL
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
 // Ambil data course berdasarkan ID
 $course = readCourseById($courseId);
-
 if (!$course) {
     die("Course tidak ditemukan.");
 }
 
-$fasilitator = getFacilitatorByCourseId($courseId);
-
-function registerForCourse($userId, $courseId)
-{
-    global $connect;
-
-    // Periksa apakah pengguna sudah mendaftar kursus ini
-    $checkQuery = "SELECT * FROM course_registrations WHERE user_id = $userId AND course_id = $courseId";
-    $checkResult = mysqli_query($connect, $checkQuery);
-    if (mysqli_num_rows($checkResult) > 0) {
-        return ['status' => 'error', 'message' => 'Anda sudah terdaftar dalam kursus ini.'];
-    }
-
-    // Daftarkan pengguna ke kursus
-    $query = "INSERT INTO course_registrations (user_id, course_id) VALUES ($userId, $courseId)";
-    if (mysqli_query($connect, $query)) {
-        return ['status' => 'success', 'message' => 'Berhasil mendaftar dalam kursus ini.'];
-    }
-
-    return ['status' => 'error', 'message' => 'Gagal mendaftar kursus.'];
-}
-
-
-// Ambil ID pengguna dari sesi
-$userId = $_SESSION['user_id'];
 
 // Proses pengajuan kelas
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {

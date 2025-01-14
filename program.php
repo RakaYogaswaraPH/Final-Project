@@ -1,17 +1,11 @@
 <?php
-require 'src/config/config.php'; // Koneksi ke database
-
-// Ambil ID dari URL
+require 'src/config/config.php';
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Ambil data course berdasarkan ID
 $course = readCourseById($courseId);
-
 if (!$course) {
     die("Course tidak ditemukan.");
 }
-
-$fasilitator = getFacilitatorByCourseId($courseId);
+$fasilitator = getTrainerByCourseId($courseId);
 ?>
 
 <!DOCTYPE html>

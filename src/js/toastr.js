@@ -1,3 +1,4 @@
+// Toastr js file for showing notifications
 toastr.options = {
     "closeButton": true,
     "debug": false,

@@ -1,3 +1,4 @@
+// Portofolio slider
 document.addEventListener('DOMContentLoaded', function () {
     const portofolioTrack = document.querySelector('.portofolio-track');
     const portofolioPrev = document.querySelector('.portofolio-prev');
@@ -44,13 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Responsive handling
     window.addEventListener('resize', () => {
         portofolioIndex = 0;
         updateportofolioSlider();
         updateportofolioButtons();
     });
 
-    // Initial setup
     updateportofolioButtons();
 });

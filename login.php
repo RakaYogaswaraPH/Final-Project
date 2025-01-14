@@ -2,7 +2,6 @@
 require "src/config/config.php";
 session_start();
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['register'])) {
         $result = registers($_POST);
@@ -25,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="main">
             <input type="checkbox" id="chk" aria-hidden="true">
 
+            <!-- Register Section -->
             <div class="signup" id="signup">
                 <form method="post" action="">
                     <label for="chk" aria-hidden="true">Selamat Datang</label>
@@ -71,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
             </div>
 
+            <!-- Log In Section -->
             <div class="login" id="login">
                 <form method="post" action="">
                     <label for="chk" aria-hidden="true">Mari Memulai</label>
@@ -104,8 +104,6 @@ if (isset($_POST['login'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['role'] = $user['role'];
-
-                // Tentukan redirectURL berdasarkan role
                 switch ($user['role']) {
                     case 'admin':
                         $redirectURL = "./pages/admin/dashboard.php";
@@ -117,8 +115,6 @@ if (isset($_POST['login'])) {
                         $redirectURL = "./pages/user/home.php";
                         break;
                 }
-
-                // Tampilkan toastr dan redirect
                 echo "<script>
                     document.addEventListener('DOMContentLoaded', function() {
                         toastr.success('Berhasil Masuk', 'Berhasil');

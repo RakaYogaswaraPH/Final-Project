@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (dynamicText) typeEffect();
 });
 
+
 // Drop Shadow Navbar
 window.onscroll = function () { addShadowOnScroll() };
 
@@ -44,6 +45,7 @@ function addShadowOnScroll() {
         navbar.classList.remove('scrolled');
     }
 }
+
 
 // Back To Top
 document.addEventListener('DOMContentLoaded', function () {
@@ -64,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 
 // Story and Slideshow
 document.addEventListener("scroll", () => {

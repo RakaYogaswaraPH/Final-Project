@@ -8,6 +8,11 @@
     transition: box-shadow 0.3s ease-in-out;
 }
 
+.navbar-custom a{
+    text-decoration: none;
+    color: black;
+}
+
 .navbar-custom .wrapper-custom {
     max-width: 1300px;
     padding: 0 30px;

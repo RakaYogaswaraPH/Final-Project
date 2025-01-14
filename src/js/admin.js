@@ -16,7 +16,6 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
-// User Control
 function confirmDelete(event, button, deleteType) {
     event.preventDefault();
     const form = button.closest('form');

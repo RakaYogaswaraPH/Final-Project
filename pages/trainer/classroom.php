@@ -1,9 +1,9 @@
 <?php
-// session_start();
+session_start();
 require '../../src/config/config.php';
 include '../../components/trainer_sidebar.php';
 
-// requireAdminRole();
+requireTrainerRole();
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $course = readCourseById($courseId);
 $courses = readCourses();

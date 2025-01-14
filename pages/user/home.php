@@ -1,7 +1,9 @@
 <?php
 session_start();
 require "../../src/config/config.php";
-$userId = $_SESSION['user_id']; //
+
+$username = $_SESSION['username'] ?? 'Pengguna';
+$userId = $_SESSION['user_id'];
 requireUserRole();
 $query = "
     SELECT c.id, c.title 
@@ -11,7 +13,6 @@ $query = "
 ";
 $result = mysqli_query($connect, $query);
 
-// Modifikasi array untuk menyimpan id dan title
 $kelasTerpilih = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $kelasTerpilih[] = [
@@ -52,7 +53,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <main class="main-content">
         <section class="welcome-section">
-            <h1>Selamat datang Raka Yogaswara Pratama Husaeni!</h1>
+            <h1>Selamat datang <?php echo htmlspecialchars($username, ENT_QUOTES, 'UTF-8'); ?>!</h1>
             <p>Semoga aktivitas belajarmu menyenangkan.</p>
         </section>
 
@@ -103,7 +104,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class="class-name"><?= htmlspecialchars($kelas['title']); ?></div>
                             <div class="facilitator-name">
                                 <?php
-                                $facilitator = getFacilitatorByCourseId($kelas['id']);
+                                $facilitator = getTrainerByCourseId($kelas['id']);
                                 echo $facilitator !== "Segera" ? $facilitator : "Belum ada fasilitator";
                                 ?>
                             </div>
@@ -120,5 +121,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     <?php include '../../components/user_footer.php'; ?>
     <!-- End Of Footer -->
 </body>
+<script src="../../src/js/script.js"></script>
 
 </html>

@@ -12,6 +12,7 @@ body {
     margin: 0 auto;
     padding: 2rem;
     padding-top: 100px;
+    transition: all 0.3s ease;
 }
 
 /* Welcome section styling */
@@ -87,12 +88,19 @@ body {
     margin-top: 2rem;
 }
 
+/* Activity card shadow and hover animation */
 .activity-card {
     background: white;
     border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     flex: 1;
+    transition: all 0.3s ease;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
 .activity-header {
@@ -134,7 +142,6 @@ body {
     color: #3182ce;
     text-decoration: none;
     white-space: nowrap;
-    /* Prevents button text from wrapping */
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: background-color 0.2s;

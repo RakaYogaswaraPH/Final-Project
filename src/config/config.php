@@ -63,7 +63,7 @@ function ApprovedTrainer()
 }
 
 
-function getFacilitatorByCourseId($courseId)
+function getTrainerByCourseId($courseId)
 {
     global $connect;
     $query = "
@@ -83,9 +83,7 @@ function requireAdminRole()
         exit();
     }
 
-    // Periksa apakah role adalah admin
     if ($_SESSION['role'] !== 'admin') {
-        // Redirect berdasarkan role
         switch ($_SESSION['role']) {
             case 'trainer':
                 header("Location: ../../pages/trainer/home.php");
@@ -98,13 +96,12 @@ function requireAdminRole()
                 exit();
         }
     }
-    // Jika admin, izinkan akses ke halaman ini
 }
 
 function requireUserRole()
 {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start(); // Pastikan sesi dimulai
+        session_start();
     }
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
@@ -113,6 +110,37 @@ function requireUserRole()
     }
 }
 
+function requireTrainerRole()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start(); 
+    }
+
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'trainer') {
+        header("Location: ../../login.php");
+        exit();
+    }
+}
+
+function registerForCourse($userId, $courseId)
+{
+    global $connect;
+
+    // Periksa apakah pengguna sudah mendaftar kursus ini
+    $checkQuery = "SELECT * FROM course_registrations WHERE user_id = $userId AND course_id = $courseId";
+    $checkResult = mysqli_query($connect, $checkQuery);
+    if (mysqli_num_rows($checkResult) > 0) {
+        return ['status' => 'error', 'message' => 'Anda sudah terdaftar dalam kursus ini.'];
+    }
+
+    // Daftarkan pengguna ke kursus
+    $query = "INSERT INTO course_registrations (user_id, course_id) VALUES ($userId, $courseId)";
+    if (mysqli_query($connect, $query)) {
+        return ['status' => 'success', 'message' => 'Berhasil mendaftar dalam kursus ini.'];
+    }
+
+    return ['status' => 'error', 'message' => 'Gagal mendaftar kursus.'];
+}
 
 
 // Fungsi untuk menangani unggahan file

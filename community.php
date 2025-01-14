@@ -53,7 +53,6 @@ $portofolios = getPortofolios();
                 <button class="portofolio-btn portofolio-next">→</button>
 
                 <div class="portofolio-track">
-                    <!-- Graphic Design portofolio -->
                     <?php foreach ($portofolios as $portofolio): ?>
                         <div class="portofolio-item">
                             <img src="./pages/admin/portofolio/<?= htmlspecialchars($portofolio['image']); ?>" alt="Graphic Design portofolio" class="portofolio-image">

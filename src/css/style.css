@@ -2766,6 +2766,7 @@ article:has(:hover, :focus) {
 .view-all-link .fa-arrow-right {
     font-size: 1.2rem;
 }
+
 /* Media Queries */
 @media screen and (max-width: 768px) {
     .course-section {
