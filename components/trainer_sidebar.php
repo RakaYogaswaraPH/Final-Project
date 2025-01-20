@@ -4,7 +4,7 @@ function renderSidebar($activeMenu)
     $menuItems = [
         'fasilitator' => ['href' => 'home.php', 'icon' => 'fas fa-chalkboard-teacher', 'label' => 'Pengajuan Fasilitator'],
         'kelas' => ['href' => 'classroom.php', 'icon' => 'fas fa-chalkboard', 'label' => 'Daftar Kelas'],
-        'peserta' => ['href' => 'participant.php', 'icon' => 'fas fa-user-friends', 'label' => 'Peserta'],
+        'peserta' => ['href' => 'participant.php', 'icon' => 'fas fa-user-friends', 'label' => 'Daftar Peserta'],
     ];
 ?>
     <section class="sidebar">

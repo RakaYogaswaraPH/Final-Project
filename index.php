@@ -27,7 +27,7 @@ $testimonials = getTestimonials();
     <header>
         <nav>
             <div class="wrapper">
-                <div class="logo"> <a href="index.html" class="logo d-flex align-items-center">
+                <div class="logo"> <a class="logo d-flex align-items-center">
                         <img src="assets/img/luarsekolah-logo.png" alt="logo">
                     </a>
                 </div>

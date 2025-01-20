@@ -7,11 +7,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
     exit();
 }
 
+// Ambil ID dari URL
+$courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $fasilitator = getTrainerByCourseId($courseId);
 // Ambil ID pengguna dari sesi
 $userId = $_SESSION['user_id'];
-// Ambil ID dari URL
-$courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 // Ambil data course berdasarkan ID
 $course = readCourseById($courseId);
 if (!$course) {

@@ -45,7 +45,7 @@ $portofolios = getPortofolios();
             <div class="cloud-decoration cloud-right"></div>
 
             <h1 class="program-heading">
-                Portoflio Para Alumni <span>Luarsekolah</span>
+                Portofolio Para Alumni <span>Luarsekolah</span>
             </h1>
 
             <div class="portofolio-wrapper">
