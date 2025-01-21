@@ -10,14 +10,31 @@ a {
   background-image: url(../../assets/images/isw.png);
   background-repeat: no-repeat;
   background-size: contain;
+  background-color: #cb1515;
   color: #666666;
   height: 90vh;
   position: relative;
   z-index: 1;
 }
 
+.hero-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 60px 200px;
+  background-image: url(../../assets/images/prakerja.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #2a75ca;
+  background-size: contain;
+  color: #666666;
+  height: 90vh;
+  position: relative;
+  z-index: 1;
+}
 
-.hero::before {
+.hero::before,
+.hero-2::before {
   content: "";
   position: absolute;
   top: 0;
@@ -34,13 +51,24 @@ a {
   max-width: 50%;
 }
 
+.hero-2 .isw-luarsekolah {
+  text-align: left;
+  line-height: 1.8;
+  max-width: 50%;
+}
+
 .isw-luarsekolah h1 {
   font-size: 45px;
   margin-bottom: 30px;
+  color: white;
 }
 
 .isw-luarsekolah .highlight-h1 {
-  color: red;
+  color: #f82f2f;
+}
+
+.isw-luarsekolah .highlight-h1-2 {
+  color: #479dff;
 }
 
 .isw-luarsekolah p {

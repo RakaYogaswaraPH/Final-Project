@@ -33,8 +33,7 @@ $courses = readCourses();
             <div class="isw-luarsekolah">
                 <h1><span class="highlight-h1">Indonesia </span> Skills Week</h1>
                 <p>Indonesia Skills Week adalah event dua bulanan dari Prakerja yang terbuka untuk semua golongan,
-                    termasuk
-                    alumni Prakerja.</p>
+                    termasuk alumni Prakerja.</p>
             </div>
         </section>
         <!-- End Of Hero Section -->
@@ -77,7 +76,7 @@ $courses = readCourses();
 
         <!-- Our Course Section -->
         <section class="course-section">
-            <h1>Kelas Terpopuler <span class="highlight">Prakerja</span></h1>
+            <h1>Kelas Terpopuler <span class="highlight">ISW</span></h1>
             <section class="articles">
                 <?php foreach ($courses as $course): ?>
                     <article>

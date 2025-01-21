@@ -336,7 +336,8 @@ $testimonials = getTestimonials();
                         <h1 class="program-title">Kartu Prakerja</h1>
                         <p class="program-description">Program Pengembangan Keterampilan untuk Pencari Kerja dan Pekerja
                             yang ingin meningkatkan kompetensi.</p>
-                        <button class="program-button">Lihat Selengkapnya</button>
+                        <a href="prakerja.php"><button class="program-button">Lihat
+                                Selengkapnya</button></a>
                     </div>
                 </div>
 
@@ -357,7 +358,7 @@ $testimonials = getTestimonials();
                         <h1 class="program-title">Prakerja ISW</h1>
                         <p class="program-description">Indonesia Skills Week: Event dua bulanan Prakerja untuk semua
                             golongan, termasuk alumni Luarsekolah.</p>
-                        <a href="isw.php" target="_blank"><button class="program-button">Lihat
+                        <a href="isw.php"><button class="program-button">Lihat
                                 Selengkapnya</button></a>
                     </div>
                 </div>
@@ -397,7 +398,7 @@ $testimonials = getTestimonials();
                 ?>
             </section>
             <div class="view-all">
-                <a href="isw.php" class="view-all-link">
+                <a href="prakerja.php" class="view-all-link">
                     Lihat semua kelas
                     <i class="fas fa-arrow-right"></i>
                 </a>
