@@ -25,6 +25,7 @@ a {
   background-image: url(../../assets/images/prakerja.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-position-y: 45px; 
   background-color: #2a75ca;
   background-size: contain;
   color: #666666;
