@@ -18,25 +18,9 @@ if (!$course) {
     die("Course tidak ditemukan.");
 }
 
-
-// Proses pengajuan kelas
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $courseId = intval($_POST['course_id']); // Ambil ID kursus dari form
-
-    // Panggil fungsi untuk mendaftar
-    $result = registerForCourse($userId, $courseId);
-
-    // Tampilkan pesan hasil
-    if ($result['status'] === 'success') {
-        echo "<script>alert('{$result['message']}');</script>";
-    } else {
-        echo "<script>alert('{$result['message']}');</script>";
-    }
-}
-
-
+// Cek status pendaftaran
+$isRegistered = isUserRegistered($userId, $courseId);
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 
@@ -54,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
 
@@ -82,10 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
                 <div class="price-section">
                     <div class="price">Rp<?= number_format($course['price'], 0, ',', '.'); ?>,-</div>
-                    <form action="" method="POST">
-                        <input type="hidden" name="course_id" value="<?= $courseId; ?>">
-                        <button type="submit" name="register" class="voucher-btn">Pilih Kelas</button>
-                    </form>
+                    <?php if (!$isRegistered): ?>
+                        <form action="" method="POST">
+                            <input type="hidden" name="course_id" value="<?= $courseId; ?>">
+                            <button type="submit" name="register" class="voucher-btn">Pilih Kelas</button>
+                        </form>
+                    <?php else: ?>
+                        <button class="voucher-btn" disabled style="background-color: #6c757d;">Sudah Terdaftar</button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -125,5 +116,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
 </body>
 <script src="../../src/js/script.js"></script>
+<script src="../../src/js/toastr.js"></script>
+<?php
+// Proses pengajuan kelas
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $courseId = intval($_POST['course_id']); // Ambil ID kursus dari form
+
+    // Panggil fungsi untuk mendaftar
+    $result = registerForCourse($userId, $courseId);
+
+    // Tampilkan pesan hasil menggunakan toastr
+    if ($result['status'] === 'success') {
+        echo "<script>toastr.success('" . addslashes($result['message']) . "');</script>";
+    } else {
+        echo "<script>toastr.error('" . addslashes($result['message']) . "');</script>";
+    }
+}
+?>
+
 
 </html>

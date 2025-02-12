@@ -1,0 +1,137 @@
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 2% auto;
+    /* Reduced from 5% */
+    width: 80%;
+    /* Reduced from 90% */
+    max-width: 1000px;
+    /* Reduced from 1200px */
+    border-radius: 20px;
+    animation: modalFade 0.3s ease-in-out;
+}
+
+.modal-card {
+    padding: 15px;
+    /* Reduced from 20px */
+}
+
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #24c699;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close-button:hover {
+    color: #1fb082;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modified program container styles for modal */
+.modal .program-container {
+    padding: 20px;
+    /* Reduced from 30px */
+    background-color: #fff;
+}
+
+.modal .program-heading {
+    font-size: 28px;
+    /* Reduced from 36px */
+    margin-bottom: 30px;
+    /* Reduced from 40px */
+}
+
+.modal .program-wrapper {
+    gap: 20px;
+    /* Reduced from 25px */
+}
+
+.modal .program {
+    width: 250px;
+    /* Reduced from 300px */
+}
+
+.modal .program-image {
+    height: 160px;
+    /* Reduced from 200px */
+}
+
+.modal .program-content {
+    padding: 20px;
+    /* Reduced from 30px 25px */
+}
+
+.modal .program-title {
+    font-size: 21px;
+    /* Reduced from 24px */
+    margin-bottom: 12px;
+    /* Reduced from 15px */
+}
+
+.modal .program-description {
+    font-size: 14px;
+    /* Reduced from 16px */
+    margin-bottom: 20px;
+    /* Reduced from 25px */
+}
+
+.modal .program-button {
+    padding: 12px 25px;
+    /* Reduced from 14px 30px */
+    font-size: 14px;
+    /* Reduced from 15px */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 90%;
+    }
+
+    .modal .program-container {
+        padding: 15px;
+    }
+
+    .modal .program {
+        width: 220px;
+        /* Even smaller on mobile */
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .modal .program {
+        width: 100%;
+        max-width: 300px;
+        /* Reduced from 400px */
+    }
+}

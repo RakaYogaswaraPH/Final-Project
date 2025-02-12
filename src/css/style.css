@@ -2818,7 +2818,7 @@ article:has(:hover, :focus) {
 
 .slider-container {
     display: flex;
-    gap: 25px;
+    gap: 20px;
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 

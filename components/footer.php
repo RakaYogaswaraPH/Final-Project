@@ -41,12 +41,10 @@
 
         <div class="footer-content-tentang">
             <ul>
-                <li><b>Tentang</b></li>
+                <li><b>Luarsekolah</b></li>
                 <li><a href="index.php#about">Tentang Kami</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Komunitas</a></li>
-                <li><a href="#">Promo</a></li>
-                <li><a href="community.php">Kegiatan</a></li>
+                <li><a href="index.php#team">Tim Kami</a></li>
+                <li><a href="community.php">Komunitas</a></li>
             </ul>
         </div>
         <div class="footer-content-program">
@@ -60,9 +58,8 @@
         <div class="footer-content-dukungan">
             <ul>
                 <li><b>Dukungan</b></li>
-                <li><a href="#">Bantuan</a></li>
-                <li><a href="#">Syarat & Ketentuan</a></li>
-                <li><a href="#">Kebijakan Privasi</a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=628112021444&text=Halo%20Luarsekolah" target="_blank">Bantuan</a></li>
+                <li><a href="mailto:info@luarsekolah.com?subject=Pengajuan Kerjasama">Kolaborasi & Kerjasama</a></li>
             </ul>
         </div>
     </div>

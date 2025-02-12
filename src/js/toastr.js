@@ -16,3 +16,31 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+    const chk = document.getElementById('chk');
+
+    // Fungsi untuk menangani form yang aktif
+    function handleFormState() {
+        const selectedForm = localStorage.getItem('selectedForm');
+
+        if (selectedForm === 'signup') {
+            chk.checked = true;
+        } else if (selectedForm === 'login') {
+            chk.checked = false;
+        }
+
+        // Hapus data dari localStorage setelah digunakan
+        localStorage.removeItem('selectedForm');
+    }
+
+    // Jalankan handler saat halaman dimuat
+    handleFormState();
+
+    // Tambahkan event listener untuk menghandle perubahan manual pada checkbox
+    chk.addEventListener('change', function () {
+        // Update URL tanpa me-refresh halaman
+        const newHash = this.checked ? '#signup' : '#login';
+        history.pushState(null, '', newHash);
+    });
+});

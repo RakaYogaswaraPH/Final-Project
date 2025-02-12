@@ -45,13 +45,13 @@ $courses = readCourses();
                 <li id="timeline-item-1" style="--accent-color:#41516C">
                     <div class="timeline-date">Buat Akun Prakerja</div>
                     <div class="timeline-title">Buat Akun Prakerja
-                        Yuk daftar terlebih dahulu di <a href="https://dashboard.prakerja.go.id/"
+                        Yuk daftar terlebih dahulu di <a href="https://dashboard.prakerja.go.id"
                             target="_blank">dashboard.prakerja.go.id</a></div>
                 </li>
                 <li id="timeline-item-2" style="--accent-color:#FBCA3E">
                     <div class="timeline-date">Masuk Ke Website ISW</div>
                     <div class="timeline-title">Gunakan akun Prakerja kamu di web <a
-                            href="https://skillsweek.prakerja.go.id/" target="_blank">skillsweek.prakerja.go.id/</a>
+                            href="https://skillsweek.prakerja.go.id" target="_blank" class="links">skillsweek.prakerja.go.id</a>
                     </div>
                 </li>
                 <li id="timeline-item-3" style="--accent-color:#E24A68">
@@ -68,7 +68,7 @@ $courses = readCourses();
                 <li id="timeline-item-5" style="--accent-color:#4CADAD">
                     <div class="timeline-date">Mulai Pelatihan</div>
                     <div class="timeline-title">Cari kelas yang sudah kamu dapatkan Kode Promonya di <a
-                            href="https://www.luarsekolah.com/" target="_blank"></a>www.luarsekolah.com</div>
+                            href="https://www.luarsekolah.com" target="_blank">www.luarsekolah.com</a></div>
                 </li>
             </ul>
         </section>
@@ -108,5 +108,6 @@ $courses = readCourses();
 
 </body>
 <script src="src/js/script.js"></script>
+<script src="src/js/navbar_handler.js"></script>
 
 </html>

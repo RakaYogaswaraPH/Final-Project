@@ -20,6 +20,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         'title' => $row['title']
     ];
 }
+
+$courses = readCourses();
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +34,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <link rel="stylesheet" href="../../src/css/style.css">
     <link rel="stylesheet" href="../../src/css/user.css">
     <link rel="stylesheet" href="../../src/css/user_navbar.css">
+    <link rel="stylesheet" href="../../src/css/user_modal.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,13 +43,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 
 <body>
-
     <!-- Navigation Bar -->
     <?php include '../../components/user_navbar.php'; ?>
     <!-- End Of Navigation Bar -->
@@ -69,7 +68,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 <?php else: ?>
                     <p>Anda belum memilih kelas Luarsekolah. Ayo mulai perjalanan mu menjadi talenta profesional.</p>
-                    <a href="isw.php"><button class="subscription-btn">Pilih Kelas</button></a>
+                    <a href=""><button class="subscription-btn">Pilih Kelas</button></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -85,7 +84,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <?php foreach ($kelasTerpilih as $kelas): ?>
                         <div class="course-item">
                             <div><?= htmlspecialchars($kelas['title']); ?></div>
-                            <a href="#" class="continue-btn">Lanjutkan</a>
+                            <a href="program.php?id=<?= $kelas['id']; ?>" class="continue-btn">Lanjutkan</a>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -115,12 +114,63 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <?php endif; ?>
             </div>
         </div>
-    </main>
 
+        <!-- Add this modal HTML structure at the end of your home.php file, before closing body tag -->
+        <div id="programModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div class="modal-card">
+                    <!-- Program Section -->
+                    <section class="program-container" id="program">
+                        <h1 class="program-heading">
+                            <span>Program </span>Luar Sekolah
+                        </h1>
+                        <div class="program-wrapper">
+                            <div class="program">
+                                <img src="../../assets/img/1-program-prakerja.png" alt="Program 1" class="program-image">
+                                <div class="program-content">
+                                    <h1 class="program-title">Kartu Prakerja</h1>
+                                    <p class="program-description">Program Pengembangan Keterampilan untuk Pencari Kerja dan Pekerja
+                                        yang ingin meningkatkan kompetensi.</p>
+                                    <a href="prakerja.php"><button class="program-button">Lihat
+                                            Selengkapnya</button></a>
+                                </div>
+                            </div>
+
+                            <div class="program">
+                                <img src="../../assets/img/2-program-belajarbekerja.png" alt="Program 2" class="program-image">
+                                <div class="program-content">
+                                    <h1 class="program-title">Belajar Bekerja</h1>
+                                    <p class="program-description">Dirancang untuk siap menghadapi industri dan mendapatkan
+                                        pekerjaan yang diinginkan.</p>
+                                    <a href="https://belajarbekerja.com/" target="_blank"><button class="program-button">Lihat
+                                            Selengkapnya</button></a>
+                                </div>
+                            </div>
+
+                            <div class="program">
+                                <img src="../../assets/img/3-program-isw.png" alt="Program 3" class="program-image">
+                                <div class="program-content">
+                                    <h1 class="program-title">Prakerja ISW</h1>
+                                    <p class="program-description">Indonesia Skills Week: Event dua bulanan Prakerja untuk semua
+                                        golongan, termasuk alumni Luarsekolah.</p>
+                                    <a href="isw.php"><button class="program-button">Lihat
+                                            Selengkapnya</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    </main>
     <!-- Footer -->
     <?php include '../../components/user_footer.php'; ?>
     <!-- End Of Footer -->
 </body>
+
 <script src="../../src/js/script.js"></script>
+<script src="../../src/js/user_modal.js"></script>
 
 </html>

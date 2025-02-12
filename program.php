@@ -49,7 +49,7 @@ $fasilitator = getTrainerByCourseId($courseId);
 
                 <div class="price-section">
                     <div class="price">Rp<?= number_format($course['price'], 0, ',', '.'); ?>,-</div>
-                    <a href="#" class="voucher-btn">Gunakan Voucher Prakerja</a>
+                    <a href="login.php" class="voucher-btn">Pilih Kelas</a>
                 </div>
             </div>
         </div>
@@ -83,11 +83,25 @@ $fasilitator = getTrainerByCourseId($courseId);
     </div>
     <!-- End Of Course Section -->
 
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Perhatian</h2>
+            <p>Silahkan masuk atau daftar akun terlebih dahulu untuk memilih kelas ini.</p>
+            <div class="modal-buttons">
+                <a href="login.php" class="modal-btn login-btn" data-form="login">Masuk</a>
+                <a href="login.php" class="modal-btn register-btn" data-form="signup">Daftar</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <?php include 'components/footer.php'; ?>
     <!-- End Of Footer -->
 
 </body>
 <script src="src/js/script.js"></script>
+<script src="src/js/modal_handler.js"></script>
+<script src="src/js/navbar_handler.js"></script>
 
 </html>

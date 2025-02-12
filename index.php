@@ -24,41 +24,7 @@ $testimonials = getTestimonials();
 
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <div class="wrapper">
-                <div class="logo"> <a class="logo d-flex align-items-center">
-                        <img src="assets/img/luarsekolah-logo.png" alt="logo">
-                    </a>
-                </div>
-                <input type="radio" name="slider" id="menu-btn">
-                <input type="radio" name="slider" id="close-btn">
-                <ul class="nav-links">
-                    <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-                    <li><a href="#">Beranda</a></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li>
-                        <a class="desktop-item">Program</a>
-                        <input type="checkbox" id="showDrop">
-                        <label for="showDrop" class="mobile-item">Program</label>
-                        <ul class="drop-menu">
-                            <li><a href="prakerja.php">Prakerja</a></li>
-                            <li><a href="https://belajarbekerja.com/" target="_blank">Belajar Bekerja</a></li>
-                            <li><a href="isw.php">ISW</a></li>
-                            <li><a href="community.php">Komunitas</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="login.php" class="">Masuk</a></li>
-                    <li><a href="login.php" class="">Daftar</a></li>
-                </ul>
-                <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
-            </div>
-        </nav>
-    </header>
-
-    <button id="back-to-top" class="back-to-top">
-        <i class="ri-arrow-up-s-line"></i>
-    </button>
+    <?php include 'components/navbar.php'; ?>
     <!-- End Of Navigation Bar -->
 
     <main>
@@ -68,11 +34,11 @@ $testimonials = getTestimonials();
                 <div class="info">
                     <h1>Luar Sekolah</h1>
                     <h2><span id="dynamic-text"></span> #sampaijadibisa</h2>
-                    <p>Mulai kembangkan karier dan keahlian mu sebagai generasi muda Indonesia <span
-                            id="tagline">#sampaijadibisa.</span>
+                    <p>Mulai kembangkan karier dan keahlian mu sebagai generasi muda Indonesia <span id="tagline">#sampaijadibisa.</span>
                     </p>
                     <a href="#program">Bergabung Sekarang <i class="ri-shake-hands-fill"></i></a>
                 </div>
+
                 <div class="hero-image">
                     <img src="assets/animation/LS.png" alt="Hero Image">
                 </div>
@@ -103,6 +69,7 @@ $testimonials = getTestimonials();
                             Indonesia untuk belajar dan berkembang </p>
                     </div>
                 </div>
+
                 <div class="slide-luarsekolah slide-2">
                     <div class="content-slide-luarsekolah">
                         <h1>Berawal Dari Kenyataan Pendidikan Saat Ini</h1>
@@ -111,6 +78,7 @@ $testimonials = getTestimonials();
                         <p>Perusahaan sulit mencari talenta siap bersaing.</p>
                     </div>
                 </div>
+
                 <div class="slide-luarsekolah slide-3">
                     <div class="content-slide-luarsekolah">
                         <h1>Maka Demikian...</h1>
@@ -156,6 +124,7 @@ $testimonials = getTestimonials();
                         <li>Mendorong kolaborasi melalui pembelajaran kelompok.</li>
                     </ul>
                 </div>
+
                 <div class="animation-misi">
                     <img src="assets/animation/three.png" alt="Three">
                 </div>
@@ -169,6 +138,7 @@ $testimonials = getTestimonials();
                 <h2>Kenapa Luar Sekolah Berbeda</h2>
                 <p>Kami memiliki nilai yang dijadikan inspirasi kami untuk terus berkembang</p>
             </div>
+
             <div class="value-content">
                 <div class="value-item">
                     <img src="assets/animation/lulu-1.png" alt="Lulu">
@@ -191,24 +161,28 @@ $testimonials = getTestimonials();
             <div class="benefit-header">
                 <h2>Solusi <span>Yang Kami Berikan</span></h2>
             </div>
+
             <div class="benefit-grid">
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-1.png" alt="Ikon 1">
                     <h3>Memberdayakan lulusan untuk dunia kerja.</h3>
                     <p>Kami membangun kurikulum yang kami rancang dengan kebutuhan industri, agar siap menghadapi dunia kerja.</p>
                 </div>
+
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-2.png" alt="Ikon 2">
                     <h3>Memberikan Akses yang Mudah dan Berkualitas.</h3>
                     <p>Platform kami memberikan akses pendidikan yang praktis, efektif, dan berkualitas untuk semua
                         pengguna.</p>
                 </div>
+
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-3.png" alt="Ikon 3">
                     <h3>Menawarkan Kelas dengan Harga Terjangkau.</h3>
                     <p>Mempelajari skill baru <span class="highlight">#sampaijadibisa</span> tidak perlu mahal! Jadi, kamu
                         bisa menyesuaikan dengan kelas impianmu.</p>
                 </div>
+
                 <div class="benefit-item">
                     <img src="assets/icon/keunggulan-4.png" alt="Ikon 4">
                     <h3>Masuk Jurusan yang Salah? Tidak Perlu Cemas!</h3>
@@ -224,6 +198,7 @@ $testimonials = getTestimonials();
             <div class="achievement-img">
                 <img src="assets/animation/eko.png" alt="Eko">
             </div>
+
             <div class="achievement-content">
                 <h1>Pencapaian</h1>
                 <p>
@@ -231,6 +206,7 @@ $testimonials = getTestimonials();
                     yang lebih hebat.
                 </p>
             </div>
+
             <div class="achievement-total">
                 <div>
                     <h4>Total User</h4>
@@ -290,7 +266,7 @@ $testimonials = getTestimonials();
         <!-- End Of Partnership Section -->
 
         <!-- Our Team Section -->
-        <section class="team-section">
+        <section class="team-section" id="team">
             <h1><span class="highlight">Tim</span> Luar Biasa Kami</h1>
             <div class="team-container">
                 <div class="team-member">
@@ -373,7 +349,7 @@ $testimonials = getTestimonials();
                 <?php
                 $counter = 0;
                 foreach ($courses as $course):
-                    if ($counter >= 3) break; // Stop after 3 courses
+                    if ($counter >= 3) break;
                 ?>
                     <article>
                         <div class="article-wrapper">
@@ -497,6 +473,7 @@ $testimonials = getTestimonials();
                     </div>
                 </div>
             </div>
+            <!-- End Of Contact Section -->
 
             <!-- Collabs -->
             <div class="colaboration">
@@ -512,86 +489,16 @@ $testimonials = getTestimonials();
             </div>
         </div>
         <!-- End Of Collabs  -->
-        <!-- End Of Contact Section -->
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container-footer">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="assets/img/luarsekolah-logo.png" alt="" width="80px">
-                </div>
-                <div class="footer-info">
-                    <p>
-                        Luarsekolah adalah platform belajar alternatif yang menawarkan kelas online dan offline untuk
-                        pembelajaran non-formal secara fleksibel
-                    </p>
-                    <P>PT Teknologi Edukasi Indonesia</P>
-
-                    <div class="footer-social">
-                        <a href="https://www.linkedin.com/company/luarsekolah-com" target="_blank">
-                            <img src="assets/icon/linkedin.png" alt="LinkedIn">
-                        </a>
-                        <a href="https://www.tiktok.com/@luarsekolahofficial" target="_blank">
-                            <img src="assets/icon/tiktok.png" alt="TikTok">
-                        </a>
-                        <a href="https://www.instagram.com/luarsekolah/" target="_blank">
-                            <img src="assets/icon/instagram.png" alt="Instagram">
-                        </a>
-                        <a href="https://www.facebook.com/@luarsekolahofficial/?mibextid=ZbWKwL" target="_blank">
-                            <img src="assets/icon/facebook.png" alt="Facebook">
-                        </a>
-                        <a href="https://x.com/luarsekolah/" target="_blank">
-                            <img src="assets/icon/twitter.png" alt="Twitter">
-                        </a>
-                        <a href="https://www.youtube.com/@luarsekolah" target="_blank">
-                            <img src="assets/icon/youtube.png" alt="YouTube">
-                        </a>
-
-                    </div>
-                    <div class="footer-playstore">
-                        <a href="https://play.google.com/store/apps/details?id=com.luarsekolah.mobile"
-                            target="_blank"><img src="assets/icon/PlayStore.png" alt="Playstore"></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-content-tentang">
-                <ul>
-                    <li><b>Tentang</b></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Komunitas</a></li>
-                    <li><a href="#">Promo</a></li>
-                    <li><a href="activity.html" target="_blank">Kegiatan</a></li>
-                </ul>
-            </div>
-            <div class="footer-content-program">
-                <ul>
-                    <li><b>Program</b></li>
-                    <li><a href="#">Prakerja</a></li>
-                    <li><a href="https://belajarbekerja.com/" target="_blank">Belajar Bekerja</a></li>
-                    <li><a href="isw.html" target="_blank">ISW (Indonesia Skill Week)</a></li>
-                </ul>
-            </div>
-            <div class="footer-content-dukungan">
-                <ul>
-                    <li><b>Dukungan</b></li>
-                    <li><a href="#">Bantuan</a></li>
-                    <li><a href="#">Syarat & Ketentuan</a></li>
-                    <li><a href="#">Kebijakan Privasi</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy;<span id="current-year"></span> Luarsekolah • All Rights Reserved</p>
-        </div>
-    </footer>
+    <?php include 'components/footer.php'; ?>
     <!-- End Of Footer -->
+
 
 </body>
 <script src="src/js/script.js"></script>
 <script src="src/js/testimonial.js"></script>
+<script src="src/js/navbar_handler.js"></script>
 
 </html>

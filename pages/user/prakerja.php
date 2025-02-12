@@ -17,7 +17,7 @@ $courses = readCourses();
     <link rel="stylesheet" href="../../src/css/style.css">
     <link rel="stylesheet" href="../../src/css/isw.css">
     <link rel="stylesheet" href="../../src/css/user_navbar.css">
-    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,42 +41,6 @@ $courses = readCourses();
             </div>
         </section>
         <!-- End Of Hero Section -->
-
-        <!-- Timeline Section -->
-        <section id="timeline">
-            <h1 id="timeline-header">Cara Mengikuti ISW di Luarsekolah</h1>
-            <ul id="timeline-list">
-                <li id="timeline-item-1" style="--accent-color:#41516C">
-                    <div class="timeline-date">Buat Akun Prakerja</div>
-                    <div class="timeline-title">Buat Akun Prakerja
-                        Yuk daftar terlebih dahulu di <a href="https://dashboard.prakerja.go.id/"
-                            target="_blank">dashboard.prakerja.go.id</a></div>
-                </li>
-                <li id="timeline-item-2" style="--accent-color:#FBCA3E">
-                    <div class="timeline-date">Masuk Ke Website ISW</div>
-                    <div class="timeline-title">Gunakan akun Prakerja kamu di web <a
-                            href="https://skillsweek.prakerja.go.id/" target="_blank">skillsweek.prakerja.go.id/</a>
-                    </div>
-                </li>
-                <li id="timeline-item-3" style="--accent-color:#E24A68">
-                    <div class="timeline-date">Pilih Pelatihan Luarsekolah</div>
-                    <div class="timeline-title">kamu bisa mencari dan ambil pelatihan yang kamu minati di Luarsekolah.
-                    </div>
-                </li>
-                <li id="timeline-item-4" style="--accent-color:#1B5F8C">
-                    <div class="timeline-date">Cek Kode di Email</div>
-                    <div class="timeline-title">Kamu akan mendapatkan Kode Promo yang dikirimkan ke email yang terdaftar
-                        di
-                        Prakerja</div>
-                </li>
-                <li id="timeline-item-5" style="--accent-color:#4CADAD">
-                    <div class="timeline-date">Mulai Pelatihan</div>
-                    <div class="timeline-title">Cari kelas yang sudah kamu dapatkan Kode Promonya di <a
-                            href="https://www.luarsekolah.com/" target="_blank"></a>www.luarsekolah.com</div>
-                </li>
-            </ul>
-        </section>
-        <!-- End Of Timeline Section -->
 
         <!-- Our Course Section -->
         <section class="course-section">
@@ -107,7 +71,7 @@ $courses = readCourses();
     </main>
 
     <!-- Footer -->
-    <?php include 'components/footer.php'; ?>
+    <?php include '../../components/user_footer.php'; ?>
     <!-- End Of Footer -->
 
 </body>

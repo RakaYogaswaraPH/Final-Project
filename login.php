@@ -1,6 +1,6 @@
 <?php
-require "src/config/config.php";
 session_start();
+require "src/config/config.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['register'])) {
@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result > 0) {
             echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    toastr.success('Berhasil Mendaftar', 'Berhasil');
+                    toastr.success('Berhasil Mendaftarkan Akun', 'Berhasil');
                     setTimeout(function() {
-                        window.location.href = '/pages/user/home.php';
+                        window.location.href = './pages/user/home.php';
                     }, 2000);
                 });
             </script>";
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | #sampaijadibisa</title>
     <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/auth.css">
+    <link rel="stylesheet" href="src/css/login.css">
     <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </body>
 <script src="src/js/toastr.js"></script>
+<script src="src/js/login_handler.js"></script>
 <?php
 if (isset($_POST['login'])) {
     $email = $_POST['email'] ?? '';

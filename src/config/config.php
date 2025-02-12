@@ -1,6 +1,12 @@
 <?php
 $connect = mysqli_connect("localhost", "root", "", "db_production");
+if (!$connect) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
+
+
+// Fungsi Melakukan query ke database dan mengembalikan hasilnya dalam bentuk array asosiatif.
 function query($query)
 {
     global $connect;
@@ -13,7 +19,8 @@ function query($query)
 }
 
 
-// Fungsi untuk meresekuen ID tabel
+
+// Fungsi mengatur ulang urutan ID pada tabel yang diberikan dan mengatur nilai auto-increment. 
 function reseqTable($connect, $table, $idColumn)
 {
     // Reset ID urutan sesuai data yang ada
@@ -22,60 +29,87 @@ function reseqTable($connect, $table, $idColumn)
               ALTER TABLE $table AUTO_INCREMENT = 1;"; // Reset auto-increment ke nilai tertinggi + 1
     mysqli_multi_query($connect, $query);
 
-    // Pastikan semua query dieksekusi
     while (mysqli_next_result($connect)) {
         if (!mysqli_more_results($connect)) break;
     }
 }
 
-function getTrainerApplications()
+
+
+// Fungsi menangani unggahan file
+function handleFileUpload($file, $target_dir = "profile/")
 {
-    global $connect;
-    $query = "
-        SELECT ta.id, u.username AS trainer_name, c.title AS course_title, ta.status, ta.applied_at, ta.approved_at 
-        FROM trainer_applications ta
-        JOIN users u ON ta.user_id = u.id
-        JOIN course c ON ta.course_id = c.id
-        ORDER BY ta.applied_at ASC";
-    return query($query);
+    if (!file_exists($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
+    $fileName = time() . '_' . basename($file['name']);
+    $target_file = $target_dir . $fileName;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Validasi file
+    $check = getimagesize($file["tmp_name"]);
+    if (!$check) {
+        return ["status" => false, "message" => "File ini bukan file JPG, JPEG, atau PNG ."];
+    }
+    if ($file["size"] > 5000000) {
+        return ["status" => false, "message" => "Maaf, ukuran file ini terlalu besar !."];
+    }
+    if (!in_array($imageFileType, ["jpg", "jpeg", "png"])) {
+        return ["status" => false, "message" => "Hanya file dengan format JPG, JPEG, atau PNG yang bisa di upload !."];
+    }
+
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        return ["status" => true, "fileName" => $fileName];
+    }
+
+    return ["status" => false, "message" => "Gagal dalam mengupload file !."];
 }
 
-function ApprovedTrainer()
+
+
+//* Users Config *\\
+// Fungsi mendaftarkan pengguna baru ke dalam database.
+function registers($data)
 {
     global $connect;
-    $query = "
-        SELECT 
-            ta.id AS application_id, 
-            u.username AS trainer_name, 
-            c.id AS course_id, 
-            c.title AS course_title 
-        FROM 
-            trainer_applications ta
-        INNER JOIN 
-            users u ON ta.user_id = u.id
-        INNER JOIN 
-            course c ON ta.course_id = c.id
-        WHERE 
-            ta.status = 'Approved'
-    ";
-    $result = query($query);
-    return $result;
+    $username = htmlspecialchars($data["username"]);
+    $email = strtolower(stripslashes($data["email"]));
+    $password = mysqli_real_escape_string($connect, $data["password"]);
+    $repassword = mysqli_real_escape_string($connect, $data["re-password"]);
+
+    $result = mysqli_query($connect, "SELECT email FROM users WHERE email = '$email'");
+    if (mysqli_fetch_assoc($result)) {
+        echo "<script>alert('Email yang dimasukkan sudah terdaftar!');</script>";
+        return false;
+    }
+
+    if ($password !== $repassword) {
+        echo "<script>alert('Password tidak cocok, silakan masukkan informasi akun yang sesuai.');</script>";
+        return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = "INSERT INTO users (username, email, password, role) VALUES ('$username', '$email', '$password', 'user')";
+
+    if (mysqli_query($connect, $query)) {
+        // Get the newly inserted user's ID
+        $user_id = mysqli_insert_id($connect);
+
+        // Set session variables
+        $_SESSION['login'] = true;
+        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['role'] = 'user';
+
+        return 1;
+    }
+
+    return 0;
 }
 
 
-function getTrainerByCourseId($courseId)
-{
-    global $connect;
-    $query = "
-        SELECT u.username AS trainer_name 
-        FROM trainer_applications ta
-        JOIN users u ON ta.user_id = u.id
-        WHERE ta.course_id = $courseId AND ta.status = 'Approved'
-        LIMIT 1";
-    $result = query($query);
-    return !empty($result) ? $result[0]['trainer_name'] : "Segera";
-}
-
+// Fungsi memeriksa role admin atau bukan.
 function requireAdminRole()
 {
     if (!isset($_SESSION['role'])) {
@@ -98,6 +132,9 @@ function requireAdminRole()
     }
 }
 
+
+
+// Fungsi memeriksa role trainer atau bukan.
 function requireUserRole()
 {
     if (session_status() === PHP_SESSION_NONE) {
@@ -110,10 +147,13 @@ function requireUserRole()
     }
 }
 
+
+
+// Fungsi memeriksa role trainer atau bukan.
 function requireTrainerRole()
 {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start(); 
+        session_start();
     }
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'trainer') {
@@ -122,59 +162,44 @@ function requireTrainerRole()
     }
 }
 
+
+
+// Fungsi pengguna untuk mendaftarkan kelas
 function registerForCourse($userId, $courseId)
 {
     global $connect;
 
-    // Periksa apakah pengguna sudah mendaftar kursus ini
+    // Periksa apakah pengguna sudah mendaftar kelas ini
     $checkQuery = "SELECT * FROM course_registrations WHERE user_id = $userId AND course_id = $courseId";
     $checkResult = mysqli_query($connect, $checkQuery);
     if (mysqli_num_rows($checkResult) > 0) {
-        return ['status' => 'error', 'message' => 'Anda sudah terdaftar dalam kursus ini.'];
+        return ['status' => 'error', 'message' => 'Anda sudah terdaftar dalam kelas ini.'];
     }
 
-    // Daftarkan pengguna ke kursus
+    // Daftarkan pengguna ke kelas
     $query = "INSERT INTO course_registrations (user_id, course_id) VALUES ($userId, $courseId)";
     if (mysqli_query($connect, $query)) {
-        return ['status' => 'success', 'message' => 'Berhasil mendaftar dalam kursus ini.'];
+        return ['status' => 'success', 'message' => 'Berhasil mendaftar dalam kelas ini.'];
     }
 
-    return ['status' => 'error', 'message' => 'Gagal mendaftar kursus.'];
+    return ['status' => 'error', 'message' => 'Gagal mendaftar kelas.'];
 }
 
 
-// Fungsi untuk menangani unggahan file
-function handleFileUpload($file, $target_dir = "profile/")
+// Fungsi untuk mengecek apakah user sudah terdaftar
+function isUserRegistered($userId, $courseId)
 {
-    if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true);
-    }
-
-    $fileName = time() . '_' . basename($file['name']);
-    $target_file = $target_dir . $fileName;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Validasi file
-    $check = getimagesize($file["tmp_name"]);
-    if (!$check) {
-        return ["status" => false, "message" => "File is not an image."];
-    }
-    if ($file["size"] > 5000000) {
-        return ["status" => false, "message" => "Sorry, your file is too large."];
-    }
-    if (!in_array($imageFileType, ["jpg", "jpeg", "png", "gif"])) {
-        return ["status" => false, "message" => "Only JPG, JPEG, PNG & GIF files are allowed."];
-    }
-
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        return ["status" => true, "fileName" => $fileName];
-    }
-
-    return ["status" => false, "message" => "Failed to upload file."];
+    global $connect;
+    $stmt = $connect->prepare("SELECT COUNT(*) FROM course_registrations WHERE user_id = ? AND course_id = ?");
+    $stmt->bind_param("ii", $userId, $courseId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $count = $result->fetch_row()[0];
+    return $count > 0;
 }
 
-
-//* Users Config *\\
+//* Users Management *\\
+// Fungsi Mengambil semua data users dari tabel 'users' di database.
 function getUsers()
 {
     global $connect;
@@ -187,6 +212,8 @@ function getUsers()
 }
 
 
+
+// Fungsi mengambil jumlah total user dari tabel 'users'
 function getAllUsers()
 {
     global $connect;
@@ -196,32 +223,8 @@ function getAllUsers()
 }
 
 
-function registers($data)
-{
-    global $connect;
-    $username = htmlspecialchars($data["username"]);
-    $email = strtolower(stripslashes($data["email"]));
-    $password = mysqli_real_escape_string($connect, $data["password"]);
-    $repassword = mysqli_real_escape_string($connect, $data["re-password"]);
 
-    $result = mysqli_query($connect, "SELECT email FROM users WHERE email = '$email'");
-    if (mysqli_fetch_assoc($result)) {
-        echo "<script>alert('Email yang dimasukkan sudah terdaftar!');</script>";
-        return false;
-    }
-
-    if ($password !== $repassword) {
-        echo "<script>alert('Password tidak cocok, silakan masukkan informasi akun yang sesuai.');</script>";
-        return false;
-    }
-
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO users (username, email, password, role) VALUES ('$username', '$email', '$password', 'admin')";
-    mysqli_query($connect, $query);
-    return mysqli_affected_rows($connect);
-}
-
-
+// Fungsi menambahkan user baru ke dalam database.
 function addUsers($data)
 {
     global $connect;
@@ -257,6 +260,8 @@ function addUsers($data)
 }
 
 
+
+// Fungsi mengubah data user
 function editUsers($id, $username, $email, $role)
 {
     global $connect;
@@ -283,6 +288,8 @@ function editUsers($id, $username, $email, $role)
 }
 
 
+
+// Fungsi menghapus data user
 function deleteUsers($id)
 {
     global $connect;
@@ -321,7 +328,8 @@ function deleteUsers($id)
 
 
 
-//* Course Config *\\
+//* Course Management *\\
+// Fungsi membaca semua data dari tabel 'course'.
 function readCourses()
 {
     global $connect;
@@ -330,6 +338,8 @@ function readCourses()
 }
 
 
+
+// Fungsi mengambil jumlah total data dari tabel 'course'.
 function getAllCourse()
 {
     global $connect;
@@ -339,6 +349,8 @@ function getAllCourse()
 }
 
 
+
+// Fungsi membuat course baru
 function createCourse($data)
 {
     global $connect;
@@ -358,6 +370,8 @@ function createCourse($data)
 }
 
 
+
+// Funsi membaca data course berdasarkan ID.
 function readCourseById($id)
 {
     global $connect;
@@ -368,6 +382,8 @@ function readCourseById($id)
 }
 
 
+
+// Fungsi memperbarui data course
 function updateCourse($data)
 {
     global $connect;
@@ -404,6 +420,61 @@ function updateCourse($data)
 }
 
 
+
+// Fungsi menghapus data course
+function deleteCourse($id)
+{
+    global $connect;
+    mysqli_begin_transaction($connect);
+
+    try {
+        // Ambil informasi gambar sebelum menghapus course
+        $query = "SELECT image FROM course WHERE id = $id";
+        $result = mysqli_query($connect, $query);
+        $course = mysqli_fetch_assoc($result);
+
+        if ($course) {
+            // Hapus file gambar dari folder uploads
+            $imagePath = "banner/" . $course['image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        // Hapus course dari database
+        mysqli_query($connect, "DELETE FROM course WHERE id = $id");
+
+        // Ambil semua course yang ID-nya lebih besar dari ID yang dihapus
+        $result = mysqli_query($connect, "SELECT id FROM course WHERE id > $id ORDER BY id");
+
+        // Update ID untuk setiap course yang tersisa
+        while ($row = mysqli_fetch_assoc($result)) {
+            $old_id = $row['id'];
+            $new_id = $old_id - 1;
+
+            // Update ID course
+            mysqli_query($connect, "UPDATE course SET id = $new_id WHERE id = $old_id");
+        }
+
+        // Reset auto-increment ke nilai maksimum + 1
+        $result = mysqli_query($connect, "SELECT MAX(id) as max_id FROM course");
+        $row = mysqli_fetch_assoc($result);
+        $next_id = ($row['max_id'] ?? 0) + 1;
+        mysqli_query($connect, "ALTER TABLE course AUTO_INCREMENT = $next_id");
+
+        // Commit jika semua operasi berhasil
+        mysqli_commit($connect);
+        return true;
+    } catch (Exception $e) {
+        // Rollback jika terjadi kesalahan
+        mysqli_rollback($connect);
+        return false;
+    }
+}
+
+
+
+// Fungsi mengupload gambar banner course
 function uploadImage($file)
 {
     // Pastikan menggunakan path absolut
@@ -431,59 +502,9 @@ function uploadImage($file)
 }
 
 
-function deleteCourse($id)
-{
-    global $connect;
-    mysqli_begin_transaction($connect);
 
-    try {
-        // 1. Ambil informasi gambar sebelum menghapus course
-        $query = "SELECT image FROM course WHERE id = $id";
-        $result = mysqli_query($connect, $query);
-        $course = mysqli_fetch_assoc($result);
-
-        if ($course) {
-            // 2. Hapus file gambar dari folder uploads
-            $imagePath = "banner/" . $course['image'];
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-        }
-
-        // 3. Hapus course dari database
-        mysqli_query($connect, "DELETE FROM course WHERE id = $id");
-
-        // 4. Ambil semua course yang ID-nya lebih besar dari ID yang dihapus
-        $result = mysqli_query($connect, "SELECT id FROM course WHERE id > $id ORDER BY id");
-
-        // 5. Update ID untuk setiap course yang tersisa
-        while ($row = mysqli_fetch_assoc($result)) {
-            $old_id = $row['id'];
-            $new_id = $old_id - 1;
-
-            // Update ID course
-            mysqli_query($connect, "UPDATE course SET id = $new_id WHERE id = $old_id");
-        }
-
-        // 6. Reset auto-increment ke nilai maksimum + 1
-        $result = mysqli_query($connect, "SELECT MAX(id) as max_id FROM course");
-        $row = mysqli_fetch_assoc($result);
-        $next_id = ($row['max_id'] ?? 0) + 1;
-        mysqli_query($connect, "ALTER TABLE course AUTO_INCREMENT = $next_id");
-
-        // 7. Commit transaksi jika semua operasi berhasil
-        mysqli_commit($connect);
-        return true;
-    } catch (Exception $e) {
-        // Rollback jika terjadi kesalahan
-        mysqli_rollback($connect);
-        return false;
-    }
-}
-
-
-
-//* Testimonial Config *\\
+//* Testimonial Management *\\
+// Fungsi Mengambil semua data testimonial dari tabel 'testimonial' di database.
 function getTestimonials()
 {
     global $connect;
@@ -496,6 +517,7 @@ function getTestimonials()
 }
 
 
+// Fungsi mengambil jumlah total data dari tabel 'testimonial'.
 function getAllTestimonials()
 {
     global $connect;
@@ -505,6 +527,8 @@ function getAllTestimonials()
 }
 
 
+
+// Fungsi untuk membuat testimonial baru
 function createTestimonial($connect, $data, $file)
 {
     $upload = handleFileUpload($file);
@@ -523,14 +547,15 @@ function createTestimonial($connect, $data, $file)
     $query = "INSERT INTO testimonial (image, name, course_name, review, program_name, linkedin) 
             VALUES ('$fileName', '$name', '$course_name', '$review', '$program_name', '$linkedin')";
     if (mysqli_query($connect, $query)) {
-        return true; // Berhasil
+        return true;
     }
 
-    return false; // Gagal
+    return false;
 }
 
 
-// Fungsi untuk memperbarui testimonial
+
+// Fungsi untuk memperbaharui testimonial
 function updateTestimonial($connect, $data, $file)
 {
     $id = mysqli_real_escape_string($connect, $data['id']);
@@ -570,6 +595,7 @@ function updateTestimonial($connect, $data, $file)
 }
 
 
+
 // Fungsi untuk menghapus testimonial
 function deleteTestimonial($connect, $id)
 {
@@ -596,7 +622,8 @@ function deleteTestimonial($connect, $id)
 
 
 
-//* Users Config *\\
+//* Portofolio Management *\\
+// Fungsi Mengambil semua data portofolio dari tabel 'portofolio' di database.
 function getAllPortofolio()
 {
     global $connect;
@@ -606,7 +633,8 @@ function getAllPortofolio()
 }
 
 
-// Fungsi untuk mendapatkan semua data portofolio
+
+// Fungsi mengambil jumlah total data dari tabel 'portofolio'.
 function getPortofolios()
 {
     global $connect;
@@ -617,6 +645,8 @@ function getPortofolios()
     }
     return $rows;
 }
+
+
 
 // Fungsi untuk membuat portofolio baru
 function createPortofolio($connect, $data, $file)
@@ -643,6 +673,7 @@ function createPortofolio($connect, $data, $file)
         return false;
     }
 }
+
 
 
 // Fungsi untuk memperbarui data portofolio
@@ -691,6 +722,8 @@ function updatePortofolio($connect, $data, $file)
     }
 }
 
+
+
 // Fungsi untuk menghapus portofolio
 function deletePortofolio($connect, $id)
 {
@@ -714,4 +747,61 @@ function deletePortofolio($connect, $id)
         echo "Error: " . mysqli_error($connect);
         return false;
     }
+}
+
+
+
+//* Trainer Management *\\
+// Fungsi Mengambil data trainer yang mengajukan kelas dari database.
+function getTrainerApplications()
+{
+    global $connect;
+    $query = "
+        SELECT ta.id, u.username AS trainer_name, c.title AS course_title, ta.status, ta.applied_at, ta.approved_at 
+        FROM trainer_applications ta
+        JOIN users u ON ta.user_id = u.id
+        JOIN course c ON ta.course_id = c.id
+        ORDER BY ta.applied_at ASC";
+    return query($query);
+}
+
+
+
+// Fungsi mengambil data trainer yang telah disetujui dari database.
+function ApprovedTrainer()
+{
+    global $connect;
+    $query = "
+        SELECT 
+            ta.id AS application_id, 
+            u.username AS trainer_name, 
+            c.id AS course_id, 
+            c.title AS course_title 
+        FROM 
+            trainer_applications ta
+        INNER JOIN 
+            users u ON ta.user_id = u.id
+        INNER JOIN 
+            course c ON ta.course_id = c.id
+        WHERE 
+            ta.status = 'Approved'
+    ";
+    $result = query($query);
+    return $result;
+}
+
+
+
+// Fungsi Mengambil nama trainer berdasarkan ID course.
+function getTrainerByCourseId($courseId)
+{
+    global $connect;
+    $query = "
+        SELECT u.username AS trainer_name 
+        FROM trainer_applications ta
+        JOIN users u ON ta.user_id = u.id
+        WHERE ta.course_id = $courseId AND ta.status = 'Approved'
+        LIMIT 1";
+    $result = query($query);
+    return !empty($result) ? $result[0]['trainer_name'] : "Segera";
 }

@@ -10,14 +10,15 @@ $username = $_SESSION['username'] ?? 'Administrator';
         <div class="nav-container-custom">
             <ul class="nav-links-custom">
                 <li><a href="home.php">Beranda</a></li>
+                <li><a href="community.php">Komunitas</a></li>
                 <li>
                     <a href="#" class="desktop-item-custom">Program</a>
                     <input type="checkbox" id="showDrop-custom">
                     <label for="showDrop-custom" class="mobile-item-custom">Program</label>
                     <ul class="drop-menu-custom">
                         <li><a href="prakerja.php">Prakerja</a></li>
+                        <li><a href="prakerja.php">Belajar Bekerja</a></li>
                         <li><a href="isw.php">ISW</a></li>
-                        <li><a href="community.php">Komunitas</a></li>
                     </ul>
                 </li>
             </ul>
