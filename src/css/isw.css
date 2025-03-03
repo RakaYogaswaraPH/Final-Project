@@ -1,6 +1,9 @@
 a {
   text-decoration: none;
   color: #24c699;
+}
+
+.links {
   font-weight: bold;
 }
 
@@ -27,7 +30,7 @@ a {
   background-image: url(../../assets/images/prakerja.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-position-y: 45px; 
+  background-position-y: 45px;
   background-color: #2a75ca;
   background-size: contain;
   color: #666666;
@@ -92,7 +95,7 @@ a {
   display: grid;
   align-content: center;
   gap: 2rem;
-  padding: 2rem;
+  padding: 2.5rem 150px;;
   font-family: "Poppins", sans-serif;
   color: var(--color);
   background: var(--bgColor);

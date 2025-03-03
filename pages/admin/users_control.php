@@ -59,6 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
     }
 }
 
+$role_translation = [
+    "admin" => "Administrator",
+    "user" => "Peserta",
+    "facilitator" => "Fasilitator"
+];
+
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | Dashboard</title>
     <link rel="stylesheet" href="../../src/css/admin.css">
+    <link rel="stylesheet" href="../../src/css/admin_modal.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -102,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
                         <select name="role" required>
                             <option value="Admin">Administrator</option>
                             <option value="User">Peserta</option>
-                            <option value="Trainer">Pelatih</option>
+                            <option value="facilitator">Fasilitator</option>
                         </select>
                         <section class="create-client">
                             <button type="submit" name="add_user"><i class="fas fa-plus"></i>Buat Pengguna</button>
@@ -134,26 +141,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
                                                 <td><?= $user['id']; ?></td>
                                                 <td><?= $user['username']; ?></td>
                                                 <td><?= $user['email']; ?></td>
-                                                <td><?= $user['role']; ?></td>
+                                                <td><?= isset($role_translation[$user['role']]) ? $role_translation[$user['role']] : $user['role']; ?></td>
 
                                                 <!-- User Settings -->
                                                 <td class="aksi">
-                                                    <form action="" method="POST" style="display: inline;">
-                                                        <input type="hidden" name="id" value="<?= $user['id']; ?>">
-                                                        <input type="nama" name="username" value="<?= $user['username']; ?>">
-                                                        <input type="email" name="email" value="<?= $user['email']; ?>" required>
-                                                        <select name="role" required>
-                                                            <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
-                                                            <option value="user" <?= $user['role'] == 'user' ? 'selected' : ''; ?>>User</option>
-                                                            <option value="trainer" <?= $user['role'] == 'trainer' ? 'selected' : ''; ?>>Trainer</option>
-                                                        </select>
-                                                        <section class="control-client">
-                                                            <button type="submit" name="edit_user"><i class="fas fa-edit"></i>Ubah</button>
+                                                    <section class="control-client">
+                                                        <button type="button" class="edit-btn" data-id="<?= $user['id']; ?>"
+                                                            data-username="<?= $user['username']; ?>"
+                                                            data-email="<?= $user['email']; ?>"
+                                                            data-role="<?= $user['role']; ?>">
+                                                            <i class="fas fa-edit"></i>Ubah
+                                                        </button>
+                                                        <form action="" method="POST" style="display: inline;">
+                                                            <input type="hidden" name="id" value="<?= $user['id']; ?>">
                                                             <button type="button" onclick="confirmDelete(event, this, 'delete_user')">
                                                                 <i class="fas fa-trash"></i>Hapus
                                                             </button>
-                                                        </section>
-                                                    </form>
+                                                        </form>
+                                                    </section>
 
                                                 </td>
                                             </tr>
@@ -169,9 +174,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user"])) {
             </section>
         </main>
     </div>
+
+
+    <!-- Edit User Modal -->
+    <div class="modal-overlay" id="editModalOverlay">
+        <div class="modal" id="editModal">
+            <div class="modal-header">
+                <h3 class="modal-title">Ubah Data Pengguna</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" id="editUserForm">
+                    <input type="hidden" name="id" id="editUserId">
+                    <input type="text" name="username" id="editUsername" placeholder="Nama" required>
+                    <input type="email" name="email" id="editEmail" placeholder="Email" required>
+                    <select name="role" id="editRole" required>
+                        <option value="admin">Administrator</option>
+                        <option value="user">Peserta</option>
+                        <option value="facilitator">Fasilitator</option>
+                    </select>
+                    <div class="modal-footer">
+                        <button type="button" class="modal-cancel">Batal</button>
+                        <button type="submit" name="edit_user" class="modal-submit">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="../../src/js/admin.js"></script>
-
+<script src="../../src/js/modal_user.js"></script>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_user"])) {
     $result = addUsers($_POST);

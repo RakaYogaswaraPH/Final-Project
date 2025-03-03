@@ -15,18 +15,14 @@
     position: relative;
     background-color: #fff;
     margin: 2% auto;
-    /* Reduced from 5% */
     width: 80%;
-    /* Reduced from 90% */
     max-width: 1000px;
-    /* Reduced from 1200px */
     border-radius: 20px;
     animation: modalFade 0.3s ease-in-out;
 }
 
 .modal-card {
     padding: 15px;
-    /* Reduced from 20px */
 }
 
 .close-button {

@@ -46,7 +46,7 @@ $courses = readCourses();
                     <div class="timeline-date">Buat Akun Prakerja</div>
                     <div class="timeline-title">Buat Akun Prakerja
                         Yuk daftar terlebih dahulu di <a href="https://dashboard.prakerja.go.id"
-                            target="_blank">dashboard.prakerja.go.id</a></div>
+                            target="_blank" class="links">dashboard.prakerja.go.id</a></div>
                 </li>
                 <li id="timeline-item-2" style="--accent-color:#FBCA3E">
                     <div class="timeline-date">Masuk Ke Website ISW</div>
@@ -68,7 +68,7 @@ $courses = readCourses();
                 <li id="timeline-item-5" style="--accent-color:#4CADAD">
                     <div class="timeline-date">Mulai Pelatihan</div>
                     <div class="timeline-title">Cari kelas yang sudah kamu dapatkan Kode Promonya di <a
-                            href="https://www.luarsekolah.com" target="_blank">www.luarsekolah.com</a></div>
+                            href="https://www.luarsekolah.com" target="_blank" class="links">www.luarsekolah.com</a></div>
                 </li>
             </ul>
         </section>

@@ -2,7 +2,8 @@
 session_start();
 require '../../src/config/config.php';
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-    die("Anda harus login sebagai pengguna untuk mendaftar.");
+    include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
+    exit();
 }
 $courses = readCourses();
 ?>
@@ -17,6 +18,7 @@ $courses = readCourses();
     <link rel="stylesheet" href="../../src/css/style.css">
     <link rel="stylesheet" href="../../src/css/isw.css">
     <link rel="stylesheet" href="../../src/css/user_navbar.css">
+    <link rel="stylesheet" href="../../src/css/user_footer.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,6 +77,6 @@ $courses = readCourses();
     <!-- End Of Footer -->
 
 </body>
-<script src="src/js/script.js"></script>
+<script src="../../src/js/script.js"></script>
 
 </html>

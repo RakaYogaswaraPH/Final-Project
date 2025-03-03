@@ -1,5 +1,10 @@
 <?php
-require 'src/config/config.php';
+session_start();
+require '../../src/config/config.php';
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
+    include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
+    exit();
+}
 $courses = readCourses();
 $testimonials = getTestimonials();
 ?>
@@ -11,8 +16,9 @@ $testimonials = getTestimonials();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luarsekolah | #sampaijadibisa</title>
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="stylesheet" href="../../src/css/user_navbar.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +30,7 @@ $testimonials = getTestimonials();
 
 <body>
     <!-- Navigation Bar -->
-    <?php include 'components/navbar.php'; ?>
+    <?php include '../../components/user_navbar.php'; ?>
     <!-- End Of Navigation Bar -->
 
     <main>
@@ -40,7 +46,7 @@ $testimonials = getTestimonials();
                 </div>
 
                 <div class="hero-image">
-                    <img src="assets/animation/LS.png" alt="Hero Image">
+                    <img src="../../assets/animation/LS.png" alt="Hero Image">
                 </div>
             </div>
         </section>
@@ -99,11 +105,11 @@ $testimonials = getTestimonials();
 
             <div class="content-visimisi">
                 <div class="animation-visi">
-                    <img src="assets/animation/ola.png" alt="Ola">
+                    <img src="../../assets/animation/ola.png" alt="Ola">
                 </div>
                 <div class="visi-right">
                     <h2>
-                        <img src="assets/icon/visi-icon.png" alt="Icon">
+                        <img src="../../assets/icon/visi-icon.png" alt="Icon">
                         Visi
                     </h2>
                     <p>
@@ -114,7 +120,7 @@ $testimonials = getTestimonials();
 
                 <div class="misi-left">
                     <h2>
-                        <img src="assets/icon/misi-icon.png" alt="Ikon Misi">
+                        <img src="../../assets/icon/misi-icon.png" alt="Ikon Misi">
                         Misi
                     </h2>
                     <ul>
@@ -126,7 +132,7 @@ $testimonials = getTestimonials();
                 </div>
 
                 <div class="animation-misi">
-                    <img src="assets/animation/three.png" alt="Three">
+                    <img src="../../assets/animation/three.png" alt="Three">
                 </div>
             </div>
         </section>
@@ -141,15 +147,15 @@ $testimonials = getTestimonials();
 
             <div class="value-content">
                 <div class="value-item">
-                    <img src="assets/animation/lulu-1.png" alt="Lulu">
+                    <img src="../../assets/animation/lulu-1.png" alt="Lulu">
                     <p>Relevan Dengan Zaman</p>
                 </div>
                 <div class="value-item">
-                    <img src="assets/animation/lulu-2.png" alt="Lulu">
+                    <img src="../../assets/animation/lulu-2.png" alt="Lulu">
                     <p>Berani Untuk Memulai</p>
                 </div>
                 <div class="value-item">
-                    <img src="assets/animation/lulu-3.png" alt="Lulu">
+                    <img src="../../assets/animation/lulu-3.png" alt="Lulu">
                     <p>Terbaru dan Terkurasi</p>
                 </div>
             </div>
@@ -164,27 +170,27 @@ $testimonials = getTestimonials();
 
             <div class="benefit-grid">
                 <div class="benefit-item">
-                    <img src="assets/icon/keunggulan-1.png" alt="Ikon 1">
+                    <img src="../../assets/icon/keunggulan-1.png" alt="Ikon 1">
                     <h3>Memberdayakan lulusan untuk dunia kerja.</h3>
                     <p>Kami membangun kurikulum yang kami rancang dengan kebutuhan industri, agar siap menghadapi dunia kerja.</p>
                 </div>
 
                 <div class="benefit-item">
-                    <img src="assets/icon/keunggulan-2.png" alt="Ikon 2">
+                    <img src="../../assets/icon/keunggulan-2.png" alt="Ikon 2">
                     <h3>Memberikan Akses yang Mudah dan Berkualitas.</h3>
                     <p>Platform kami memberikan akses pendidikan yang praktis, efektif, dan berkualitas untuk semua
                         pengguna.</p>
                 </div>
 
                 <div class="benefit-item">
-                    <img src="assets/icon/keunggulan-3.png" alt="Ikon 3">
+                    <img src="../../assets/icon/keunggulan-3.png" alt="Ikon 3">
                     <h3>Menawarkan Kelas dengan Harga Terjangkau.</h3>
                     <p>Mempelajari skill baru <span class="highlight">#sampaijadibisa</span> tidak perlu mahal! Jadi, kamu
                         bisa menyesuaikan dengan kelas impianmu.</p>
                 </div>
 
                 <div class="benefit-item">
-                    <img src="assets/icon/keunggulan-4.png" alt="Ikon 4">
+                    <img src="../../assets/icon/keunggulan-4.png" alt="Ikon 4">
                     <h3>Masuk Jurusan yang Salah? Tidak Perlu Cemas!</h3>
                     <p>Dengan berbagai pilihan kelas, kamu bisa membangun diri sesuai minat dan
                         bakatmu, tanpa terikat jurusan.</p>
@@ -196,7 +202,7 @@ $testimonials = getTestimonials();
         <!-- Achivement Section -->
         <section class="achievement">
             <div class="achievement-img">
-                <img src="assets/animation/eko.png" alt="Eko">
+                <img src="../../assets/animation/eko.png" alt="Eko">
             </div>
 
             <div class="achievement-content">
@@ -236,29 +242,29 @@ $testimonials = getTestimonials();
                 </div>
                 <div class="mitrascroll-container">
                     <div class="mitracarousel-primary">
-                        <img src="assets\img\mitra-perusahaan-1.png" alt="cat1" />
-                        <img src="assets\img\mitra-perusahaan-2.png" alt="cat1" />
-                        <img src="assets\img\mitra-perusahaan-3.png" alt="cat1" />
-                        <img src="assets\img\mitra-perusahaan-4.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-1.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-2.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-3.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-4.png" alt="cat1" />
                     </div>
                     <div class="mitracarousel-primary mitracarousel-secondary">
-                        <img src="assets\img\mitra-perusahaan-5.png" alt="cat1" />
-                        <img src="assets\img\mitra-perusahaan-6.png" alt="cat1" />
-                        <img src="assets\img\mitra-perusahaan-7.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-5.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-6.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-perusahaan-7.png" alt="cat1" />
                     </div>
                 </div>
 
                 <div class="mitrascroll-container1">
                     <div class="mitracarousel-primary1">
-                        <img src="assets\img\mitra-kampus-1.png" alt="cat1" />
-                        <img src="assets\img\mitra-kampus-2.png" alt="cat1" />
-                        <img src="assets\img\mitra-kampus-3.png" alt="cat1" />
-                        <img src="assets\img\mitra-kampus-4.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-1.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-2.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-3.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-4.png" alt="cat1" />
                     </div>
                     <div class="mitracarousel-primary1 mitracarousel-secondary1">
-                        <img src="assets\img\mitra-kampus-5.png" alt="cat1" />
-                        <img src="assets\img\mitra-kampus-6.png" alt="cat1" />
-                        <img src="assets\img\mitra-kampus-7.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-5.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-6.png" alt="cat1" />
+                        <img src="../../assets\img\mitra-kampus-7.png" alt="cat1" />
                     </div>
                 </div>
             </div>
@@ -272,28 +278,28 @@ $testimonials = getTestimonials();
                 <div class="team-member">
                     <div class="team-member jibril">
                         <div class="profile-picture">
-                            <img src="./assets/img/tim-luarsekolah-ceo.png" alt="M. Jibril Sobron">
+                            <img src="../../assets/img/tim-luarsekolah-ceo.png" alt="M. Jibril Sobron">
                         </div>
                         <h2>M. Jibril Sobron</h2>
                         <p>Chief Executive Officer & Co-Founder</p>
                         <div class="social-links left">
-                            <a href="mailto:jibril@luarsekolah.com"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
-                            <a href="https://www.instagram.com/jibrilsobron/" target="_blank"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
-                            <a href="https://www.linkedin.com/in/jibrilsobron/" target="_blank"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
+                            <a href="mailto:jibril@luarsekolah.com"><img src="../../assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
+                            <a href="https://www.instagram.com/jibrilsobron/" target="_blank"><img src="../../assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
+                            <a href="https://www.linkedin.com/in/jibrilsobron/" target="_blank"><img src="../../assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="team-member">
                     <div class="profile-picture">
-                        <img src="./assets/img/tim-luarsekolah-co-founder.png" alt="M. Fauzan Ahsan">
+                        <img src="../../assets/img/tim-luarsekolah-co-founder.png" alt="M. Fauzan Ahsan">
                     </div>
                     <h2>M. Fauzan Ahsan</h2>
                     <p>Technology Adviser & Co-Founder</p>
                     <div class="social-links right">
-                        <a href="mailto:fauzan.ahsan@gmail.com"><img src="./assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
-                        <a href="https://www.instagram.com/mfauzanahsan/" target="_blank"><img src="./assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
-                        <a href="https://www.linkedin.com/in/fauzanahsan/" target="_blank"><img src="./assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
+                        <a href="mailto:fauzan.ahsan@gmail.com"><img src="../../assets/icon/tim-luarsekolah-instagram.png" alt="Instagram"></a>
+                        <a href="https://www.instagram.com/mfauzanahsan/" target="_blank"><img src="../../assets/icon/tim-luarsekolah-email.png" alt="Email"></a>
+                        <a href="https://www.linkedin.com/in/fauzanahsan/" target="_blank"><img src="../../assets/icon/tim-luarsekolah-linkedin.png" alt="LinkedIn"></a>
                     </div>
                 </div>
             </div>
@@ -307,7 +313,7 @@ $testimonials = getTestimonials();
             </h1>
             <div class="program-wrapper">
                 <div class="program">
-                    <img src="./assets/img/1-program-prakerja.png" alt="Program 1" class="program-image">
+                    <img src="../../assets/img/1-program-prakerja.png" alt="Program 1" class="program-image">
                     <div class="program-content">
                         <h1 class="program-title">Kartu Prakerja</h1>
                         <p class="program-description">Program Pengembangan Keterampilan untuk Pencari Kerja dan Pekerja
@@ -318,7 +324,7 @@ $testimonials = getTestimonials();
                 </div>
 
                 <div class="program">
-                    <img src="./assets/img/2-program-belajarbekerja.png" alt="Program 2" class="program-image">
+                    <img src="../../assets/img/2-program-belajarbekerja.png" alt="Program 2" class="program-image">
                     <div class="program-content">
                         <h1 class="program-title">Belajar Bekerja</h1>
                         <p class="program-description">Dirancang untuk membuatmu siap menghadapi industri dan mendapatkan
@@ -329,7 +335,7 @@ $testimonials = getTestimonials();
                 </div>
 
                 <div class="program">
-                    <img src="./assets/img/3-program-isw.png" alt="Program 3" class="program-image">
+                    <img src="../../assets/img/3-program-isw.png" alt="Program 3" class="program-image">
                     <div class="program-content">
                         <h1 class="program-title">Prakerja ISW</h1>
                         <p class="program-description">Indonesia Skills Week: Event dua bulanan Prakerja untuk semua
@@ -362,7 +368,7 @@ $testimonials = getTestimonials();
                                 <?php endif; ?>
                                 <div class="<?= $cardClass ?>">
                                     <div class="testimonial-image">
-                                        <img src="./pages/admin/profile/<?= htmlspecialchars($testimonial['image']); ?>" alt="<?= htmlspecialchars($testimonial['name']); ?>">
+                                        <img src="../../pages/admin/profile/<?= htmlspecialchars($testimonial['image']); ?>" alt="<?= htmlspecialchars($testimonial['name']); ?>">
                                     </div>
                                     <div class="testimonial-content">
                                         <h3 class="testimonial-name"><?= htmlspecialchars($testimonial['name']); ?></h3>
@@ -452,13 +458,13 @@ $testimonials = getTestimonials();
     </main>
 
     <!-- Footer -->
-    <?php include 'components/footer.php'; ?>
+    <?php include '../../components/footers.php'; ?>
     <!-- End Of Footer -->
 
 
 </body>
-<script src="src/js/script.js"></script>
-<script src="src/js/testimonial.js"></script>
-<script src="src/js/navbar_handler.js"></script>
+<script src="../../src/js/script.js"></script>
+<script src="../../src/js/testimonial.js"></script>
+<script src="../../src/js/navbar_handler.js"></script>
 
 </html>

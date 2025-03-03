@@ -2591,7 +2591,7 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
 /* Course Section */
 .course-section {
     text-align: center;
-    padding: 60px 150px;
+    padding: 2.5rem 150px;
     background-color: #ffffff;
     color: #2d3748;
 }
@@ -2731,40 +2731,6 @@ article:has(:hover, :focus) {
     position: absolute;
     white-space: nowrap;
     width: 1px;
-}
-
-.view-all {
-    margin-top: 40px;
-    text-align: right;
-    max-width: 1200px;
-    margin-inline: auto;
-    padding-inline: 24px;
-}
-
-.view-all-link {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #24c699;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    background-color: #f8fcfa;
-    box-shadow: 0 2px 4px rgba(36, 198, 153, 0.1);
-}
-
-.view-all-link:hover {
-    color: #1fb082;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(36, 198, 153, 0.2);
-    background-color: #f0faf7;
-}
-
-.view-all-link .fa-arrow-right {
-    font-size: 1.2rem;
 }
 
 /* Media Queries */

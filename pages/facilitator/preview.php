@@ -11,7 +11,7 @@ if (!$course) {
     die("Course tidak ditemukan.");
 }
 
-$fasilitator = getTrainerByCourseId($courseId);
+$fasilitator = getFacilitatorByCourseId($courseId);
 ?>
 
 <!DOCTYPE html>

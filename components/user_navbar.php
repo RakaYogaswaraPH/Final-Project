@@ -1,15 +1,15 @@
 <?php
-$username = $_SESSION['username'] ?? 'Administrator';
+$username = $_SESSION['username'] ?? 'User';
 ?>
 
 <nav class="navbar-custom">
     <div class="wrapper-custom">
         <div class="logo-custom">
-            <img src="../../assets/img/luarsekolah-logo.png" alt="Logo">
+            <a href="index.php"><img src="../../assets/img/luarsekolah-logo.png" alt="Logo"></a>
         </div>
         <div class="nav-container-custom">
             <ul class="nav-links-custom">
-                <li><a href="home.php">Beranda</a></li>
+                <li><a href="home.php">Kelas</a></li>
                 <li><a href="community.php">Komunitas</a></li>
                 <li>
                     <a href="#" class="desktop-item-custom">Program</a>

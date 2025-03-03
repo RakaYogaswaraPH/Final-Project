@@ -119,8 +119,8 @@ function requireAdminRole()
 
     if ($_SESSION['role'] !== 'admin') {
         switch ($_SESSION['role']) {
-            case 'trainer':
-                header("Location: ../../pages/trainer/home.php");
+            case 'facilitator':
+                header("Location: ../../pages/facilitator/home.php");
                 exit();
             case 'user':
                 header("Location: ../../pages/user/home.php");
@@ -134,7 +134,7 @@ function requireAdminRole()
 
 
 
-// Fungsi memeriksa role trainer atau bukan.
+// Fungsi memeriksa role fasilitator atau bukan.
 function requireUserRole()
 {
     if (session_status() === PHP_SESSION_NONE) {
@@ -149,14 +149,14 @@ function requireUserRole()
 
 
 
-// Fungsi memeriksa role trainer atau bukan.
-function requireTrainerRole()
+// Fungsi memeriksa role fasilitator atau bukan.
+function requireFacilitatorRole()
 {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
 
-    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'trainer') {
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'facilitator') {
         header("Location: ../../login.php");
         exit();
     }
@@ -265,7 +265,7 @@ function addUsers($data)
 function editUsers($id, $username, $email, $role)
 {
     global $connect;
-    $allowedRoles = ['admin', 'user', 'trainer'];
+    $allowedRoles = ['admin', 'user', 'facilitator'];
     if (!in_array($role, $allowedRoles)) {
         throw new Exception("Role tidak valid: " . htmlspecialchars($role));
     }
@@ -355,6 +355,14 @@ function createCourse($data)
 {
     global $connect;
     $title = htmlspecialchars($data['title']);
+
+    // Cek apakah title sudah ada SEBELUM memproses data gambar
+    $result = mysqli_query($connect, "SELECT id FROM course WHERE title = '$title'");
+    if (mysqli_fetch_assoc($result)) {
+        return "TITLE_EXISTS"; // Indikasi title sudah ada
+    }
+
+    // Lanjutkan proses jika title belum ada
     $description = htmlspecialchars($data['description']);
     $image = htmlspecialchars($data['image']);
     $price = (int)$data['price'];
@@ -364,7 +372,6 @@ function createCourse($data)
     $competencyAspects = htmlspecialchars($data['Competency_Aspects']);
 
     $query = "INSERT INTO course (title, description, image, price, General_Objectives, Specific_Objectives, Target_Group, Competency_Aspects) VALUES ('$title', '$description', '$image', $price, '$generalObjectives', '$specificObjectives', '$targetGroup', '$competencyAspects')";
-
     mysqli_query($connect, $query);
     return mysqli_affected_rows($connect);
 }
@@ -389,6 +396,14 @@ function updateCourse($data)
     global $connect;
     $id = (int)$data['id'];
     $title = htmlspecialchars($data['title']);
+
+    // Cek apakah title sudah ada di course lain SEBELUM memproses data gambar
+    $result = mysqli_query($connect, "SELECT id FROM course WHERE title = '$title' AND id != $id");
+    if (mysqli_fetch_assoc($result)) {
+        return "TITLE_EXISTS";
+    }
+
+    // Lanjutkan proses jika title tidak konflik
     $description = htmlspecialchars($data['description']);
     $price = (int)$data['price'];
     $generalObjectives = htmlspecialchars($data['General_Objectives']);
@@ -414,7 +429,6 @@ function updateCourse($data)
                 Competency_Aspects = '$competencyAspects'
                 $imageQueryPart 
                 WHERE id = $id";
-
     mysqli_query($connect, $query);
     return mysqli_affected_rows($connect);
 }
@@ -751,14 +765,14 @@ function deletePortofolio($connect, $id)
 
 
 
-//* Trainer Management *\\
-// Fungsi Mengambil data trainer yang mengajukan kelas dari database.
-function getTrainerApplications()
+//* Facilitator Management *\\
+// Fungsi Mengambil data fasilitator yang mengajukan kelas dari database.
+function getFacilitatorApplications()
 {
     global $connect;
     $query = "
-        SELECT ta.id, u.username AS trainer_name, c.title AS course_title, ta.status, ta.applied_at, ta.approved_at 
-        FROM trainer_applications ta
+        SELECT ta.id, u.username AS facilitator_name, c.title AS course_title, ta.status, ta.applied_at, ta.approved_at 
+        FROM facilitator_applications ta
         JOIN users u ON ta.user_id = u.id
         JOIN course c ON ta.course_id = c.id
         ORDER BY ta.applied_at ASC";
@@ -767,18 +781,77 @@ function getTrainerApplications()
 
 
 
-// Fungsi mengambil data trainer yang telah disetujui dari database.
-function ApprovedTrainer()
+function getParticipantsByFacilitator($facilitatorId)
+{
+    global $connect;
+    $query = "
+        SELECT 
+            c.id AS course_id,
+            c.title AS course_title,
+            u.username AS participant_name
+        FROM facilitator_applications ta
+        JOIN course c ON ta.course_id = c.id
+        JOIN course_registrations cr ON c.id = cr.course_id
+        JOIN users u ON cr.user_id = u.id
+        WHERE ta.user_id = ? 
+        AND ta.status = 'Approved'
+        ORDER BY c.title, u.username
+    ";
+
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("i", $facilitatorId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $participants = [];
+    while ($row = $result->fetch_assoc()) {
+        $courseId = $row['course_id'];
+        if (!isset($participants[$courseId])) {
+            $participants[$courseId] = [
+                'course_title' => $row['course_title'],
+                'participants' => []
+            ];
+        }
+        $participants[$courseId]['participants'][] = $row['participant_name'];
+    }
+
+    return $participants;
+}
+
+
+
+// Add this new function to config.php
+function isFacilitatorExistsForCourse($courseId)
+{
+    global $connect;
+    $query = "
+        SELECT COUNT(*) as count 
+        FROM facilitator_applications 
+        WHERE course_id = ? 
+        AND (status = 'Approved' OR status = 'Pending')";
+
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("i", $courseId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    return $row['count'] > 0;
+}
+
+
+// Fungsi mengambil data fasilitator yang telah disetujui dari database.
+function ApprovedFacilitator()
 {
     global $connect;
     $query = "
         SELECT 
             ta.id AS application_id, 
-            u.username AS trainer_name, 
+            u.username AS facilitator_name, 
             c.id AS course_id, 
             c.title AS course_title 
         FROM 
-            trainer_applications ta
+            facilitator_applications ta
         INNER JOIN 
             users u ON ta.user_id = u.id
         INNER JOIN 
@@ -792,16 +865,16 @@ function ApprovedTrainer()
 
 
 
-// Fungsi Mengambil nama trainer berdasarkan ID course.
-function getTrainerByCourseId($courseId)
+// Fungsi Mengambil nama fasilitator berdasarkan ID course.
+function getFacilitatorByCourseId($courseId)
 {
     global $connect;
     $query = "
-        SELECT u.username AS trainer_name 
-        FROM trainer_applications ta
+        SELECT u.username AS facilitator_name 
+        FROM facilitator_applications ta
         JOIN users u ON ta.user_id = u.id
         WHERE ta.course_id = $courseId AND ta.status = 'Approved'
         LIMIT 1";
     $result = query($query);
-    return !empty($result) ? $result[0]['trainer_name'] : "Segera";
+    return !empty($result) ? $result[0]['facilitator_name'] : "Segera";
 }

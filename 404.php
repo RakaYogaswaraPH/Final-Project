@@ -1,5 +1,18 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['user_id'])) {
+    include __DIR__ . "/pages/404.php";
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+<base href="/Final%20Project/">
 
 <head>
     <meta charset="UTF-8">
@@ -37,5 +50,6 @@
 
 </body>
 <script src="src/js/script.js"></script>
+<script src="src/js/navbar_handler.js"></script>
 
 </html>

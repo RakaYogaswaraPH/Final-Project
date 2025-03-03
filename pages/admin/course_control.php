@@ -9,32 +9,51 @@ $courses = readCourses();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create_course'])) {
-        $imagePath = uploadImage($_FILES['image']);
-        if ($imagePath) {
-            $_POST['image'] = $imagePath;
-            $result = createCourse($_POST);
-            if ($result > 0) {
-                echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.success('Program baru sudah ditambahkan', 'Berhasil');
-                    setTimeout(function() {
-                        window.location.href = 'course_control.php';
-                    }, 2500);
-                });
+        // Cek dulu apakah title sudah ada, sebelum upload gambar
+        $titleToCheck = htmlspecialchars($_POST['title']);
+        $checkTitle = mysqli_query($connect, "SELECT id FROM course WHERE title = '$titleToCheck'");
+
+        if (mysqli_fetch_assoc($checkTitle)) {
+            // Title sudah ada, tampilkan pesan tanpa upload gambar
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                toastr.warning('Program dengan judul tersebut sudah ada', 'Perhatian');
+            });
             </script>";
+        } else {
+            // Title belum ada, baru upload gambar
+            $imagePath = uploadImage($_FILES['image']);
+            if ($imagePath) {
+                $_POST['image'] = $imagePath;
+                $result = createCourse($_POST);
+                if ($result > 0) {
+                    echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.success('Program baru sudah ditambahkan', 'Berhasil');
+                        setTimeout(function() {
+                            window.location.href = 'course_control.php';
+                        }, 2500);
+                    });
+                    </script>";
+                } else {
+                    echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.error('Terjadi kesalahan menambahkan data program', 'Gagal');
+                    });
+                    </script>";
+
+                    // Hapus gambar jika gagal menyimpan ke database
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
+                }
             } else {
                 echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    toastr.error('Terjadi kesalahan menghapus data program', 'Gagal');
+                    toastr.error('Terjadi kesalahan mengirimkan gambar', 'Gagal');
                 });
-            </script>";
+                </script>";
             }
-        } else {
-            echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                toastr.error('Terjadi kesalahan mengirimkan gambar', 'Gagal');
-            });
-        </script>";
         }
     }
 }
@@ -61,6 +80,7 @@ if (isset($_POST['delete_course'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +97,6 @@ if (isset($_POST['delete_course'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
 </head>
 
 <body>
@@ -110,7 +129,7 @@ if (isset($_POST['delete_course'])) {
                         </section>
                     </form>
 
-                    <!-- Course List -->
+                    <!-- Modified Course List Table -->
                     <p>Daftar Program</p>
                     <div class="table-container">
                         <div class="table-horizontal-container">
@@ -119,40 +138,33 @@ if (isset($_POST['delete_course'])) {
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Program</th>
-                                        <th>Deskripsi</th>
-                                        <th>Banner</th>
-                                        <th>Harga</th>
-                                        <th>Tujuan Umum</th>
-                                        <th>Tujuan Khusus</th>
-                                        <th>Kelompok Sasaran</th>
-                                        <th>Aspek Kompetensi</th>
                                         <th>Pengaturan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (empty($courses)) : ?>
                                         <tr class="empty-row">
-                                            <td colspan="10">Belum ada program yang dibuat</td>
+                                            <td colspan="3">Belum ada program yang dibuat</td>
                                         </tr>
                                     <?php else : ?>
                                         <?php foreach ($courses as $course): ?>
                                             <tr>
                                                 <td><?= $course['id'] ?></td>
-                                                <td><?= $course['title'] ?></td>
-                                                <td><?= $course['description'] ?></td>
-                                                <td><img src="banner/<?= $course['image'] ?>" alt="Image" width="50"></td>
-                                                <td><?= $course['price'] ?></td>
-                                                <td><?= $course['General_Objectives'] ?></td>
-                                                <td><?= $course['Specific_Objectives'] ?></td>
-                                                <td><?= $course['Target_Group'] ?></td>
-                                                <td><?= $course['Competency_Aspects'] ?></td>
-                                                <!-- Course Settings -->
+                                                <td>
+                                                    <span class="program-title" onclick="showProgramDetails(<?= htmlspecialchars(json_encode($course)) ?>)">
+                                                        <?= $course['title'] ?>
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <section class="control-client">
-                                                        <a href="edit_course.php?id=<?= $course['id'] ?>"><button type="submit"><i class="fas fa-edit"></i>Ubah</button></a>
+                                                        <a href="edit_course.php?id=<?= $course['id'] ?>">
+                                                            <button type="submit"><i class="fas fa-edit"></i>Ubah</button>
+                                                        </a>
                                                         <form action="" method="POST" style="display: inline;">
                                                             <input type="hidden" name="id" value="<?= $course['id'] ?>">
-                                                            <button onclick="confirmDelete(event, this, 'delete_course')"><i class="fas fa-trash"></i>Hapus</button>
+                                                            <button onclick="confirmDelete(event, this, 'delete_course')">
+                                                                <i class="fas fa-trash"></i>Hapus
+                                                            </button>
                                                         </form>
                                                     </section>
                                                 </td>
@@ -163,21 +175,17 @@ if (isset($_POST['delete_course'])) {
                             </table>
                         </div>
                     </div>
-                </article>
-                <div>
-                </div>
-            </section>
-        </main>
-    </div>
 
-    <div id="imagePreviewModal" class="image-preview-modal">
-        <span class="close-image-modal">&times;</span>
-        <div class="modal-image-content">
-            <img id="modalImage" src="" alt="Preview">
-        </div>
-    </div>
+                    <!-- Updated Program Details Modal -->
+                    <div id="programModal" class="program-modal">
+                        <div class="program-modal-content">
+                            <span class="close-modal"></span>
+                            <div id="programDetails"></div>
+                        </div>
+                    </div>
+
 </body>
 <script src="../../src/js/admin.js"></script>
-<script src="../../src/js/modal.js"></script>
+<script src="../../src/js/modal_course.js"></script>
 
 </html>

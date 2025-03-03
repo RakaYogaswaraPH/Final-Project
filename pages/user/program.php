@@ -3,19 +3,22 @@ session_start();
 require '../../src/config/config.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-    header("Location: ../../login.php");
+    include __DIR__ . "/pages/404.php"; // Menampilkan konten 404.php tanpa mengubah URL
     exit();
 }
 
 // Ambil ID dari URL
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$fasilitator = getTrainerByCourseId($courseId);
+$fasilitator = getFacilitatorByCourseId($courseId);
 // Ambil ID pengguna dari sesi
 $userId = $_SESSION['user_id'];
 // Ambil data course berdasarkan ID
 $course = readCourseById($courseId);
+
 if (!$course) {
-    die("Course tidak ditemukan.");
+    http_response_code(404);
+    include __DIR__ . "/../404.php";  // Same path correction here
+    exit();
 }
 
 // Cek status pendaftaran
@@ -31,6 +34,7 @@ $isRegistered = isUserRegistered($userId, $courseId);
     <link rel="stylesheet" href="../../src/css/style.css">
     <link rel="stylesheet" href="../../src/css/program.css">
     <link rel="stylesheet" href="../../src/css/user_navbar.css">
+    <link rel="stylesheet" href="../../src/css/user_footer.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

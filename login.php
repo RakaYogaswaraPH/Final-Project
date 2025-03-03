@@ -86,6 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </section>
 
+    <!-- Footer -->
+    <?php include 'components/footer.php'; ?>
+    <!-- End Of Footer -->
+
 </body>
 <script src="src/js/toastr.js"></script>
 <script src="src/js/login_handler.js"></script>
@@ -109,8 +113,8 @@ if (isset($_POST['login'])) {
                     case 'admin':
                         $redirectURL = "./pages/admin/dashboard.php";
                         break;
-                    case 'trainer':
-                        $redirectURL = "./pages/trainer/home.php";
+                    case 'facilitator':
+                        $redirectURL = "./pages/facilitator/home.php";
                         break;
                     case 'user':
                         $redirectURL = "./pages/user/home.php";

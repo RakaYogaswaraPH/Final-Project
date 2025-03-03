@@ -1,35 +1,55 @@
 <?php
 session_start();
-
 require "../../src/config/config.php";
 include '../../components/sidebar.php';
-
 requireAdminRole();
+
 $courseId = (int)$_GET['id'];
 $course = readCourseById($courseId);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
-    if (!empty($_FILES['image']['name'])) {
-        $imagePath = uploadImage($_FILES['image']);
-        if ($imagePath) {
-            $_POST['image'] = $imagePath;
-        } else {
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.error('Terjadi kesalahan menghapus data program', 'Gagal');
-                });
-            </script>";
-        }
-    } else {
-        $course = readCourseById($_POST['id']);
-        if ($course) {
-            $_POST['image'] = $course['image'];
-        }
-    }
+    // Simpan data POST dalam variabel sementara
+    $postData = $_POST;
 
-    $result = updateCourse($_POST);
-    if ($result > 0) {
+    // Cek apakah title sudah ada di course lain (duplikasi)
+    $id = (int)$postData['id'];
+    $title = htmlspecialchars($postData['title']);
+
+    global $connect;
+    $result = mysqli_query($connect, "SELECT id FROM course WHERE title = '$title' AND id != $id");
+
+    if (mysqli_fetch_assoc($result)) {
+        // Judul sudah ada, tampilkan pesan tanpa upload gambar
         echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                toastr.warning('Program dengan judul tersebut sudah ada', 'Perhatian');
+            });
+        </script>";
+    } else {
+        // Judul belum ada, lanjutkan dengan proses upload gambar jika ada
+        if (!empty($_FILES['image']['name'])) {
+            $imagePath = uploadImage($_FILES['image']);
+            if ($imagePath) {
+                $postData['image'] = $imagePath;
+            } else {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.error('Terjadi kesalahan mengunggah gambar', 'Gagal');
+                    });
+                </script>";
+            }
+        } else {
+            // Gunakan gambar yang sudah ada jika tidak ada upload baru
+            if ($course) {
+                $postData['image'] = $course['image'];
+            }
+        }
+
+        // Panggil fungsi updateCourse
+        $result = updateCourse($postData);
+
+        if ($result > 0) {
+            echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
                     toastr.success('Data program sudah diperbaharui', 'Berhasil');
                     setTimeout(function() {
@@ -37,15 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
                     }, 2500);
                 });
             </script>";
-    } else {
-        echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            toastr.warning('Belum ada perubahan yang dilakukan', 'Perhatian');
-        });
-    </script>";
+        } else {
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.warning('Belum ada perubahan yang dilakukan', 'Perhatian');
+                });
+            </script>";
+        }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -2,12 +2,15 @@
 require 'src/config/config.php';
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $course = readCourseById($courseId);
-if (!$course) {
-    die("Course tidak ditemukan.");
-}
-$fasilitator = getTrainerByCourseId($courseId);
-?>
 
+if (!$course) {
+    http_response_code(404);
+    include '404.php';
+    exit();
+}
+
+$facilitator = getFacilitatorByCourseId($courseId);
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -44,7 +47,7 @@ $fasilitator = getTrainerByCourseId($courseId);
 
                 <div class="facilitator-section">
                     <h4>Fasilitator</h4>
-                    <p class="facilitator-name"><?= htmlspecialchars($fasilitator); ?></p>
+                    <p class="facilitator-name"><?= htmlspecialchars($facilitator); ?></p>
                 </div>
 
                 <div class="price-section">

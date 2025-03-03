@@ -1,6 +1,10 @@
 <?php
 session_start();
 require "../../src/config/config.php";
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
+    include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
+    exit();
+}
 
 $username = $_SESSION['username'] ?? 'Pengguna';
 $userId = $_SESSION['user_id'];
@@ -35,6 +39,7 @@ $courses = readCourses();
     <link rel="stylesheet" href="../../src/css/user.css">
     <link rel="stylesheet" href="../../src/css/user_navbar.css">
     <link rel="stylesheet" href="../../src/css/user_modal.css">
+    <link rel="stylesheet" href="../../src/css/user_footer.css">
     <link rel="icon" type="image/x-icon" href="../../assets/icon/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,7 +108,7 @@ $courses = readCourses();
                             <div class="class-name"><?= htmlspecialchars($kelas['title']); ?></div>
                             <div class="facilitator-name">
                                 <?php
-                                $facilitator = getTrainerByCourseId($kelas['id']);
+                                $facilitator = getFacilitatorByCourseId($kelas['id']);
                                 echo $facilitator !== "Segera" ? $facilitator : "Belum ada fasilitator";
                                 ?>
                             </div>

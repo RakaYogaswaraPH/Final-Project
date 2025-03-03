@@ -1,38 +1,66 @@
 <?php
 session_start();
 require '../../src/config/config.php';
-include '../../components/trainer_sidebar.php';
+include '../../components/facilitator_sidebar.php';
 
-requireTrainerRole();
+requireFacilitatorRole();
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $course = readCourseById($courseId);
 $courses = readCourses();
-$trainerApplications = ApprovedTrainer();
+$facilitatorApplications = ApprovedFacilitator();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $trainerId = $_POST['trainer_id'];
+    $facilitatorId = $_POST['facilitator_id'];
     $courseId = $_POST['course'];
 
-    if (empty($trainerId) || empty($courseId)) {
-        die("Trainer and course selection are required!");
+    if (empty($facilitatorId) || empty($courseId)) {
+        die("Facilitator and course selection are required!");
     }
 
-    $checkQuery = "SELECT id FROM trainer_applications 
-                WHERE user_id = $trainerId AND course_id = $courseId";
+    $checkQuery = "SELECT id FROM facilitator_applications 
+                WHERE user_id = $facilitatorId AND course_id = $courseId";
     $result = mysqli_query($connect, $checkQuery);
 
     if (mysqli_num_rows($result) > 0) {
         echo "<script>alert('Pengajuan untuk program ini sudah ada!');</script>";
     } else {
-        $query = "INSERT INTO trainer_applications (user_id, course_id, status) 
-                VALUES ($trainerId, $courseId, 'Pending')";
+        $query = "INSERT INTO facilitator_applications (user_id, course_id, status) 
+                VALUES ($facilitatorId, $courseId, 'Pending')";
         if (mysqli_query($connect, $query)) {
-            reseqTable($connect, 'trainer_applications', 'id');
+            reseqTable($connect, 'facilitator_applications', 'id');
             echo "<script>alert('Pengajuan berhasil ditambahkan!');</script>";
         } else {
             echo "Error: " . mysqli_error($connect);
         }
     }
+}
+
+$currentUserId = $_SESSION['user_id']; // Assuming user_id is stored in session
+// Modify your function or create a new one to get only the current user's classes
+$facilitatorApplications = getFacilitatorClasses($currentUserId);
+
+// Define this function in your config.php file or wherever appropriate
+function getFacilitatorClasses($userId) {
+    global $connect;
+    
+    $query = "SELECT fa.id as application_id, 
+              u.username as facilitator_name, 
+              c.id as course_id, 
+              c.title as course_title 
+              FROM facilitator_applications fa
+              JOIN users u ON fa.user_id = u.id
+              JOIN course c ON fa.course_id = c.id
+              WHERE fa.user_id = $userId 
+              AND fa.status = 'Approved'";
+    
+    $result = mysqli_query($connect, $query);
+    $applications = [];
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $applications[] = $row;
+    }
+    
+    return $applications;
 }
 ?>
 
@@ -56,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
 
         <!-- Header -->
-        <?php include '../../components/trainer_header.php'; ?>
+        <?php include '../../components/facilitator_header.php'; ?>
         <!-- End Of Header -->
 
         <main class="main">
@@ -79,11 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($trainerApplications)): ?>
-                                        <?php foreach ($trainerApplications as $application): ?>
+                                    <?php if (!empty($facilitatorApplications)): ?>
+                                        <?php foreach ($facilitatorApplications as $application): ?>
                                             <tr>
                                                 <td><?= $application['application_id']; ?></td>
-                                                <td><?= htmlspecialchars($application['trainer_name']); ?></td>
+                                                <td><?= htmlspecialchars($application['facilitator_name']); ?></td>
                                                 <td><a href="preview.php?id=<?= $application['course_id']; ?>"><?= htmlspecialchars($application['course_title']); ?></td>
                                             </tr>
                                         <?php endforeach; ?>

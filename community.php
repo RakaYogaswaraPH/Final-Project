@@ -132,7 +132,7 @@ $portofolios = getPortofolios();
                     <div class="gambarcarousel-primary">
                         <img src="assets/img/1-9-Charity Amal Salman3.png" alt="cat1" />
                         <img src="assets/img/1-10-Screenshot (150).png" alt="cat1" />
-                        <img src="assets/img/1-11-Web/nar Prakerja3.png" alt="cat1" />
+                        <img src="assets/img/1-11-Webinar Prakerja3.png" alt="cat1" />
                         <img src="assets/img/2-1-DSC02936.png" alt="cat1" />
                     </div>
                     <div class="gambarcarousel-primary gambarcarousel-secondary">

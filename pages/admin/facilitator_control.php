@@ -6,18 +6,18 @@ include '../../components/sidebar.php';
 date_default_timezone_set('Asia/Jakarta');
 
 requireAdminRole();
-$trainerApplications = getTrainerApplications();
+$facilitatorApplications = getFacilitatorApplications();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = isset($_POST['id']) ? (int)$_POST['id'] : null;
 
     if (isset($_POST['delete']) && $id) {
-        $deleteQuery = "DELETE FROM trainer_applications WHERE id = $id";
+        $deleteQuery = "DELETE FROM facilitator_applications WHERE id = $id";
         if (mysqli_query($connect, $deleteQuery)) {
-            reseqTable($connect, 'trainer_applications', 'id');
-            header("Location: trainer_control.php?deleted=true");
+            reseqTable($connect, 'facilitator_applications', 'id');
+            header("Location: facilitator_control.php?deleted=true");
         } else {
-            header("Location: trainer_control.php?error=true");
+            header("Location: facilitator_control.php?error=true");
         }
         exit;
     }
@@ -27,23 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($action === 'approve' || $action === 'reject') {
             $status = $action === 'approve' ? 'Approved' : 'Rejected';
             if ($action === 'approve') {
-                $query = "UPDATE trainer_applications 
+                $query = "UPDATE facilitator_applications 
                         SET status = '$status', approved_at = NOW() 
                         WHERE id = $id";
             } else {
-                $query = "UPDATE trainer_applications 
+                $query = "UPDATE facilitator_applications 
                         SET status = '$status', approved_at = NULL 
                         WHERE id = $id";
             }
             if (mysqli_query($connect, $query)) {
-                header("Location: trainer_control.php?success=true&action=" . $action);
+                header("Location: facilitator_control.php?success=true&action=" . $action);
             } else {
-                header("Location: trainer_control.php?error=true");
+                header("Location: facilitator_control.php?error=true");
             }
             exit;
         }
     }
 }
+
+$status_translation = [
+    "approved" => "Disetujui",
+    "rejected" => "Ditolak",
+    "pending" => "Menunggu",
+];
 
 ?>
 
@@ -96,17 +102,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (empty($trainerApplications)) : ?>
+                                    <?php if (empty($facilitatorApplications)) : ?>
                                         <tr class="empty-row">
                                             <td colspan="8">Belum ada fasilitator yang mengajukan kelas</td>
                                         </tr>
                                     <?php else : ?>
-                                        <?php foreach ($trainerApplications as $application): ?>
+                                        <?php foreach ($facilitatorApplications as $application): ?>
                                             <tr>
                                                 <td><?= $application['id']; ?></td>
-                                                <td><?= $application['trainer_name']; ?></td>
+                                                <td><?= $application['facilitator_name']; ?></td>
                                                 <td><?= $application['course_title']; ?></td>
-                                                <td><?= $application['status']; ?></td>
+                                                <td><?= isset($status_translation[$application['status']]) ? $status_translation[$application['status']] : $application['status']; ?></td>
                                                 <td><?= date('d/m/Y H:i', strtotime($application['applied_at'])); ?></td>
                                                 <td><?= $application['approved_at'] ? date('d/m/Y H:i', strtotime($application['approved_at'])) : '-'; ?></td>
                                                 <td>

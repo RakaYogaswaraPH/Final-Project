@@ -254,7 +254,6 @@ button:not(:disabled),
     width: 100%;
     height: 100vh;
     overflow-y: auto;
-    /* Menambahkan scroll pada page-content */
 }
 
 .page-content .board p {
@@ -443,7 +442,6 @@ thead th:first-child {
 tr> :first-child {
     position: -webkit-sticky;
     position: sticky;
-    background-color: #28ddaa;
 }
 
 form label {
@@ -451,6 +449,30 @@ form label {
     font-weight: 400;
     margin-left: 10px;
 }
+
+.control-client {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.control-client button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 100px; 
+    height: 50px; 
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.control-client button i {
+    margin-right: 5px;
+}
+
 
 .image-preview-modal {
     display: none;
@@ -661,5 +683,291 @@ body.modal-open {
 
     .modal-content h2 {
         font-size: 1.2rem;
+    }
+}
+
+
+/* Modal Styling */
+.program-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.3s ease-in-out;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+}
+
+.program-modal.show {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.program-modal-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 85%;
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.program-modal.show .program-modal-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Scrollbar Styling */
+.program-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.program-modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.program-modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.program-modal-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Program Title Styling */
+.program-title {
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.program-title:hover {
+    color: #1d4ed8;
+}
+
+.program-title::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #2563eb;
+    transition: width 0.2s ease;
+}
+
+.program-title:hover::after {
+    width: 100%;
+}
+
+/* Close Button Styling */
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: #e5e7eb;
+    transform: rotate(90deg);
+}
+
+.close-modal::before,
+.close-modal::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background: #4b5563;
+    border-radius: 1px;
+}
+
+.close-modal::before {
+    transform: rotate(45deg);
+}
+
+.close-modal::after {
+    transform: rotate(-45deg);
+}
+
+/* Modal Content Styling */
+.modal-section {
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.page-content .board .modal-section h2 {
+    color: #1f2937;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.page-content .board .modal-section p {
+    color: #4b5563;
+    font-size: 1.8em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    font-weight: 500;
+
+}
+
+.modal-section img {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    height: 600px;
+    width: 600px;
+}
+
+.modal-section img:hover {
+    transform: scale(1.02);
+}
+
+/* Price Display */
+.price-tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 1.6em;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .program-modal-content {
+        width: 95%;
+        margin: 3% auto;
+        padding: 20px;
+    }
+
+    .modal-section h2 {
+        font-size: 20px;
+    }
+
+    .modal-section h3 {
+        font-size: 16px;
+    }
+}
+
+/* Modal Section Styling */
+.modal-section {
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.modal-section:last-child {
+    margin-bottom: 0;
+}
+
+.modal-section h2 {
+    color: #1f2937;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Fix alignment for h3 and paragraph */
+.page-content .board .modal-section h3 {
+    color: #374151;
+    font-size: 2.3em;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+    width: 100%;
+}
+
+/* Style lists for better readability */
+.modal-section p.list-content {
+    white-space: pre-line;
+    padding-left: 20px;
+}
+
+/* Specific styling for list sections */
+.modal-section.list-section h3 {
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+}
+
+/* Container for list items */
+.list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 20px;
+}
+
+.list-items p {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 8px;
+}
+
+.list-items p::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4b5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-section h2 {
+        font-size: 20px;
+    }
+
+    .modal-section h3 {
+        font-size: 16px;
+    }
+
+    .list-items {
+        padding-left: 16px;
     }
 }
