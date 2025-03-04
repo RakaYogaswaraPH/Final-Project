@@ -8,6 +8,9 @@ $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $course = readCourseById($courseId);
 $courses = readCourses();
 $facilitatorApplications = ApprovedFacilitator();
+$currentUserId = $_SESSION['user_id'];
+$facilitatorApplications = getFacilitatorClasses($currentUserId);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $facilitatorId = $_POST['facilitator_id'];
@@ -35,33 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$currentUserId = $_SESSION['user_id']; // Assuming user_id is stored in session
-// Modify your function or create a new one to get only the current user's classes
-$facilitatorApplications = getFacilitatorClasses($currentUserId);
-
-// Define this function in your config.php file or wherever appropriate
-function getFacilitatorClasses($userId) {
-    global $connect;
-    
-    $query = "SELECT fa.id as application_id, 
-              u.username as facilitator_name, 
-              c.id as course_id, 
-              c.title as course_title 
-              FROM facilitator_applications fa
-              JOIN users u ON fa.user_id = u.id
-              JOIN course c ON fa.course_id = c.id
-              WHERE fa.user_id = $userId 
-              AND fa.status = 'Approved'";
-    
-    $result = mysqli_query($connect, $query);
-    $applications = [];
-    
-    while ($row = mysqli_fetch_assoc($result)) {
-        $applications[] = $row;
-    }
-    
-    return $applications;
-}
 ?>
 
 <!DOCTYPE html>
@@ -108,16 +84,19 @@ function getFacilitatorClasses($userId) {
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($facilitatorApplications)): ?>
+                                        <?php $counter = 1; // Initialize counter 
+                                        ?>
                                         <?php foreach ($facilitatorApplications as $application): ?>
                                             <tr>
-                                                <td><?= $application['application_id']; ?></td>
+                                                <td><?= $counter++; // Display and increment counter 
+                                                    ?></td>
                                                 <td><?= htmlspecialchars($application['facilitator_name']); ?></td>
                                                 <td><a href="preview.php?id=<?= $application['course_id']; ?>"><?= htmlspecialchars($application['course_title']); ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="3">Belum ada kelas yang diterima.</td>
+                                            <td colspan="3" style='text-align: center' ;>Belum ada kelas yang diterima.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>

@@ -9,10 +9,13 @@ requireFacilitatorRole();
 $courses = readCourses();
 $facilitatorApplications = getFacilitatorApplications();
 
-// Add this to your facilitator.php after getting facilitatorApplications
 $facilitatorId = $_SESSION['user_id'];
 $participantsData = getParticipantsByFacilitator($facilitatorId);
-
+$status_translation = [
+    "approved" => "Disetujui",
+    "rejected" => "Ditolak",
+    "pending" => "Menunggu",
+];
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +94,7 @@ $participantsData = getParticipantsByFacilitator($facilitatorId);
                                             <td><?= $application['course_title']; ?></td>
                                             <td><?= date('d/m/Y H:i', strtotime($application['applied_at'])); ?></td>
                                             <td><?= $application['approved_at'] ? date('d/m/Y H:i', strtotime($application['approved_at'])) : '-'; ?></td>
-                                            <td><?= $application['status']; ?></td>
+                                            <td><?= isset($status_translation[$application['status']]) ? $status_translation[$application['status']] : $application['status']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

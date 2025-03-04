@@ -878,3 +878,29 @@ function getFacilitatorByCourseId($courseId)
     $result = query($query);
     return !empty($result) ? $result[0]['facilitator_name'] : "Segera";
 }
+
+
+// Define this function in your config.php file or wherever appropriate
+function getFacilitatorClasses($userId)
+{
+    global $connect;
+
+    $query = "SELECT fa.id as application_id, 
+            u.username as facilitator_name, 
+            c.id as course_id, 
+            c.title as course_title 
+            FROM facilitator_applications fa
+            JOIN users u ON fa.user_id = u.id
+            JOIN course c ON fa.course_id = c.id
+            WHERE fa.user_id = $userId 
+            AND fa.status = 'Approved'";
+
+    $result = mysqli_query($connect, $query);
+    $applications = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $applications[] = $row;
+    }
+
+    return $applications;
+}

@@ -47,7 +47,12 @@ html {
     flex: 1;
     margin-left: 20px;
     line-height: 1.6;
+    text-align: justify;
+    hyphens: auto;
+    word-spacing: -0.5px; 
+    letter-spacing: 0.2px; 
 }
+
 
 .description h3 {
     font-size: 20px;

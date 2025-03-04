@@ -165,8 +165,166 @@ body {
         padding-left: 20px;
         width: 100%;
         max-height: 0px;
-        overflow: hidden;
         box-shadow: none;
         transition: all 0.3s ease;
+    }
+}
+
+.profile-custom {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-custom i {
+    font-size: 24px;
+    color: #1ed2a2;
+}
+
+.profile-custom a {
+    text-decoration: none;
+    color: black;
+    font-weight: 450;
+}
+
+.profile-custom .logout-dropdown {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #dffdf5;
+    width: 120px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    line-height: normal;
+    text-align: center;
+}
+
+.profile-custom:hover .logout-dropdown {
+    top: 55px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.logout-dropdown a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px;
+    color: black;
+    transition: all 0.2s ease;
+    border-radius: 5px;
+}
+
+.logout-dropdown a i {
+    font-size: 18px;
+    color: #333;
+}
+
+.logout-dropdown a:hover {
+    background: #51ffd0;
+}
+
+.logout-dropdown a:hover i {
+    color: #1a1a1a;
+}
+
+.modals {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modals.show {
+    opacity: 1;
+}
+
+.modals-content {
+    background-color: #ecfffa;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modals.show .modals-content {
+    transform: scale(1);
+}
+
+.modals-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modals-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.modals-btn i {
+    font-size: 16px;
+}
+
+.confirm-btn {
+    background-color: #1ed2a2;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: #19b08a;
+}
+
+.cancel-btn {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background-color: #e0e0e0;
+}
+
+@media screen and (max-width: 970px) {
+    .profile-custom {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .profile-custom .logout-dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+        margin-top: 10px;
+        box-shadow: none;
+        background: transparent;
     }
 }

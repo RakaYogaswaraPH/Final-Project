@@ -349,7 +349,7 @@ $testimonials = getTestimonials();
         <!-- End Of Program Section -->
 
         <!-- Testimonial Section -->
-        <section class="program-container">
+        <section class="program-container" id="testimonial">
             <h1 class="program-heading">
                 Perjalanan Sukses Alumni <span>Luarsekolah</span>
             </h1>
@@ -465,6 +465,6 @@ $testimonials = getTestimonials();
 </body>
 <script src="../../src/js/script.js"></script>
 <script src="../../src/js/testimonial.js"></script>
-<script src="../../src/js/navbar_handler.js"></script>
+
 
 </html>

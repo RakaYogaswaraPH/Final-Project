@@ -2387,6 +2387,11 @@ img[src="assets\\img\\mitra-kampus-6.png"] {
     background-color: #ecfffa;
 }
 
+#testimonial.program-container {
+    background-color: #fff;
+}
+
+
 .program-container span {
     color: #24c699;
     font-weight: 600;

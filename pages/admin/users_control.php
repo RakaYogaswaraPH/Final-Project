@@ -203,7 +203,7 @@ $role_translation = [
     </div>
 </body>
 <script src="../../src/js/admin.js"></script>
-<script src="../../src/js/modal_user.js"></script>
+<script src="../../src/js/modal_userControl.js"></script>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_user"])) {
     $result = addUsers($_POST);

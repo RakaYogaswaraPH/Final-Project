@@ -1,0 +1,72 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.main {
+    display: flex;
+    height: calc(100vh - 60px);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+}
+
+.sidebar {
+    width: 280px;
+    min-width: 270px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.course-container {
+    flex: 1;
+    padding: 0 20px 20px 20px;
+    overflow-y: auto;
+    height: 100%;
+    margin-top: 0;
+}
+
+.description p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.course-header {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    margin-top: -80px;
+    padding-bottom: 10px;
+}
+
+.dropdown-content {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+.back-button {
+    background-color: #89c34a;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgb(118, 167, 65);
+}

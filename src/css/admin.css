@@ -56,9 +56,9 @@ input {
     appearance: none;
 }
 
-body {
+/* body {
     background-color: #f0f8fd;
-}
+} */
 
 button:not(:disabled),
 [type="button"]:not(:disabled),
@@ -143,6 +143,13 @@ button:not(:disabled),
     display: flex;
     align-items: center;
     cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.header-nav .user:hover {
+    background-color: #f5f5f5;
 }
 
 .header-nav .user-img-wrapper {
@@ -162,6 +169,173 @@ button:not(:disabled),
     text-decoration: none;
     font-size: 1.8rem;
     color: #444444;
+}
+
+/* Dropdown Menu */
+.user-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.user.show-user-dropdown .user-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-dropdown-menu a {
+    display: block;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: #444444;
+    font-size: 1.6rem;
+    transition: background-color 0.3s;
+}
+
+.user-dropdown-menu a:hover {
+    background-color: #f5f5f5;
+    color: #1aa1f5;
+}
+
+/* Modal */
+.logout-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.logout-modal.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.logout-modal.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.logout-modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 0;
+    border-radius: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.logout-modal.show .logout-modal-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logout-modal.hide .logout-modal-content {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+@keyframes logoutModalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logout-modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-modal-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    color: #444444;
+}
+
+.logout-modal-body {
+    padding: 2rem 1.5rem;
+}
+
+.logout-modal-body h2 {
+    font-weight: normal;
+}
+
+.logout-modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.logout-modal-close {
+    color: #aaa;
+    font-size: 2.8rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logout-modal-close:hover,
+.logout-modal-close:focus {
+    color: #555;
+}
+
+/* Buttons */
+.logout-btn {
+    padding: 0.8rem 1.6rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logout-btn-primary {
+    background-color: #1aa1f5;
+    color: white;
+}
+
+.logout-btn-primary:hover {
+    background-color: #1991da;
+}
+
+.logout-btn-secondary {
+    background-color: #e9ecef;
+    color: #444444;
+}
+
+.logout-btn-secondary:hover {
+    background-color: #dee2e6;
 }
 
 /* Sidebar */
@@ -302,14 +476,10 @@ button {
     background: var(--white);
     border-radius: 0.5rem;
     min-height: 100%;
-    /* Minimal tinggi 100% */
     height: auto;
-    /* Tinggi menyesuaikan konten */
     overflow: scroll;
-    /* Biarkan konten terlihat sepenuhnya */
     padding: 2rem;
     margin-bottom: 2rem;
-    /* Tambahkan margin bottom untuk jarak */
 }
 
 .board>p {
@@ -452,9 +622,9 @@ form label {
 
 .control-client {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .control-client button {
@@ -462,8 +632,8 @@ form label {
     align-items: center;
     justify-content: center;
     border: none;
-    width: 100px; 
-    height: 50px; 
+    width: 100px;
+    height: 50px;
     color: white;
     border-radius: 5px;
     cursor: pointer;

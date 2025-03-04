@@ -109,7 +109,7 @@ $portofolios = getPortofolios();
         <section class="gambar">
             <div class="gambarcontainer">
                 <div class="gambarheader">
-                    <h2>Dokumentasi</h2>
+                    <h2>Aktivitas Luarsekolah</h2>
                     <h3>Melihat Kembali Momen-Momen Berharga kegiatan Luarsekolah</h3>
                 </div>
 
