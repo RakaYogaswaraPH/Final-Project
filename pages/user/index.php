@@ -2,7 +2,7 @@
 session_start();
 require '../../src/config/config.php';
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-    include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
+    include '../../404.php'; 
     exit();
 }
 $courses = readCourses();

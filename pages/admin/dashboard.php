@@ -11,6 +11,7 @@ $users = getAllUsers();
 $courses = getAllCourse();
 $testimonials = getAllTestimonials();
 $portofolios = getAllPortofolio();
+$applications = getAllFacilitatorApplication();
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +78,16 @@ $portofolios = getAllPortofolio();
                                     <i class="fas fa-file"></i>
                                 </div>
                                 <p class="value"><?php echo $portofolios; ?></p>
+                            </div>
+                        </div>
+
+                        <div class="box bg-green">
+                            <p>fasilitator</p>
+                            <div class="icon-value">
+                                <div class="icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <p class="value"><?php echo $applications; ?></p>
                             </div>
                         </div>
 

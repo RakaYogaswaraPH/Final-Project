@@ -26,7 +26,7 @@ function reseqTable($connect, $table, $idColumn)
     // Reset ID urutan sesuai data yang ada
     $query = "SET @new_id = 0;
             UPDATE $table SET $idColumn = (@new_id := @new_id + 1);
-              ALTER TABLE $table AUTO_INCREMENT = 1;"; // Reset auto-increment ke nilai tertinggi + 1
+            ALTER TABLE $table AUTO_INCREMENT = 1;"; // Reset auto-increment ke nilai tertinggi + 1
     mysqli_multi_query($connect, $query);
 
     while (mysqli_next_result($connect)) {
@@ -113,7 +113,7 @@ function registers($data)
 function requireAdminRole()
 {
     if (!isset($_SESSION['role'])) {
-        header("Location: ../../login.php");
+        include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
         exit();
     }
 
@@ -142,7 +142,7 @@ function requireUserRole()
     }
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
-        header("Location: ../../login.php");
+        include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
         exit();
     }
 }
@@ -157,7 +157,7 @@ function requireFacilitatorRole()
     }
 
     if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'facilitator') {
-        header("Location: ../../login.php");
+        include '../../404.php'; // Menampilkan konten 404.php tanpa mengubah URL
         exit();
     }
 }
@@ -767,6 +767,15 @@ function deletePortofolio($connect, $id)
 
 //* Facilitator Management *\\
 // Fungsi Mengambil data fasilitator yang mengajukan kelas dari database.
+
+function getAllFacilitatorApplication()
+{
+    global $connect;
+    $result = mysqli_query($connect, "SELECT COUNT(*) as total FROM facilitator_applications");
+    $row = mysqli_fetch_assoc($result);
+    return $row['total'] ?? 0;
+}
+
 function getFacilitatorApplications()
 {
     global $connect;
@@ -903,4 +912,23 @@ function getFacilitatorClasses($userId)
     }
 
     return $applications;
+}
+
+
+
+function getRegistrationCountByCourseId($courseId)
+{
+    global $connect;
+    $query = "SELECT COUNT(*) as count FROM course_registrations WHERE course_id = ?";
+
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("i", $courseId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        return $row['count'];
+    }
+
+    return 0;
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
+require '../../src/config/config.php';
 include '../../components/facilitator_sidebar.php';
-require '../../src/config/config.php'; // Koneksi ke database
 
 $loggedInFacilitatorId = $_SESSION['user_id'];
 $loggedInFacilitatorName = $_SESSION['username'];
@@ -9,7 +9,7 @@ $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $course = readCourseById($courseId);
 if (!$course) {
     http_response_code(404);
-    include __DIR__ . "/../404.php";  // Same path correction here
+    include __DIR__ . "/../404.php"; 
     exit();
 }
 $fasilitator = getFacilitatorByCourseId($courseId);

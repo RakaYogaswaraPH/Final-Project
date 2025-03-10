@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Title sudah ada, tampilkan pesan tanpa upload gambar
             echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
-                toastr.warning('Program dengan judul tersebut sudah ada', 'Perhatian');
+                toastr.warning('Nama program sudah digunakan sebelumnya!', 'Perhatian');
             });
             </script>";
         } else {

@@ -9,42 +9,72 @@ $testimonials = getTestimonials();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['create_testimonial'])) {
-        $result = createTestimonial($connect, $_POST, $_FILES['image']);
-        if ($result) {
+        // Cek dulu apakah nama pengguna sudah ada
+        $nameToCheck = htmlspecialchars($_POST['name']);
+        $checkName = mysqli_query($connect, "SELECT id FROM testimonial WHERE name = '$nameToCheck'");
+
+        if (mysqli_fetch_assoc($checkName)) {
+            // Nama sudah ada, tampilkan pesan tanpa upload gambar
             echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
-                toastr.success('Testimoni baru berhasil ditambahkan', 'Berhasil');
-                setTimeout(function() {
-                    window.location.href = 'testimonial_control.php';
-                }, 2500);
+                toastr.warning('Nama pengguna sudah digunakan!', 'Perhatian');
             });
-        </script>";
+            </script>";
         } else {
-            echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                toastr.error('Terjadi kesalahan menambahkan testimoni', 'Gagal');
-            });
-        </script>";
+            // Nama belum ada, lanjutkan proses
+            $result = createTestimonial($connect, $_POST, $_FILES['image']);
+            if ($result) {
+                echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.success('Testimoni baru berhasil ditambahkan', 'Berhasil');
+                    setTimeout(function() {
+                        window.location.href = 'testimonial_control.php';
+                    }, 2500);
+                });
+                </script>";
+            } else {
+                echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.error('Terjadi kesalahan menambahkan testimoni', 'Gagal');
+                });
+                </script>";
+            }
         }
     }
 
+
     if (isset($_POST['update_testimonial'])) {
-        $result = updateTestimonial($connect, $_POST, $_FILES['image']);
-        if ($result) {
+        // Cek apakah nama yang diupdate sudah ada selain data yang sedang diupdate
+        $id = $_POST['id'];
+        $nameToCheck = htmlspecialchars($_POST['name']);
+        $checkName = mysqli_query($connect, "SELECT id FROM testimonial WHERE name = '$nameToCheck' AND id != $id");
+
+        if (mysqli_fetch_assoc($checkName)) {
+            // Nama sudah ada di data lain, tampilkan pesan peringatan
             echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
-                toastr.success('Testimoni berhasil diperbarui', 'Berhasil');
-                setTimeout(function() {
-                    window.location.href = 'testimonial_control.php';
-                }, 2500);
+                toastr.warning('Nama pengguna sudah digunakan!', 'Perhatian');
             });
-        </script>";
+            </script>";
         } else {
-            echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                toastr.error('Terjadi kesalahan memperbarui testimoni', 'Gagal');
-            });
-        </script>";
+            // Nama belum ada atau milik data yang sedang diupdate, lanjutkan
+            $result = updateTestimonial($connect, $_POST, $_FILES['image']);
+            if ($result) {
+                echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.success('Testimoni berhasil diperbarui', 'Berhasil');
+                    setTimeout(function() {
+                        window.location.href = 'testimonial_control.php';
+                    }, 2500);
+                });
+                </script>";
+            } else {
+                echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    toastr.error('Terjadi kesalahan memperbarui testimoni', 'Gagal');
+                });
+                </script>";
+            }
         }
     }
 
@@ -171,6 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
         </main>
     </div>
+
     <!-- Testimonial Edit Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
@@ -210,7 +241,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 <script src="../../src/js/admin.js"></script>
 <script src="../../src/js/modal.js"></script>
-
 
 
 </html>

@@ -112,6 +112,26 @@ html {
     transform: scale(1.02);
 }
 
+.participant-count-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(248, 249, 250, 0.95);
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+    border-left: 4px solid #00cc99;
+}
+
+.participant-count-section i {
+    color: #00cc99;
+    font-size: 18px;
+}
+
 .price-section {
     margin-top: 30px;
     padding: 20px 25px;

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
         // Judul sudah ada, tampilkan pesan tanpa upload gambar
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
-                toastr.warning('Program dengan judul tersebut sudah ada', 'Perhatian');
+                toastr.warning('Nama program sudah digunakan sebelumnya!', 'Perhatian');
             });
         </script>";
     } else {
@@ -85,9 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <style>
-
-    </style>
 
 </head>
 
@@ -136,8 +133,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_course'])) {
                         <textarea name="Competency_Aspects" required><?= $course['Competency_Aspects'] ?></textarea>
 
                         <section class="create-client">
-                            <button type="submit" name="update_course"><i class="fas fa-plus"></i>Perbaharui Program</button>
+                            <a href="course_control.php" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali</a>
+                            <button type="submit" name="update_course"><i class="fas fa-plus"></i> Perbaharui Program</button>
                         </section>
+
                     </form>
 
                 </article>

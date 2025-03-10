@@ -10,6 +10,7 @@ if (!$course) {
 }
 
 $facilitator = getFacilitatorByCourseId($courseId);
+$participantCount = getRegistrationCountByCourseId($courseId);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -25,6 +26,7 @@ $facilitator = getFacilitatorByCourseId($courseId);
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -50,10 +52,20 @@ $facilitator = getFacilitatorByCourseId($courseId);
                     <p class="facilitator-name"><?= htmlspecialchars($facilitator); ?></p>
                 </div>
 
+                <div class="participant-count-section">
+                    <i class="fas fa-users"></i>
+                    <?php if ($participantCount > 0): ?>
+                        <?= number_format($participantCount, 0, ',', '.'); ?>+ Pelajar yang mengikuti kelas ini
+                    <?php else: ?>
+                        Ayo daftarkan dirimu sebagai peserta paling pertama!
+                    <?php endif; ?>
+                </div>
+
                 <div class="price-section">
                     <div class="price">Rp<?= number_format($course['price'], 0, ',', '.'); ?>,-</div>
                     <a href="login.php" class="voucher-btn">Pilih Kelas</a>
                 </div>
+
             </div>
         </div>
         <div class="info-section">

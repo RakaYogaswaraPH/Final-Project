@@ -8,23 +8,37 @@ requireAdminRole();
 $portofolios = getPortofolios();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["add_portofolio"])) { 
-        $result = createPortofolio($connect, $_POST, $_FILES['image']);
-        if ($result) {
+    if (isset($_POST["add_portofolio"])) {
+        // Cek dulu apakah nama peserta sudah ada
+        $usernameToCheck = htmlspecialchars($_POST['username']);
+        $checkUsername = mysqli_query($connect, "SELECT id FROM portofolio WHERE username = '$usernameToCheck'");
+
+        if (mysqli_fetch_assoc($checkUsername)) {
+            // Nama peserta sudah ada, tampilkan pesan peringatan
             echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.success('Portofolio baru sudah ditambahkan', 'Berhasil');
-                    setTimeout(function() {
-                        window.location.href = 'portofolio_control.php';
-                    }, 2000);
-                });
+            document.addEventListener('DOMContentLoaded', function() {
+                toastr.warning('Nama peserta sudah memiliki portofolio!', 'Perhatian');
+            });
             </script>";
         } else {
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.error('Gagal menambahkan portofolio', 'Error');
-                });
-            </script>";
+            // Nama peserta belum ada, lanjutkan proses
+            $result = createPortofolio($connect, $_POST, $_FILES['image']);
+            if ($result) {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.success('Portofolio baru sudah ditambahkan', 'Berhasil');
+                        setTimeout(function() {
+                            window.location.href = 'portofolio_control.php';
+                        }, 2000);
+                    });
+                </script>";
+            } else {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.error('Gagal menambahkan portofolio', 'Error');
+                    });
+                </script>";
+            }
         }
     } elseif (isset($_POST["delete_portofolio"])) {
         $id = $_POST["id"];
@@ -44,23 +58,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 });
             </script>";
         }
-    } elseif (isset($_POST["update_portofolio"])) { 
-        $result = updatePortofolio($connect, $_POST, $_FILES['image']);
-        if ($result) {
+    } elseif (isset($_POST["update_portofolio"])) {
+        // Cek apakah nama peserta yang diupdate sudah ada selain data yang sedang diupdate
+        $id = $_POST["id"];
+        $usernameToCheck = htmlspecialchars($_POST['username']);
+        $checkUsername = mysqli_query($connect, "SELECT id FROM portofolio WHERE username = '$usernameToCheck' AND id != $id");
+
+        if (mysqli_fetch_assoc($checkUsername)) {
+            // Nama peserta sudah ada di data lain, tampilkan pesan peringatan
             echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.success('Portofolio berhasil diperbarui', 'Berhasil');
-                    setTimeout(function() {
-                        window.location.href = 'portofolio_control.php';
-                    }, 2000);
-                });
+            document.addEventListener('DOMContentLoaded', function() {
+                toastr.warning('Nama peserta sudah memiliki portofolio!', 'Perhatian');
+            });
             </script>";
         } else {
-            echo "<script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    toastr.error('Gagal memperbarui portofolio', 'Error');
-                });
-            </script>";
+            // Nama peserta belum ada atau milik data yang sedang diupdate, lanjutkan
+            $result = updatePortofolio($connect, $_POST, $_FILES['image']);
+            if ($result) {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.success('Portofolio berhasil diperbarui', 'Berhasil');
+                        setTimeout(function() {
+                            window.location.href = 'portofolio_control.php';
+                        }, 2000);
+                    });
+                </script>";
+            } else {
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        toastr.error('Gagal memperbarui portofolio', 'Error');
+                    });
+                </script>";
+            }
         }
     }
 }
@@ -194,6 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+
     <div id="imagePreviewModal" class="image-preview-modal">
         <span class="close-image-modal">&times;</span>
         <div class="modal-image-content">

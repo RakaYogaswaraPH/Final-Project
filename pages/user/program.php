@@ -3,26 +3,22 @@ session_start();
 require '../../src/config/config.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
-    include __DIR__ . "/pages/404.php"; // Menampilkan konten 404.php tanpa mengubah URL
+    include __DIR__ . "/pages/404.php"; 
     exit();
 }
 
-// Ambil ID dari URL
 $courseId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $fasilitator = getFacilitatorByCourseId($courseId);
-// Ambil ID pengguna dari sesi
 $userId = $_SESSION['user_id'];
-// Ambil data course berdasarkan ID
+$isRegistered = isUserRegistered($userId, $courseId);
 $course = readCourseById($courseId);
 
 if (!$course) {
     http_response_code(404);
-    include __DIR__ . "/../404.php";  // Same path correction here
+    include __DIR__ . "/../404.php"; 
     exit();
 }
-
-// Cek status pendaftaran
-$isRegistered = isUserRegistered($userId, $courseId);
+$participantCount = getRegistrationCountByCourseId($courseId);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -46,6 +42,7 @@ $isRegistered = isUserRegistered($userId, $courseId);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -69,6 +66,15 @@ $isRegistered = isUserRegistered($userId, $courseId);
                 <div class="facilitator-section">
                     <h4>Fasilitator</h4>
                     <p class="facilitator-name"><?= htmlspecialchars($fasilitator); ?></p>
+                </div>
+
+                <div class="participant-count-section">
+                    <i class="fas fa-users"></i>
+                    <?php if ($participantCount > 0): ?>
+                        <?= number_format($participantCount, 0, ',', '.'); ?>+ Pelajar yang mengikuti kelas ini
+                    <?php else: ?>
+                        Ayo daftarkan dirimu sebagai peserta paling pertama!
+                    <?php endif; ?>
                 </div>
 
                 <div class="price-section">
